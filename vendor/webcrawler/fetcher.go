@@ -64,7 +64,7 @@ func tokenizeString(s string) (rv []string) {
 }
 
 func Fetch(uri string) (page *models.Document) {
-	var builder strings.Builder
+    words := make([]string, 0)
 	var lastElement string
 	page = &models.Document{Uri: uri}
 	inBody := false
@@ -118,13 +118,13 @@ func Fetch(uri string) (page *models.Document) {
 			// Skip if text is empty, not in between body tags or between script tags
 			trimmed := strings.TrimSpace(t.Data)
 			if trimmed != "" && inBody && lastElement != "script" {
-				builder.WriteString(" " + trimmed)
+                words = append(words, trimmed)
 			}
 		}
 	}
 
 	// Clean data
-	page.Words = countTf(tokenizeString(builder.String()))
+	page.Words = countTf(tokenizeString(strings.Join(words, " ")))
 	page.Links = toAbsoluteUrl(page.Links, uri)
 	return
 }

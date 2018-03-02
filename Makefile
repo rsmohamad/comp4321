@@ -1,7 +1,7 @@
 default: all
 
 dep:
-	go get cmd/
+	@cd cmd/ && go get -d
 
 all:
 	go build cmd/spider.go

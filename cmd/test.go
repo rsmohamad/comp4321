@@ -1,12 +1,12 @@
 package main
 
 import (
-	"models"
-	"database"
-	"text/template"
-	"os"
 	"bufio"
+	"database"
 	"fmt"
+	"models"
+	"os"
+	"text/template"
 )
 
 func main() {

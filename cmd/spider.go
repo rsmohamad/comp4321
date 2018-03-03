@@ -2,9 +2,9 @@ package main
 
 import (
 	"database"
-	"webcrawler"
 	"fmt"
 	"time"
+	"webcrawler"
 )
 
 func main() {

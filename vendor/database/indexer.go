@@ -3,9 +3,10 @@ package database
 import (
 	"encoding/binary"
 	"encoding/json"
-	"github.com/boltdb/bolt"
-	"sync"
 	"models"
+	"sync"
+
+	"github.com/boltdb/bolt"
 )
 
 const WordIdTable = "wordIDs"
@@ -122,6 +123,7 @@ func (i *Indexer) updateInverted(word string, pageId []byte) {
 
 	i.db.Batch(func(tx *bolt.Tx) error {
 		inverted := tx.Bucket([]byte(InvertedTable))
+
 		wordSet, _ := inverted.CreateBucketIfNotExists(wordId)
 		wordSet.Put(pageId, []byte{1})
 		return nil
@@ -156,7 +158,6 @@ func (i *Indexer) ForEachWord(fn func(word string, i int)) {
 		inverted := tx.Bucket([]byte(InvertedTable))
 
 		inverted.ForEach(func(k, v []byte) error {
-
 			return nil
 		})
 

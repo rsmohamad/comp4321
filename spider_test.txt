@@ -1,7 +1,7 @@
 Department of Computer Science and Engineering, HKUST
 http://www.cse.ust.hk/
 -62135596800, -1
-00am 1; 00pm 1; 12noon 1; 2016 2; 2017 6; 2018 8; 2019 1; 30am 2; 30pm 1; 6pm 1; achiev 3; acm 2; alumni 3; anti 1; appoint 1; artifici 1; asian 1; assist 1; associ 1; assur 1; award 3; base 1; bay 1; bdbi 1; bdi 2; bdt 1; bio 1; career 2; center 2; chau 1; chief 1; china 1; chun 1; chung 1; citi 2; committe 1; communic 1; competit 2; comput 4; concept 1; contact 2; cse 3; data 7; datamin 1; david 1; dean 1; decemb 2; defenc 2; defens 2; depart 2; derek 1; desmond 1; destin 1; develop 2; direct 1; distinguish 1; dit 1; editor 1; educ 2; effect 1; elect 3; employ 1; engin 3; establish 4; event 3; exhibit 1; explor 1; facebook 1; facil 2; faculti 2; fake 1; februari 1; fellow 2; fintech 1; follow 1; forum 2; fri 3; fusion 1; futur 1; gale 1; global 1; gown 1; guid 1; head 1; help 1; hkust 7; hong 4; hope 1; hui 1; ia 1; ieee 1; ijcai 1; includ 2; inclus 1; info 1; initi 1; innov 1; institut 2; intellig 2; internship 1; intranet 3; introduct 1; job 1; joint 1; kai 1; key 1; kit 1; knowledg 1; kong 4; kowloon 1; lab 3; launder 1; learn 1; lectur 1; leung 1; link 2; liu 1; locat 1; ltf 3; machin 1; major 1; map 1; march 4; medal 1; meet 1; methodolog 1; michael 1; mon 2; money 1; monitor 1; mphil 2; msc 1; myport 1; news 4; novemb 1; oct 1; octob 1; opportun 1; outsourc 1; pan 2; paper 1; past 1; peopl 2; phd 2; play 1; polici 2; postgradu 2; presid 1; privaci 2; prof 5; program 6; propos 1; qiang 3; qualiti 1; receiv 3; recruit 2; region 1; relat 1; research 4; rise 1; rm2408 1; role 1; rossit 1; schedul 1; scienc 4; search 1; secur 1; seminar 3; sens 1; servic 1; shape 1; sheet 1; sign 1; site 1; smart 2; societi 1; spotlight 1; staff 2; star 1; student 5; sun 1; system 1; tackl 1; talk 1; teach 1; team 1; technolog 4; ten 1; thesi 4; thu 2; tii 1; town 1; transact 1; transfer 1; tsoi 1; tutor 1; umbrella 1; undergradu 1; univers 2; updat 1; use 1; user 1; video 1; vision 1; vote 1; water 1; webmail 1; wechat 2; weik 1; welcom 1; wish 1; women 1; workshop 1; world 1; yan 1; yang 4; yeung 2; yin 1; yupeng 1; zhang 1; zheng 1;  
+00am 1; 00pm 1; 12noon 1; 2016 2; 2017 6; 2018 8; 2019 1; 30am 2; 30pm 1; 6pm 1; achiev 3; acm 2; alumni 3; anti 1; appoint 1; artifici 1; asian 1; assist 1; associ 1; assur 1; award 3; base 1; bay 1; bdbi 1; bdi 2; bdt 1; bio 1; career 2; center 2; chau 1; chief 1; china 1; chun 1; chung 1; citi 2; committe 1; communic 1; competit 2; comput 4; concept 1; contact 2; cse 3; data 7; datamin 1; david 1; dean 1; decemb 2; defenc 2; defens 2; depart 2; derek 1; desmond 1; destin 1; develop 2; direct 1; distinguish 1; dit 1; editor 1; educ 2; effect 1; elect 3; employ 1; engin 3; establish 4; event 3; exhibit 1; explor 1; facebook 1; facil 2; faculti 2; fake 1; februari 1; fellow 2; fintech 1; follow 1; forum 2; fri 3; fusion 1; futur 1; gale 1; global 1; gown 1; guid 1; head 1; help 1; hkust 7; hong kong 8; hope 1; hui 1; ia 1; ieee 1; ijcai 1; includ 2; inclus 1; info 1; initi 1; innov 1; institut 2; intellig 2; internship 1; intranet 3; introduct 1; job 1; joint 1; kai 1; key 1; kit 1; knowledg 1; kowloon 1; lab 3; launder 1; learn 1; lectur 1; leung 1; link 2; liu 1; locat 1; ltf 3; machin 1; major 1; map 1; march 4; medal 1; meet 1; methodolog 1; michael 1; mon 2; money 1; monitor 1; mphil 2; msc 1; myport 1; news 4; novemb 1; oct 1; octob 1; opportun 1; outsourc 1; pan 2; paper 1; past 1; peopl 2; phd 2; play 1; polici 2; postgradu 2; presid 1; privaci 2; prof 5; program 6; propos 1; qiang 3; qualiti 1; receiv 3; recruit 2; region 1; relat 1; research 4; rise 1; rm2408 1; role 1; rossit 1; schedul 1; scienc 4; search 1; secur 1; seminar 3; sens 1; servic 1; shape 1; sheet 1; sign 1; site 1; smart 2; societi 1; spotlight 1; staff 2; star 1; student 5; sun 1; system 1; tackl 1; talk 1; teach 1; team 1; technolog 4; ten 1; thesi 4; thu 2; tii 1; town 1; transact 1; transfer 1; tsoi 1; tutor 1; umbrella 1; undergradu 1; univers 2; updat 1; use 1; user 1; video 1; vision 1; vote 1; water 1; webmail 1; wechat 2; weik 1; welcom 1; wish 1; women 1; workshop 1; world 1; yan 1; yang 4; yeung 2; yin 1; yupeng 1; zhang 1; zheng 1;  
 http://www.cse.ust.hk/
 http://www.cse.ust.hk/?lang=hk
 http://www.cse.ust.hk/?lang=cn
@@ -95,15 +95,10 @@ http://www.cse.ust.hk/admin/contact/
 http://www.cse.ust.hk/admin/recruitment/
 http://www.ust.hk/privacy-policy/
 -------------------------------------------------------------------------------------------
-
-http://bdi.ust.hk/
-1481183635, -1
- 
--------------------------------------------------------------------------------------------
 HKUST School of Engineering - MSc program in Big Data Technology
 http://www.sengpp.ust.hk/programs/bdt/en/
 1513608535, 5955
-2015 2; 2016 2; 2017 1; 2018 2; allow 1; alumni 1; annual 1; applic 1; aspect 1; avail 1; chang 2; china 2; commenc 1; comput 1; conduct 1; cover 1; data 5; deadlin 1; decemb 1; depart 1; disciplin 1; employ 1; engin 5; enterpris 1; fall 1; focus 1; function 1; genesi 1; global 2; graduat 1; guid 1; hkust 4; hong 1; integr 1; joint 1; kong 1; master 1; mathemat 1; msc 3; news 2; newslett 1; offer 1; oper 1; pois 1; postgradu 1; program 2; public 1; rank 4; real 1; scholarship 1; scienc 3; scmp 1; sept 1; societi 1; stori 1; student 1; summer 1; technolog 5; univers 3; world 4;  
+2015 2; 2016 2; 2017 1; 2018 2; allow 1; alumni 1; annual 1; applic 1; aspect 1; avail 1; chang 2; china 2; commenc 1; comput 1; conduct 1; cover 1; data 5; deadlin 1; decemb 1; depart 1; disciplin 1; employ 1; engin 5; enterpris 1; fall 1; focus 1; function 1; genesi 1; global 2; graduat 1; guid 1; hkust 4; hong kong 2; integr 1; joint 1; master 1; mathemat 1; msc 3; news 2; newslett 1; offer 1; oper 1; pois 1; postgradu 1; program 2; public 1; rank 4; real 1; scholarship 1; scienc 3; scmp 1; sept 1; societi 1; stori 1; student 1; summer 1; technolog 5; univers 3; world 4;  
 http://www.sengpp.ust.hk/programs/list/en/index.html
 http://www.sengpp.ust.hk/programs/bdt/en/index.html
 http://www.sengpp.ust.hk/programs/bdt/en/application.html
@@ -117,31 +112,10 @@ http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-mov
 http://www.sengpp.ust.hk/programs/bdt/images/news_201607.pdf
 http://www.sengpp.ust.hk/programs/bdt/images/news_201512.pdf
 -------------------------------------------------------------------------------------------
-CS System
-http://cssystem.cse.ust.hk/
--62135596800, 2985
-access 2; comment 1; comput 2; cssystem 1; depart 1; engin 1; facil 2; faculti 1; faq 2; form 2; guest 1; guid 2; hong 1; kong 1; mainten 2; pleas 1; postgradu 1; remot 2; reserv 1; right 1; schedul 1; scienc 2; send 1; staff 1; suggest 1; system 1; technolog 1; undergradu 1; univers 1; use 2; user 2;  
-http://cssystem.cse.ust.hk/UGuides/index.html
-http://cssystem.cse.ust.hk/Facilities/index.html
-http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
-http://cssystem.cse.ust.hk/FAQ/index.html
-http://cssystem.cse.ust.hk/Forms/index.html
-http://cssystem.cse.ust.hk/HOME/index.html
-http://cssystem.cse.ust.hk/UGuides/index.html
-http://cssystem.cse.ust.hk/Facilities/index.html
-http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
-http://cssystem.cse.ust.hk/FAQ/index.html
-http://cssystem.cse.ust.hk/Forms/index.html
-http://cssystem.cse.ust.hk/HOME/index.html
-http://www.cse.ust.hk/
-http://www.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST Path Advisor
-http://pathadvisor.ust.hk/interface.php?roomno=IAS%20LT
--62135596800, -1
-11m 1; 6495475 1; academ 1; access 1; advanc 2; advisor 4; alt 1; atrium 1; avail 1; build 1; bus 3; campus 1; center 1; class 3; com 2; command 1; consol 2; counter 3; customiz 2; cyt 1; debug 1; display 1; distanc 2; div 2; escal 1; f93a2d0c 1; floor 1; found 1; free 1; hit 1; hkust 1; href 1; html 1; http 2; ia 1; img 1; indic 1; inform 1; involv 3; legend 2; lg1 1; lg3 1; lg4 1; lg5 1; lg7 1; lift 2; link 3; locat 1; lsk 1; mini 2; minimum 1; mtr 1; nearest 2; option 2; path 6; photo 2; pleas 1; print 1; result 3; search 5; shortest 2; sorri 1; src 1; staircas 1; start 2; statcount 5; station 1; stop 1; suggest 2; text 1; time 2; titl 1; toilet 1; tweet 1; univers 1; upload 1; wait 1;  
-http://twitter.com/share
-http://pathadvisor.ust.hk/print_page.php
+
+http://bdi.ust.hk/
+1481183635, -1
+ 
 -------------------------------------------------------------------------------------------
 HKUST Path Advisor
 http://pathadvisor.ust.hk/interface.php?roomno=LTF
@@ -151,9 +125,28 @@ http://twitter.com/share
 http://pathadvisor.ust.hk/print_page.php
 -------------------------------------------------------------------------------------------
 HKUST Path Advisor
-http://pathadvisor.ust.hk/print_page.php
+http://pathadvisor.ust.hk/interface.php?roomno=IAS%20LT
 -62135596800, -1
-advisor 1; floor 2; hkust 1; imag 2; path 1; remark 1;  
+11m 1; 6495475 1; academ 1; access 1; advanc 2; advisor 4; alt 1; atrium 1; avail 1; build 1; bus 3; campus 1; center 1; class 3; com 2; command 1; consol 2; counter 3; customiz 2; cyt 1; debug 1; display 1; distanc 2; div 2; escal 1; f93a2d0c 1; floor 1; found 1; free 1; hit 1; hkust 1; href 1; html 1; http 2; ia 1; img 1; indic 1; inform 1; involv 3; legend 2; lg1 1; lg3 1; lg4 1; lg5 1; lg7 1; lift 2; link 3; locat 1; lsk 1; mini 2; minimum 1; mtr 1; nearest 2; option 2; path 6; photo 2; pleas 1; print 1; result 3; search 5; shortest 2; sorri 1; src 1; staircas 1; start 2; statcount 5; station 1; stop 1; suggest 2; text 1; time 2; titl 1; toilet 1; tweet 1; univers 1; upload 1; wait 1;  
+http://twitter.com/share
+http://pathadvisor.ust.hk/print_page.php
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Big Data Technology
+http://www.sengpp.ust.hk/programs/bdt/en/index.html
+1513608535, 5955
+2015 2; 2016 2; 2017 1; 2018 2; allow 1; alumni 1; annual 1; applic 1; aspect 1; avail 1; chang 2; china 2; commenc 1; comput 1; conduct 1; cover 1; data 5; deadlin 1; decemb 1; depart 1; disciplin 1; employ 1; engin 5; enterpris 1; fall 1; focus 1; function 1; genesi 1; global 2; graduat 1; guid 1; hkust 4; hong kong 2; integr 1; joint 1; master 1; mathemat 1; msc 3; news 2; newslett 1; offer 1; oper 1; pois 1; postgradu 1; program 2; public 1; rank 4; real 1; scholarship 1; scienc 3; scmp 1; sept 1; societi 1; stori 1; student 1; summer 1; technolog 5; univers 3; world 4;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/bdt/en/index.html
+http://www.sengpp.ust.hk/programs/bdt/en/application.html
+http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+http://www.ust.hk/cover-stories/big-data-transformation-brings-upon/
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+http://www.sengpp.ust.hk/programs/bdt/images/news_201607.pdf
+http://www.sengpp.ust.hk/programs/bdt/images/news_201512.pdf
 -------------------------------------------------------------------------------------------
 HKUST Jockey Club Institute for Advanced Study
 http://ias.ust.hk/web/ias/eng/event_detail.php?id=1167
@@ -188,111 +181,15 @@ http://ias.ust.hk
 http://www.ust.hk
 http://publish.ust.hk/
 -------------------------------------------------------------------------------------------
-HKUST School of Engineering - MSc program in Big Data Technology
-http://www.sengpp.ust.hk/programs/bdt/en/index.html
-1513608535, 5955
-2015 2; 2016 2; 2017 1; 2018 2; allow 1; alumni 1; annual 1; applic 1; aspect 1; avail 1; chang 2; china 2; commenc 1; comput 1; conduct 1; cover 1; data 5; deadlin 1; decemb 1; depart 1; disciplin 1; employ 1; engin 5; enterpris 1; fall 1; focus 1; function 1; genesi 1; global 2; graduat 1; guid 1; hkust 4; hong 1; integr 1; joint 1; kong 1; master 1; mathemat 1; msc 3; news 2; newslett 1; offer 1; oper 1; pois 1; postgradu 1; program 2; public 1; rank 4; real 1; scholarship 1; scienc 3; scmp 1; sept 1; societi 1; stori 1; student 1; summer 1; technolog 5; univers 3; world 4;  
-http://www.sengpp.ust.hk/programs/list/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/application.html
-http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
-http://www.seng.ust.hk/web/eng/publication.php
-http://www.ust.hk/about-hkust/publications-multimedia/genesis/
-http://www.ust.hk/cover-stories/big-data-transformation-brings-upon/
-https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
-http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
-http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
-http://www.sengpp.ust.hk/programs/bdt/images/news_201607.pdf
-http://www.sengpp.ust.hk/programs/bdt/images/news_201512.pdf
--------------------------------------------------------------------------------------------
-HKUST School of Engineering - MSc program in Big Data Technology
-http://www.sengpp.ust.hk/programs/bdt/en/application.html
-1519876154, 7696
-2018 6; 450 1; abl 1; account 3; activ 1; admiss 10; allow 1; appli 4; applic 23; applypg 1; avail 1; basi 1; below 1; certif 5; china 1; click 2; commenc 2; committe 3; competit 1; complet 2; concurr 1; confidenti 1; consid 1; consist 1; copi 1; creat 3; data 1; deadlin 2; decis 3; degre 2; depart 1; detail 1; director 1; discret 1; document 2; english 2; except 1; experi 1; expir 1; faculti 1; fall 3; fee 1; form 1; fresh 1; gmat 1; gov 1; graduat 4; gre 1; handl 1; help 1; hkust 1; hold 1; hong 4; http 1; https 1; ielt 1; immd 1; immigr 1; inform 4; instruct 1; intak 2; jan 1; job 1; juli 1; kept 2; kong 4; leav 1; lectur 1; list 1; mail 1; mainland 1; march 1; materi 2; mean 1; medium 1; mode 1; msc 1; nearbi 1; note 2; offer 2; offic 1; offici 2; onlin 3; outsid 1; particular 1; pay 1; peopl 2; period 1; pleas 7; procedur 2; process 1; profession 2; profici 2; program 10; proof 2; provid 1; qualif 1; receiv 1; recommend 1; refer 1; regard 1; regist 1; registr 1; requir 5; respons 1; return 1; roll 1; sar 1; scholarship 1; score 1; screen 1; send 1; sept 2; shenzhen 1; soon 1; spring 1; stage 1; start 1; strong 1; student 3; studi 2; submit 3; success 1; suitabl 2; system 2; technolog 1; time 9; toefl 1; transcript 1; univers 2; upload 3; ust 1; usual 1; visa 3; world 1; www 2;  
-http://www.sengpp.ust.hk/programs/list/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/application.html
-http://www.sengpp.ust.hk/programs/bdt/en/faq.html#visa
-http://www.immd.gov.hk
-https://www.ab.ust.hk/applyPG
-http://pg.ust.hk/cgi-bin/pg/eng/detail.php?catid=3&sid=8&tid=231
-http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
-http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
--------------------------------------------------------------------------------------------
-Useful Links on Career Service
-http://www.cse.ust.hk/ug/career/service/
+HKUST Path Advisor
+http://pathadvisor.ust.hk/print_page.php
 -62135596800, -1
-2018 1; achiev 1; alumni 2; appoint 1; associ 1; assur 1; bay 1; campaign 1; career 5; chief 2; committe 1; communic 1; comput 1; contact 2; corner 1; cse 3; depart 2; destin 1; direct 1; editor 1; employ 1; engin 1; event 1; facil 2; faculti 2; follow 1; govern 2; graduat 1; guid 1; hire 1; hksar 1; hong 2; info 1; inform 2; institut 1; internship 2; intranet 3; jiji 1; job 6; joint 1; kong 2; kowloon 1; lab 1; labour 1; link 3; list 1; map 1; myport 1; news 1; offic 2; ogcio 1; opportun 1; peopl 1; polici 2; post 1; postgradu 2; privaci 1; program 3; promot 1; qualiti 1; recruit 2; research 1; sao 1; schedul 1; scienc 2; seng 1; servic 4; sheet 1; site 1; societi 1; staff 1; student 5; studi 1; system 2; team 1; technolog 1; tutor 1; undergradu 1; univers 1; updat 1; use 2; user 1; video 1; water 1; webmail 1; welcom 1;  
-http://www.cse.ust.hk/
-http://www.cse.ust.hk/ug/career/service/?lang=hk
-http://www.cse.ust.hk/ug/career/service/?lang=cn
-http://www.ust.hk/
-http://www.seng.ust.hk/
-http://www.cse.ust.hk/admin/sitemap/?map=About
-http://www.cse.ust.hk/admin/welcome/
-http://www.cse.ust.hk/admin/about/
-http://www.cse.ust.hk/admin/factsheet/
-http://www.cse.ust.hk/News/?type=news|achievement
-http://www.cse.ust.hk/News/?type=event
-http://www.cse.ust.hk/admin/QA/
-http://www.cse.ust.hk/admin/contact/
-http://www.ust.hk/about-hkust/about-the-campus/map-directions-2015/
-http://www.cse.ust.hk/admin/sitemap/?map=People
-http://www.cse.ust.hk/admin/people/faculty/
-http://www.cse.ust.hk/admin/people/staff/
-http://www.cse.ust.hk/ct/
-http://www.cse.ust.hk/admin/people/pg/
-http://www.cse.ust.hk/alumni/
-http://www.cse.ust.hk/admin/recruitment/
-http://www.cse.ust.hk/admin/people/eic/
-http://www.cse.ust.hk/admin/sitemap/?map=Undergraduate
-http://www.cse.ust.hk/ug/
-http://www.cse.ust.hk/ug/hkust_only/
-http://www.cse.ust.hk/admin/sitemap/?map=Postgraduate
-http://www.cse.ust.hk/pg/
-http://www.cse.ust.hk/pg/hkust_only/
-http://www.cse.ust.hk/pg/admissions/recruiting/
-http://www.cse.ust.hk/pg/ourgraduates/
-http://www.cse.ust.hk/pg/research/
-http://www.cse.ust.hk/admin/sitemap/?map=Career
-http://www.cse.ust.hk/ug/internship/
-http://www.cse.ust.hk/ug/internship/forEmployer/
-http://www.cse.ust.hk/ug/career/service/
-http://www.cse.ust.hk/admin/facilities/
-http://www.cse.ust.hk/admin/facilities/committee/
-http://www.cse.ust.hk/admin/lab/
-http://cssystem.cse.ust.hk/UGuides/index.html
-http://cssystem.cse.ust.hk/
-http://www.cse.ust.hk/admin/sitemap/?map=Links
-https://imail.cse.ust.hk/sqmail/
-http://www.cse.ust.hk/Restricted/
-http://my.ust.hk
-http://www.cse.ust.hk/acm/
-http://ihome.ust.hk/~su_csess/
-https://www.facebook.com/cseaa.hkust
-http://www.cse.ust.hk/admin/sitemap/
-http://www.cse.ust.hk/ug/career/service/internship/
-http://www.cse.ust.hk/ug/career/service/gradjob/
-http://www.seng.ust.hk/web/eng/subcat.php?catid=2&subid=62
-https://career.ust.hk/
-http://www.jijis.org.hk/
-http://www.labour.gov.hk/
-http://www.csb.gov.hk/english/recruit/7.html
-http://studentitcorner.gov.hk/
-https://www.ogcio.gov.hk/en/
-https://www.ogcio.gov.hk/en/business/industry_support/ict_manpower/student_it_corner/people_and_events/it_you_study_we_hire/video_gallery/
-https://www.facebook.com/hkust/
-https://www.instagram.com/hkust/
-https://www.linkedin.com/company/department-of-computer-science-and-engineering-the-hong-kong-university-of-science-and-technology
-https://www.youtube.com/channel/UC1Gky4HCpEOK5EmoUj6zhGg
-http://www.cse.ust.hk/admin/contact/
-http://www.cse.ust.hk/admin/recruitment/
-http://www.ust.hk/privacy-policy/
+advisor 1; floor 2; hkust 1; imag 2; path 1; remark 1;  
 -------------------------------------------------------------------------------------------
 Master of Science programs in Engineering - HKUST School of Engineering MSc programs
 http://www.sengpp.ust.hk/programs/list/en/index.html
 1519610852, 15096
-aeronaut 1; air 1; biomolecular 1; build 1; cef 2; chemic 1; civil 2; copyright 1; cours 2; data 1; design 2; diploma 1; discret 1; educ 1; electron 1; employ 1; engin 10; enterpris 1; environment 2; exempt 1; gov 1; hkust 1; hong 2; http 1; includ 1; individu 1; inform 2; infrastructur 2; intellig 1; intern 1; kong 2; lead 1; list 1; local 1; manag 7; master 1; matter 1; mechan 1; oper 1; ordin 1; outsid 1; postgradu 1; profession 1; program 4; ptc 1; qualif 1; recogn 1; regul 1; reimburs 1; reserv 1; scienc 1; session 1; technolog 3; telecommun 1; transport 1; wfsfaa 1; www 1;  
+aeronaut 1; air 1; biomolecular 1; build 1; cef 2; chemic 1; civil 2; copyright 1; cours 2; data 1; design 2; diploma 1; discret 1; educ 1; electron 1; employ 1; engin 10; enterpris 1; environment 2; exempt 1; gov 1; hkust 1; hong kong 4; http 1; includ 1; individu 1; inform 2; infrastructur 2; intellig 1; intern 1; lead 1; list 1; local 1; manag 7; master 1; matter 1; mechan 1; oper 1; ordin 1; outsid 1; postgradu 1; profession 1; program 4; ptc 1; qualif 1; recogn 1; regul 1; reimburs 1; reserv 1; scienc 1; session 1; technolog 3; telecommun 1; transport 1; wfsfaa 1; www 1;  
 http://www.seng.ust.hk
 http://www.seng.ust.hk
 http://www.sengpp.ust.hk
@@ -319,9 +216,23 @@ http://www.sengpp.ust.hk/programs/info_session_overseas/
 http://ptc.ust.hk/
 -------------------------------------------------------------------------------------------
 HKUST School of Engineering - MSc program in Big Data Technology
+http://www.sengpp.ust.hk/programs/bdt/en/application.html
+1519876154, 7696
+2018 6; 450 1; abl 1; account 3; activ 1; admiss 10; allow 1; appli 4; applic 23; applypg 1; avail 1; basi 1; below 1; certif 5; china 1; click 2; commenc 2; committe 3; competit 1; complet 2; concurr 1; confidenti 1; consid 1; consist 1; copi 1; creat 3; data 1; deadlin 2; decis 3; degre 2; depart 1; detail 1; director 1; discret 1; document 2; english 2; except 1; experi 1; expir 1; faculti 1; fall 3; fee 1; form 1; fresh 1; gmat 1; gov 1; graduat 4; gre 1; handl 1; help 1; hkust 1; hold 1; hong kong 8; http 1; https 1; ielt 1; immd 1; immigr 1; inform 4; instruct 1; intak 2; jan 1; job 1; juli 1; kept 2; leav 1; lectur 1; list 1; mail 1; mainland 1; march 1; materi 2; mean 1; medium 1; mode 1; msc 1; nearbi 1; note 2; offer 2; offic 1; offici 2; onlin 3; outsid 1; particular 1; pay 1; peopl 2; period 1; pleas 7; procedur 2; process 1; profession 2; profici 2; program 10; proof 2; provid 1; qualif 1; receiv 1; recommend 1; refer 1; regard 1; regist 1; registr 1; requir 5; respons 1; return 1; roll 1; sar 1; scholarship 1; score 1; screen 1; send 1; sept 2; shenzhen 1; soon 1; spring 1; stage 1; start 1; strong 1; student 3; studi 2; submit 3; success 1; suitabl 2; system 2; technolog 1; time 9; toefl 1; transcript 1; univers 2; upload 3; ust 1; usual 1; visa 3; world 1; www 2;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/bdt/en/index.html
+http://www.sengpp.ust.hk/programs/bdt/en/application.html
+http://www.sengpp.ust.hk/programs/bdt/en/faq.html#visa
+http://www.immd.gov.hk
+https://www.ab.ust.hk/applyPG
+http://pg.ust.hk/cgi-bin/pg/eng/detail.php?catid=3&sid=8&tid=231
+http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
+http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Big Data Technology
 http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
 1519889176, 16498
-000 7; 1076 1; 150 2; 180 1; 2017 1; 2018 16; 2019 2; 2020 1; 2150 1; 2345 1; 2802 1; 300 1; 358 1; 500 4; 550 1; 6223 1; 852 1; abod 1; abroad 3; academ 1; achiev 1; addit 1; admit 2; aflsp 1; ajk 2; amount 2; annual 1; appli 13; applic 11; approv 1; arthur 1; asian 1; aspx 1; assist 1; august 1; avail 1; averag 2; award 2; az1 1; b8yi08q2hp3qqzh 1; bdt 1; bin 1; bolashak 2; brazil 2; call 1; caution 3; cbme 1; center 1; centrala 1; cgi 1; charg 1; ciem 1; ciencia 1; citizen 14; claim 1; class 1; com 1; commenc 1; commiss 1; complet 1; conacyt 2; condit 1; confirm 1; consejo 1; consid 1; continu 2; cours 2; cover 1; credit 1; csn 3; cumul 1; data 2; deadlin 2; degre 1; depkeu 1; detail 6; develop 2; doctor 1; document 2; due 1; educ 3; eem 1; eleg 1; elig 1; eng 2; engin 3; english 1; enl 2; entranc 2; equival 1; estudar 2; evem 1; extend 2; fall 8; februari 2; feder 1; fee 11; financ 1; financi 6; follow 2; form 2; funda 2; futur 1; global 1; gov 2; govern 4; grade 2; graduat 2; hec 3; hkust 1; hong 6; honor 1; hotlin 1; hour 1; htm 1; http 5; https 3; ibtm 1; icd 1; ident 1; idrewrit 1; immedi 1; indonesia 1; indonesian 4; instal 2; instituto 2; insur 1; intak 2; intern 3; jfe 1; june 1; kazakhstan 3; kong 6; lanekassen 3; languag 1; leader 1; librari 1; ling 2; loan 4; local 2; louis 1; lpdp 3; mail 1; march 2; master 1; mean 3; mech 1; medic 1; meet 1; mexico 2; minimum 1; mode 3; money 3; msc 3; nacion 1; nation 3; nationalscholarship 1; nlss 1; nomin 2; norway 1; norwegian 2; obtain 1; offer 6; offic 1; offici 1; onlin 1; outstand 1; page 4; paid 1; pakistan 2; pakistani 2; pay 2; payment 2; period 1; perman 2; php 1; pleas 7; presidenti 1; prior 1; profession 1; program 13; pursu 1; qualtric 1; reduct 1; refer 6; registr 1; relev 1; republ 3; requir 4; resid 1; respect 1; result 1; retak 1; rewrit 1; russia 2; russian 1; sampl 1; schedul 1; scheme 4; scholarship 21; scholarshipsgr 1; septemb 2; sfo 1; stipul 1; student 13; studi 3; studiestodsnamnden 1; success 1; summer 1; support 5; sweden 2; system 1; talent 2; tbc 1; technolog 2; tecnologia 1; telecom 1; test 3; time 15; transfer 2; tuition 1; undergradu 1; unpaid 1; upload 1; ust 2; verif 1; via 1; visa 1; web 3; websit 1; welcom 1; wfsfaa 1; www 6;  
+000 7; 1076 1; 150 2; 180 1; 2017 1; 2018 16; 2019 2; 2020 1; 2150 1; 2345 1; 2802 1; 300 1; 358 1; 500 4; 550 1; 6223 1; 852 1; abod 1; abroad 3; academ 1; achiev 1; addit 1; admit 2; aflsp 1; ajk 2; amount 2; annual 1; appli 13; applic 11; approv 1; arthur 1; asian 1; aspx 1; assist 1; august 1; avail 1; averag 2; award 2; az1 1; b8yi08q2hp3qqzh 1; bdt 1; bin 1; bolashak 2; brazil 2; call 1; caution 3; cbme 1; center 1; centrala 1; cgi 1; charg 1; ciem 1; ciencia 1; citizen 14; claim 1; class 1; com 1; commenc 1; commiss 1; complet 1; conacyt 2; condit 1; confirm 1; consejo 1; consid 1; continu 2; cours 2; cover 1; credit 1; csn 3; cumul 1; data 2; deadlin 2; degre 1; depkeu 1; detail 6; develop 2; doctor 1; document 2; due 1; educ 3; eem 1; eleg 1; elig 1; eng 2; engin 3; english 1; enl 2; entranc 2; equival 1; estudar 2; evem 1; extend 2; fall 8; februari 2; feder 1; fee 11; financ 1; financi 6; follow 2; form 2; funda 2; futur 1; global 1; gov 2; govern 4; grade 2; graduat 2; hec 3; hkust 1; hong kong 12; honor 1; hotlin 1; hour 1; htm 1; http 5; https 3; ibtm 1; icd 1; ident 1; idrewrit 1; immedi 1; indonesia 1; indonesian 4; instal 2; instituto 2; insur 1; intak 2; intern 3; jfe 1; june 1; kazakhstan 3; lanekassen 3; languag 1; leader 1; librari 1; ling 2; loan 4; local 2; louis 1; lpdp 3; mail 1; march 2; master 1; mean 3; mech 1; medic 1; meet 1; mexico 2; minimum 1; mode 3; money 3; msc 3; nacion 1; nation 3; nationalscholarship 1; nlss 1; nomin 2; norway 1; norwegian 2; obtain 1; offer 6; offic 1; offici 1; onlin 1; outstand 1; page 4; paid 1; pakistan 2; pakistani 2; pay 2; payment 2; period 1; perman 2; php 1; pleas 7; presidenti 1; prior 1; profession 1; program 13; pursu 1; qualtric 1; reduct 1; refer 6; registr 1; relev 1; republ 3; requir 4; resid 1; respect 1; result 1; retak 1; rewrit 1; russia 2; russian 1; sampl 1; schedul 1; scheme 4; scholarship 21; scholarshipsgr 1; septemb 2; sfo 1; stipul 1; student 13; studi 3; studiestodsnamnden 1; success 1; summer 1; support 5; sweden 2; system 1; talent 2; tbc 1; technolog 2; tecnologia 1; telecom 1; test 3; time 15; transfer 2; tuition 1; undergradu 1; unpaid 1; upload 1; ust 2; verif 1; via 1; visa 1; web 3; websit 1; welcom 1; wfsfaa 1; www 6;  
 http://www.sengpp.ust.hk/programs/list/en/index.html
 http://www.sengpp.ust.hk/programs/bdt/en/index.html
 http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html
@@ -353,211 +264,13 @@ http://www.asi.ru/molprof/globaleduintegration/
 http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
 http://www.wfsfaa.gov.hk/sfo/eng/schemes/nlss.htm
 -------------------------------------------------------------------------------------------
-CS System
-http://cssystem.cse.ust.hk/Facilities/index.html
--62135596800, 7821
-4210 2; 4213 1; 4214 2; 4221 2; access 4; account 1; admin 1; amd 1; anti 3; applic 1; base 2; client 2; cluster 1; code 1; color 1; commenc 1; comment 1; comput 4; configur 6; core 2; cpu 4; csd 19; cssystem 2; depart 1; department 1; desktop 1; distribut 2; engin 1; equip 2; etc 1; ethic 1; expect 1; facil 6; faculti 5; faq 2; filesystem 1; final 2; firewal 1; form 2; frozen 1; fyp 2; grid 1; guest 1; guid 2; handl 1; help 1; hong 1; hotfix 1; imag 2; individu 1; info 1; inform 2; instal 1; instanc 1; intel 1; internet 1; kong 1; lab 8; laboratori 1; late 1; linux 3; loan 1; machin 2; mail 2; network 2; news 2; offic 2; opteron 1; ownership 1; pack 1; paramet 1; patch 1; perfect 1; pgs 1; pleas 1; polici 6; postgradu 4; print 3; printer 1; project 2; proper 1; remodel 3; remot 5; request 2; requir 1; reserv 1; resourc 1; right 1; scienc 2; semest 2; send 1; server 3; servic 2; softwar 2; spam 2; special 2; staff 4; statist 1; status 3; student 2; suggest 1; system 1; tas 1; teach 8; technolog 1; termin 1; tune 1; undergradu 4; univers 1; usag 5; use 2; user 3; verifi 1; virtual 1; virus 1; window 1; workstat 2; x64 1;  
-http://cssystem.cse.ust.hk/UGuides/index.html
-http://cssystem.cse.ust.hk/Facilities/index.html
-http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
-http://cssystem.cse.ust.hk/FAQ/index.html
-http://cssystem.cse.ust.hk/Forms/index.html
-http://cssystem.cse.ust.hk/HOME/index.html
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/Facilities.php
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/PG_Facilities.php
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/UG_Facilities.php
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/Special_Facilities.php
-http://cssystem.cse.ust.hk/UServices/hkust_only/printerusage.html
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/Ethics.php
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/FileSystem.php
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/RemoteDesktop.php
-https://www.cse.ust.hk/admin/facilities/committee/hkust_only/POLICY/patches.php
-http://cssystem.cse.ust.hk/UGuides/PG/hkust_only/machine.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab1.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab2.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab3.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab4.html
-http://cssystem.cse.ust.hk/Facilities/csd_only/4210/index.html
-http://cssystem.cse.ust.hk/Facilities/csd_only/4221/index.html
-http://cssystem.cse.ust.hk/Facilities/csd_only/4214/index.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/FYP/index.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/equipsloan.html
-http://cssystem.cse.ust.hk/Facilities/ras.html
-http://cssystem.cse.ust.hk/Facilities/linux_cluster2/index.html
-http://cssystem.cse.ust.hk/Facilities/amdlinux.html
-http://cssystem.cse.ust.hk/Facilities/intelx64linux_v2.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/ugprinters.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/printers.html
-http://cssystem.cse.ust.hk/UServices/printers.html
-http://cssystem.cse.ust.hk/UServices/ipp.html
-http://cssystem.cse.ust.hk/UServices/anti-spam/index.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/Guidelines/Network_Guideline.html
-http://cssystem.cse.ust.hk/Facilities/hkust_only/mail_news.html
-http://cssystem.cse.ust.hk/UGuides/index.html
-http://cssystem.cse.ust.hk/Facilities/index.html
-http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
-http://cssystem.cse.ust.hk/FAQ/index.html
-http://cssystem.cse.ust.hk/Forms/index.html
-http://cssystem.cse.ust.hk/HOME/index.html
+Head of the Department of Computer Science and Engineering
+http://www.cse.ust.hk/admin/recruitment/head/
+-62135596800, -1
+1991 1; 2018 1; 270 1; 770 1; academ 3; accomplish 1; achiev 1; acquir 1; activ 1; addit 1; address 1; administr 3; advanc 1; advantag 1; alumni 2; appli 1; applic 4; appoint 3; appropri 1; artifici 1; aspect 1; associ 1; assur 1; basic 1; bay 1; benefit 1; beng 1; broad 1; bsc 1; busi 1; candid 1; capabl 1; capac 1; career 2; categor 1; chair 1; chief 1; close 1; collabor 1; commerci 1; commit 1; committe 2; communic 1; competit 1; comprehens 1; comput 7; concurr 1; conduct 1; contact 2; cse 7; current 1; curriculum 1; cybersecur 1; data 1; dean 1; dedic 2; degre 1; demonstr 1; depart 9; destin 1; direct 1; divers 2; editor 1; educ 4; effect 1; email 2; emphasi 1; employ 2; engin 7; english 1; entrepreneuri 1; event 1; expect 1; experi 1; extens 1; facil 2; faculti 4; famili 1; five 1; follow 1; found 1; friend 1; fring 1; function 1; generous 1; global 1; govern 1; graphic 1; guid 1; head 3; headship 1; histori 1; hkust 3; hong kong 6; hous 1; http 2; https 1; human 1; includ 1; increas 1; industri 2; info 1; inform 3; initi 1; innov 1; intellig 1; interact 2; interdisciplinari 1; intern 2; internship 1; intranet 3; invit 1; job 1; knowledg 1; kowloon 1; lab 1; lead 1; leadership 2; learn 1; level 1; link 2; manag 2; map 1; medium 1; mphil 1; msc 1; myport 1; name 1; network 1; news 1; nomin 3; normal 1; offer 1; opportun 1; outlook 1; past 1; peopl 1; phd 1; player 1; pleas 1; polici 3; posit 1; postgradu 4; privaci 1; professori 1; program 4; promot 1; proven 1; provid 4; purpos 1; qualifi 1; qualiti 1; rang 1; rank 2; recruit 3; refere 1; regard 1; relat 1; remuner 1; renew 1; renown 1; report 1; research 7; respect 1; role 1; round 1; scene 1; schedul 1; scholar 1; scholarship 1; school 1; scienc 7; search 1; sector 1; seng 1; sent 1; servic 1; sheet 1; short 1; site 1; societi 1; softwar 1; special 1; spirit 1; staff 1; strong 2; student 6; studi 1; success 1; system 2; teach 4; team 1; technolog 3; term 3; tertiari 1; theoret 1; think 1; time 1; top 1; tutor 1; undergradu 2; univers 8; updat 1; use 1; user 1; ust 3; vision 1; visit 1; vita 1; water 1; webmail 1; welcom 1; world 2; www 3;  
 http://www.cse.ust.hk/
-http://www.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST School of Engineering - MSc program in Big Data Technology
-http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
-1455873134, 5558
-0170 1; 550 1; abil 1; academ 1; admiss 5; america 1; applic 6; approv 1; australia 1; bachelor 3; base 2; class 2; code 2; complet 1; comput 3; credit 5; data 1; date 1; degre 2; depart 1; director 1; disciplin 1; elsewher 1; engin 1; english 9; etc 1; evid 1; experi 1; field 2; follow 1; foreign 1; fresh 1; govern 1; graduat 3; grant 1; hkust 1; hong 1; ibt 1; ielt 2; includ 1; industri 1; institut 3; instruct 2; intern 1; internet 1; kingdom 1; kong 1; languag 2; lectur 2; mail 1; materi 2; mathemat 3; maximum 1; medium 3; msc 2; normal 1; north 1; note 1; offic 2; outreach 1; overal 1; paper 1; pbt 1; pleas 2; possess 1; postgradu 2; profession 1; profici 1; program 5; proof 1; provid 1; recogn 1; recognit 1; recommend 1; record 1; relat 3; relev 1; requir 6; school 1; scienc 1; score 6; singapor 1; student 3; studi 2; sub 1; subject 1; system 1; target 3; teach 1; team 1; technolog 1; term 1; tertiari 1; test 5; toefl 2; transfer 5; unit 1; univers 6; valid 1; zealand 1;  
-http://www.sengpp.ust.hk/programs/list/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html
-http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
-http://pg.ust.hk/cgi-bin/pg/eng/detail.php?catid=3&sid=10&tid=152
--------------------------------------------------------------------------------------------
-HKUST Jockey Club Institute for Advanced Study
-http://ias.ust.hk/web/ias/eng/about.php
--62135596800, -1
-2018 1; academ 3; activ 1; advanc 4; aim 1; andrew 1; appli 1; background 1; catalyt 1; champion 1; club 3; cohen 1; collabor 1; commit 1; communiti 2; confer 1; contact 2; copyright 1; design 1; develop 2; differ 1; director 1; disciplin 1; discoveri 1; divers 1; econom 1; educ 1; elev 1; endur 1; engag 1; event 1; facil 1; faculti 1; fellow 1; foremost 1; forg 1; forum 1; foundat 1; frontier 1; fundament 1; galleri 1; get 1; gift 1; histori 1; hkust 6; hong 2; ia 4; inform 1; initi 1; institut 5; intellectu 1; interact 2; invit 1; jockey 3; knowledg 2; kong 2; lam 1; lead 1; leader 2; lectur 1; local 1; media 1; messag 2; mission 1; news 1; notch 1; nurtur 1; organ 1; outstand 1; peopl 1; photo 1; platform 1; postdoctor 1; professor 3; program 1; project 1; provid 1; ptc 1; public 1; pursu 1; pursuit 1; rais 1; rang 1; recruit 1; region 1; relationship 1; relev 1; research 5; reserv 1; respect 1; right 1; scholar 2; scientif 1; scientist 1; socio 1; spearhead 1; sponsor 1; stand 1; strong 1; student 1; studi 3; support 2; technolog 1; top 1; topic 1; use 1; vision 1; visit 1; welcom 2; woo 1; workshop 1; world 2;  
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/about_contact.php
-http://ias.ust.hk/web/ias/eng/about.php
-http://ias.ust.hk/web/ias/eng/people.php
-http://ias.ust.hk/web/ias/eng/research.php
-http://ias.ust.hk/web/ias/eng/event.php
-http://ias.ust.hk/web/ias/eng/news.php
-http://ias.ust.hk/web/ias/eng/support.php
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/about.php
-http://ias.ust.hk/web/ias/eng/about_vision.php
-http://ias.ust.hk/web/ias/eng/about_history.php
-http://ias.ust.hk/web/ias/eng/about_facility.php
-http://ias.ust.hk/web/ias/eng/about_usefulinfo.php
-http://ias.ust.hk/web/ias/eng/about_publications.php
-http://ias.ust.hk/web/ias/eng/about_photo.php
-http://ias.ust.hk/web/ias/eng/about_ias.php
-http://ias.ust.hk/web/ias/eng/about_contact.php
-http://www.ust.hk
-http://publish.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST Jockey Club Institute for Advanced Study
-http://ias.ust.hk/web/ias/eng/about_contact.php
--62135596800, -1
-1538 1; 2018 1; 2243 1; 2358 8; 2719 1; 5058 1; 5059 1; 5061 1; 5062 1; 5063 1; 5912 1; 5963 1; 5968 1; 6615 1; 852 10; address 1; advanc 1; appoint 1; bay 1; betti 1; book 1; build 1; campus 1; chan 1; chau 1; cheung 1; chun 1; chung 1; close 1; club 1; confer 1; contact 4; copyright 1; design 1; develop 1; editori 1; educ 1; email 2; enquiri 2; eric 1; ericlin 1; event 1; facil 2; fax 1; fri 1; galleri 1; get 1; gordon 1; henri 1; henryl 1; histori 1; hkt 1; hkust 1; holiday 1; hong 2; hour 1; ia 6; ias2029 2; ias2032 2; ias5017 1; ias5024 1; ias5025 1; iasbetti 1; iasprud 1; iasscott 1; iastcchan 1; inform 1; institut 1; jockey 1; kee 1; kong 2; kowloon 1; lam 1; lectur 1; lee 1; lin 1; mail 1; media 1; messag 1; miss 3; mission 1; mon 1; nanci 1; nancypun 1; news 1; offic 1; peopl 1; person 1; photo 1; postdoc 1; program 1; prudenc 1; ptc 1; public 2; pun 1; regular 1; research 2; reserv 1; right 1; sat 1; scienc 1; scott 1; seminar 1; shau 1; studi 1; sun 1; support 2; technolog 1; tel 2; tsz 1; univers 1; use 1; ust 8; venu 1; vision 1; visitor 1; water 1; webmast 1; welcom 1; wong 1;  
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/about_contact.php
-http://ias.ust.hk/web/ias/eng/about.php
-http://ias.ust.hk/web/ias/eng/people.php
-http://ias.ust.hk/web/ias/eng/research.php
-http://ias.ust.hk/web/ias/eng/event.php
-http://ias.ust.hk/web/ias/eng/news.php
-http://ias.ust.hk/web/ias/eng/support.php
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/about.php
-http://ias.ust.hk/web/ias/eng/about_vision.php
-http://ias.ust.hk/web/ias/eng/about_history.php
-http://ias.ust.hk/web/ias/eng/about_facility.php
-http://ias.ust.hk/web/ias/eng/about_usefulinfo.php
-http://ias.ust.hk/web/ias/eng/about_publications.php
-http://ias.ust.hk/web/ias/eng/about_photo.php
-http://ias.ust.hk/web/ias/eng/about_ias.php
-http://ias.ust.hk/web/ias/eng/about_contact.php
-http://ias.ust.hk/ias/eng/images/contact_us_map_large_201508.jpg
-http://pathadvisor.ust.hk/?query=a;5;IAS2|b;36;IAS2|&floor=IAS2&scale=1&offsetX=137&offsetY=176
-http://pathadvisor.ust.hk/?query=a;5;IAS2|b;36;IAS2|&floor=IAS2&scale=1&offsetX=137&offsetY=176
-http://pathadvisor.ust.hk/?query=a;5;IAS2|b;34;IAS2|&floor=IAS2&scale=1&offsetX=217&offsetY=181
-http://pathadvisor.ust.hk/?query=a;5;IAS5|b;17;IAS5|&floor=IAS5&scale=1&offsetX=-101&offsetY=132
-http://pathadvisor.ust.hk/?query=a;11;IAS5|b;5;IAS5|&floor=IAS5&scale=1&offsetX=-101&offsetY=152
-http://pathadvisor.ust.hk/?query=a;5;IAS2|b;34;IAS2|&floor=IAS2&scale=1&offsetX=217&offsetY=181
-http://pathadvisor.ust.hk/?query=a;5;IAS5|b;12;IAS5|&floor=IAS5&scale=1&offsetX=-340&offsetY=111
-http://www.ust.hk
-http://publish.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST Jockey Club Institute for Advanced Study
-http://ias.ust.hk/web/ias/eng/people.php
--62135596800, -1
-2018 1; advanc 1; advisor 1; affili 1; alumni 1; andrew 1; club 1; cohen 1; contact 1; copyright 1; design 1; director 2; educ 1; event 1; faculti 1; fellow 1; guest 1; hkust 1; hong 1; ia 1; institut 1; jockey 1; kong 1; media 1; meet 1; news 1; peopl 2; prof 1; ptc 1; research 1; reserv 1; right 1; scienc 1; staff 1; studi 1; support 1; technolog 1; univers 1; visitor 1;  
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/about_contact.php
-http://ias.ust.hk/web/ias/eng/about.php
-http://ias.ust.hk/web/ias/eng/people.php
-http://ias.ust.hk/web/ias/eng/research.php
-http://ias.ust.hk/web/ias/eng/event.php
-http://ias.ust.hk/web/ias/eng/news.php
-http://ias.ust.hk/web/ias/eng/support.php
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/people.php?catid=1
-http://ias.ust.hk/web/ias/eng/people.php?catid=2
-http://ias.ust.hk/web/ias/eng/people.php?catid=3
-http://ias.ust.hk/web/ias/eng/people.php?catid=4
-http://ias.ust.hk/web/ias/eng/people.php?catid=5
-http://ias.ust.hk/web/ias/eng/people.php?catid=6
-http://ias.ust.hk/web/ias/eng/people.php?catid=7
-http://ias.ust.hk/web/ias/eng/people_meet.php?catid=8
-http://www.ust.hk
-http://publish.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST School of Engineering - MSc program in Big Data Technology
-http://www.sengpp.ust.hk/programs/bdt/en/faq.html#visa
-1457598111, 15123
-00pm 1; 20pm 1; 2358 2; 30pm 1; 5030 2; 5031 2; 50pm 1; 5772 1; 5773 1; 852 1; abil 2; abl 1; academ 1; accommod 5; acquaint 1; act 1; activ 2; addit 2; address 1; admiss 7; admit 1; advis 1; afternoon 1; aim 1; allow 2; answer 1; appli 14; applic 21; appropri 2; approxim 2; arrang 3; assess 1; assist 2; attach 1; avail 5; averag 1; bachelor 2; bank 1; begin 1; below 1; call 1; campus 6; certif 2; certifi 2; chanc 1; charact 1; charg 1; check 1; china 2; citizen 2; class 3; click 6; colleagu 1; comment 1; commission 1; communic 2; communiti 1; compil 1; complet 5; comput 2; condit 2; consid 2; contact 1; continu 1; copi 4; cours 12; credibl 1; criteria 1; current 1; data 4; deadlin 1; degre 8; deliveri 2; depart 1; depend 2; detail 9; develop 1; direct 2; disciplin 1; district 1; document 2; due 1; elig 4; email 2; emerg 1; encourag 1; eng 3; engin 5; english 7; enhanc 2; enl 2; envelop 1; even 2; exampl 1; experi 1; exposur 1; extend 1; faculti 1; fall 3; faq 1; fee 2; feel 1; field 2; financi 2; form 1; forward 4; free 1; frequent 3; fresh 1; friday 1; gov 4; grade 2; graduat 9; grant 1; handl 1; held 4; help 2; histor 1; hksar 1; hkust 2; hold 2; holder 1; hong 12; hope 1; hous 2; htm 1; html 2; http 4; iang 5; immd 3; immedi 2; immigr 3; improv 1; includ 1; independ 1; inform 2; instead 1; institut 1; instruct 1; instructor 1; intak 2; intens 1; interact 1; intern 1; interview 1; invit 1; irreplac 1; issu 3; job 5; kong 12; lang 4; languag 1; leader 1; leav 2; lectur 2; lend 1; letter 3; level 1; life 1; limit 2; list 1; listen 1; loan 2; local 8; look 2; mainland 2; manag 1; master 1; materi 1; mathemat 2; mean 1; medium 1; met 1; modul 3; monday 1; month 1; mphil 3; msc 13; mscbdt 1; nlss 1; normal 1; notari 1; note 2; oath 1; offer 7; offic 7; offici 2; onlin 2; opportun 1; option 1; orient 1; origin 1; outsid 3; own 1; pace 1; paid 1; particip 1; particular 3; pattern 2; pay 1; payment 1; perform 1; person 1; phd 4; philosophi 1; play 1; pleas 12; possess 1; postgradu 2; practic 1; prefer 2; prepar 1; prioriti 1; procedur 1; process 1; profession 2; professor 1; profici 1; program 22; project 1; proof 1; provid 3; public 1; pursu 1; qualiti 1; question 4; rate 2; receiv 2; recogn 1; recognit 1; refer 8; refere 4; regard 1; regul 1; relat 2; relev 1; report 2; requir 8; research 1; residenti 1; respect 2; resum 1; sampl 2; sar 1; saturday 1; schedul 3; scheme 2; scholarship 1; school 3; scienc 1; seal 1; seat 1; seek 2; seminar 1; senior 1; septemb 1; seri 1; servic 2; set 1; sfo 1; shrl 2; skill 2; sometim 1; speak 1; specif 1; stage 1; start 1; stay 5; student 35; studi 12; subject 2; submit 2; success 4; suffici 1; suitabl 3; supervis 1; supervisor 1; take 2; taught 1; teacher 1; technolog 5; tel 1; term 1; tertiari 1; test 1; time 17; total 1; transcript 3; true 2; undergo 1; undergradu 1; univers 8; ust 1; usual 2; valid 2; various 2; visa 19; visit 1; week 1; weekday 1; wfsfaa 1; whichev 1; world 1; write 1; www 4; yes 2;  
-http://www.sengpp.ust.hk/programs/list/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/index.html
-http://www.sengpp.ust.hk/programs/bdt/en/faq.html
-http://www.sengpp.ust.hk/programs/bdt/gb/addition_faq.html
-http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html
-http://www.immd.gov.hk
-http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
-http://www.sengpp.ust.hk/programs/bdt/en/program_fee.html#scholarship
-http://www.wfsfaa.gov.hk/sfo/eng/schemes/nlss.htm
-http://www.immd.gov.hk/eng/services/visas/IANG.html
-http://shrl.ust.hk/eng/detail.php?catid=2&sid=16
-http://www.sengpp.ust.hk/programs/bdt/en/faq.html#visa
-http://www.immd.gov.hk/eng/services/visas/study.html
-http://www.sengpp.ust.hk/programs/bdt/en/curriculum.html
--------------------------------------------------------------------------------------------
-HKUST Jockey Club Institute for Advanced Study
-http://ias.ust.hk/web/ias/eng/event_subscribe.php
--62135596800, -1
-11px 1; 2006 1; 2007 1; 2008 1; 2009 1; 2010 1; 2011 1; 2012 1; 2013 1; 2014 1; 2015 1; 2016 1; 2017 1; 2018 2; 2019 1; advanc 1; af0000 1; affili 1; alumni 1; announc 1; apr 2; arial 1; attend 1; aug 2; biolog 1; board 1; build 1; busi 2; campus 2; chamber 1; charact 1; chung 2; club 1; color 1; comment 1; compulsori 1; contact 1; copyright 1; council 1; dec 2; dept 1; design 1; disciplin 1; educ 1; email 2; enew 2; engin 2; event 6; facebook 1; famili 1; feb 2; fellow 1; field 1; font 2; form 1; forthcom 1; forum 1; helvetica 1; hint 1; hkust 24; human 2; ia 11; imag 1; inform 1; input 1; institut 2; jan 2; jockey 1; jul 2; jun 2; learn 1; life 1; mar 2; media 1; month 1; news 2; none 1; nov 2; oct 2; organ 1; past 1; peopl 1; physic 2; pleas 4; poster 1; program 1; provid 1; ptc 1; receiv 1; recommend 1; research 1; reserv 1; right 1; san 1; scienc 6; select 1; seminar 3; sep 2; serif 1; shown 1; size 1; social 2; specifi 1; staff 1; student 2; studi 3; subscrib 2; support 1; sze 1; upcom 1; venu 1; verdana 1; webpag 1; yuen 1;  
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/about_contact.php
-http://ias.ust.hk/web/ias/eng/about.php
-http://ias.ust.hk/web/ias/eng/people.php
-http://ias.ust.hk/web/ias/eng/research.php
-http://ias.ust.hk/web/ias/eng/event.php
-http://ias.ust.hk/web/ias/eng/news.php
-http://ias.ust.hk/web/ias/eng/support.php
-http://ias.ust.hk/web/ias/eng/index.php
-http://ias.ust.hk/web/ias/eng/event.php
-http://ias.ust.hk/web/ias/eng/event.php?p=y
-http://ias.ust.hk/web/ias/eng/event_subscribe.php
-http://www.ust.hk
-http://publish.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST Path Advisor
-http://pathadvisor.ust.hk/?query=a;5;IAS5|b;12;IAS5|&floor=IAS5&scale=1&offsetX=-340&offsetY=111
--62135596800, -1
-11m 1; 6495475 1; academ 1; access 1; advanc 2; advisor 4; alt 1; atrium 1; avail 1; build 1; bus 3; campus 1; center 1; class 3; com 2; command 1; consol 2; counter 3; customiz 2; cyt 1; debug 1; display 1; distanc 2; div 2; escal 1; f93a2d0c 1; floor 1; found 1; free 1; hit 1; hkust 1; href 1; html 1; http 2; ia 1; img 1; indic 1; inform 1; involv 3; legend 2; lg1 1; lg3 1; lg4 1; lg5 1; lg7 1; lift 2; link 3; locat 1; lsk 1; mini 2; minimum 1; mtr 1; nearest 2; option 2; path 6; photo 2; pleas 1; print 1; result 3; search 5; shortest 2; sorri 1; src 1; staircas 1; start 2; statcount 5; station 1; stop 1; suggest 2; text 1; time 2; titl 1; toilet 1; tweet 1; univers 1; upload 1; wait 1;  
-http://twitter.com/share
-http://pathadvisor.ust.hk/print_page.php
--------------------------------------------------------------------------------------------
-
-http://www.seng.ust.hk/
-1473923028, 461
- 
--------------------------------------------------------------------------------------------
-HKUST Path Advisor
-http://pathadvisor.ust.hk/?query=a;5;IAS2|b;36;IAS2|&floor=IAS2&scale=1&offsetX=137&offsetY=176
--62135596800, -1
-11m 1; 6495475 1; academ 1; access 1; advanc 2; advisor 4; alt 1; atrium 1; avail 1; build 1; bus 3; campus 1; center 1; class 3; com 2; command 1; consol 2; counter 3; customiz 2; cyt 1; debug 1; display 1; distanc 2; div 2; escal 1; f93a2d0c 1; floor 1; found 1; free 1; hit 1; hkust 1; href 1; html 1; http 2; ia 1; img 1; indic 1; inform 1; involv 3; legend 2; lg1 1; lg3 1; lg4 1; lg5 1; lg7 1; lift 2; link 3; locat 1; lsk 1; mini 2; minimum 1; mtr 1; nearest 2; option 2; path 6; photo 2; pleas 1; print 1; result 3; search 5; shortest 2; sorri 1; src 1; staircas 1; start 2; statcount 5; station 1; stop 1; suggest 2; text 1; time 2; titl 1; toilet 1; tweet 1; univers 1; upload 1; wait 1;  
-http://twitter.com/share
-http://pathadvisor.ust.hk/print_page.php
--------------------------------------------------------------------------------------------
-About
-http://www.cse.ust.hk/admin/sitemap/?map=About
--62135596800, -1
-2017 1; achiev 2; alumni 2; appoint 1; associ 1; assur 2; bay 1; career 2; chief 1; committe 1; communic 1; comput 1; contact 3; cse 2; depart 1; destin 1; direct 2; editor 1; employ 1; engin 1; event 2; facil 2; faculti 2; follow 1; guid 1; hong 2; info 1; internship 1; intranet 3; job 1; kong 2; kowloon 1; lab 1; link 2; map 1; myport 1; news 2; opportun 1; peopl 1; polici 2; postgradu 2; privaci 1; program 3; qualiti 2; recruit 2; research 1; schedul 1; scienc 2; servic 1; sheet 2; site 1; societi 1; staff 1; student 3; system 1; team 1; technolog 1; tutor 1; undergradu 1; univers 1; updat 1; use 1; user 1; water 1; webmail 1; welcom 2;  
-http://www.cse.ust.hk/
-http://www.cse.ust.hk/admin/sitemap/?lang=hk&map=About
-http://www.cse.ust.hk/admin/sitemap/?lang=cn&map=About
+http://www.cse.ust.hk/admin/recruitment/head/?lang=hk
+http://www.cse.ust.hk/admin/recruitment/head/?lang=cn
 http://www.ust.hk/
 http://www.seng.ust.hk/
 http://www.cse.ust.hk/admin/sitemap/?map=About
@@ -603,14 +316,9 @@ http://www.cse.ust.hk/acm/
 http://ihome.ust.hk/~su_csess/
 https://www.facebook.com/cseaa.hkust
 http://www.cse.ust.hk/admin/sitemap/
-http://www.cse.ust.hk/admin/welcome/
-http://www.cse.ust.hk/admin/about/
-http://www.cse.ust.hk/admin/factsheet/
-http://www.cse.ust.hk/News/?type=news|achievement
-http://www.cse.ust.hk/News/?type=event
-http://www.cse.ust.hk/admin/QA/
-http://www.cse.ust.hk/admin/contact/
-http://www.ust.hk/about-hkust/about-the-campus/map-directions-2015/
+http://www.ust.hk/
+https://www.seng.ust.hk/
+http://www.cse.ust.hk/
 https://www.facebook.com/hkust/
 https://www.instagram.com/hkust/
 https://www.linkedin.com/company/department-of-computer-science-and-engineering-the-hong-kong-university-of-science-and-technology
@@ -619,81 +327,16 @@ http://www.cse.ust.hk/admin/contact/
 http://www.cse.ust.hk/admin/recruitment/
 http://www.ust.hk/privacy-policy/
 -------------------------------------------------------------------------------------------
-HKUST School of Engineering - News Center
-http://www.seng.ust.hk/web/eng/publication.php
--62135596800, -1
-12px 1; 1992 1; 1993 2; 1994 2; 1995 2; 1996 1; 1999 1; 1px 1; 2000 1; 2001 1; 2002 3; 2003 3; 2004 2; 2005 3; 2006 3; 2007 2; 2008 3; 2009 3; 200px 2; 2010 1; 2011 2; 2012 6; 2013 10; 2014 4; 2015 6; 2016 3; 2017 7; 2018 3; 20px 1; 24px 2; 5px 1; academ 1; alumni 1; appear 4; apr 2; aug 1; autumn 1; background 4; bilingu 1; book 6; booklet 1; border 3; ccc 1; center 2; collabor 1; copyright 1; current 1; ddd 2; dec 3; depart 1; edit 3; enewslett 1; engin 1; english 1; enquiri 1; event 1; faculti 1; fall 11; feb 3; flip 6; focus 1; follow 1; font 1; franc 1; friend 1; height 3; hidden 1; hkust 2; hub 1; imag 2; industri 1; innov 1; issu 42; jan 1; jpg 2; jul 1; jun 1; line 1; mar 1; media 1; moz 1; news 2; newslett 2; none 4; nov 1; overflow 1; pad 2; partner 2; pdf 8; peopl 1; photo 1; posit 1; prospect 1; public 2; pull 2; radius 1; repeat 4; report 1; research 2; reserv 1; right 1; school 1; select 3; sep 3; sept 1; sitemap 1; size 1; solid 1; spring 15; staff 1; status 1; student 2; style 2; summer 7; undergradu 1; unit 1; url 2; version 10; video 1; web 1; webkit 2; width 2; winter 2;  
-http://www.seng.ust.hk/web/eng/index.php
-http://www.seng.ust.hk/web/eng/cat.php?catid=1
-http://www.seng.ust.hk/web/eng/cat.php?catid=2
-http://www.seng.ust.hk/web/eng/cat.php?catid=3
-http://www.seng.ust.hk/web/eng/people.php?catid=4
-http://www.seng.ust.hk/web/eng/cat.php?catid=5
-http://www.seng.ust.hk/web/eng/news_index.php?catid=6
-http://www.seng.ust.hk/web/eng/cat.php?catid=7
-http://www.seng.ust.hk/web/eng/news_index.php
-http://www.seng.ust.hk/web/eng/news.php
-http://www.seng.ust.hk/web/eng/events.php
-http://www.seng.ust.hk/web/eng/publication.php
-http://www.seng.ust.hk/web/eng/photo_gallery.php
-http://www.seng.ust.hk/web/eng/video_gallery.php
-http://infocus.ust.hk
-http://www.seng.ust.hk/web/file/pub/infocus28.pdf
-http://www.seng.ust.hk/web/publication/infocus/no28/index.html
-http://epublish.ust.hk?Infocus/2015fall
-http://www.seng.ust.hk/web/file/pub/infocus27.pdf
-http://www.seng.ust.hk/web/publication/infocus/no27/index.html
-http://epublish.ust.hk?Infocus/2015spring
-http://www.seng.ust.hk/web/file/pub/infocus26.pdf
-http://www.seng.ust.hk/web/publication/infocus/no26/index.html
-http://epublish.ust.hk?Infocus/2014summer
-http://www.seng.ust.hk/web/file/pub/infocus25.pdf
-http://www.seng.ust.hk/web/publication/infocus/no25/index.html
-https://www.seng.ust.hk/web/eng/enewsletter.php?id=39
-http://ebookshelf.ust.hk/flippingbook/G18608
-http://www.seng.ust.hk/web/file/pub/334_Bilingual_Booklet_2018_Ebook.pdf
-http://www.seng.ust.hk/web/file/pub/334_booklet_2017_en.pdf
-http://ebookshelf.ust.hk/flippingbook/G18422/
-http://www.seng.ust.hk/web/publication/report/html/index.html
-http://www.seng.ust.hk/web/file/pub/Seng_report_09_11.pdf
-http://www.seng.ust.hk/web/file/pub/fhih_newsletter_2017dec.pdf
-http://www.ust.hk
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=1
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=2
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=3
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=4
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=5
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=6
-http://www.seng.ust.hk/web/eng/cat_page.php?cat2id=7
-http://www.seng.ust.hk/web/eng/sitemap.php
-http://www.facebook.com/hkustengineering
-http://www.youtube.com/user/sengpr
-http://www.instagram.com/hkustengineering
--------------------------------------------------------------------------------------------
 CS System
-http://cssystem.cse.ust.hk/HOME/index.html
--62135596800, 6518
-00pm 1; 100px 1; 150px 2; 33pm 1; 4202 1; 45am 1; 45pm 1; 509 1; 50px 1; access 2; align 1; bay 1; block 4; center 1; cert 1; certif 1; choi 1; comment 1; comput 3; cssystem 2; cstak 1; daniel 1; daniellau 1; depart 2; digit 7; display 4; domin 2; email 1; engin 2; extn 2; facil 2; faculti 1; faq 2; form 2; fri 1; guest 1; guid 2; henri 2; hong 3; hour 2; inlin 4; kin 1; kong 3; kowloon 1; kwong 1; lai 1; lam 2; lau 1; lift 1; lunch 1; mail 1; mon 1; name 2; near 1; offic 1; pleas 1; postgradu 1; remot 2; renfrew 1; reserv 1; right 1; scienc 4; send 1; staff 1; suggest 1; tak 1; technolog 2; text 1; tse 1; undergradu 1; univers 2; use 2; user 2; vincent 1; vincentchoi 1; water 1; width 4; winni 2; wong 1; wwkwong 1; x7004 1; x7005 1; x7006 2; x7022 1; x7023 1; x7025 1; x7026 1; yau 1; yiu 2;  
+http://cssystem.cse.ust.hk/
+-62135596800, 2989
+access 2; comment 1; comput 2; cssystem 1; depart 1; engin 1; facil 2; faculti 1; faq 2; form 2; guest 1; guid 2; hong kong 2; mainten 2; pleas 1; postgradu 1; remot 2; reserv 1; right 1; schedul 1; scienc 2; send 1; staff 1; suggest 1; system 1; technolog 1; undergradu 1; univers 1; use 2; user 2;  
 http://cssystem.cse.ust.hk/UGuides/index.html
 http://cssystem.cse.ust.hk/Facilities/index.html
 http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
 http://cssystem.cse.ust.hk/FAQ/index.html
 http://cssystem.cse.ust.hk/Forms/index.html
 http://cssystem.cse.ust.hk/HOME/index.html
-http://www.cse.ust.hk/cssystem/henry/
-http://cssystem.cse.ust.hk/HOME/certs/henry.cer
-http://www.cse.ust.hk/cssystem/dominic/
-http://cssystem.cse.ust.hk/HOME/certs/dominic.cer
-http://www.cse.ust.hk/cssystem/yiu/
-http://cssystem.cse.ust.hk/HOME/certs/yiu.cer
-http://www.cse.ust.hk/cssystem/winnie/
-http://cssystem.cse.ust.hk/HOME/certs/winnie.cer
-http://www.cse.ust.hk/cssystem/wwkwong/
-http://cssystem.cse.ust.hk/HOME/certs/wwkwong.cer
-http://www.cse.ust.hk/cssystem/cstak/
-http://cssystem.cse.ust.hk/HOME/certs/wwkwong.cer
-http://www.cse.ust.hk/cssystem/vincentchoi/
-http://cssystem.cse.ust.hk/HOME/certs/vincentchoi.cer
 http://cssystem.cse.ust.hk/UGuides/index.html
 http://cssystem.cse.ust.hk/Facilities/index.html
 http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
@@ -702,80 +345,6 @@ http://cssystem.cse.ust.hk/Forms/index.html
 http://cssystem.cse.ust.hk/HOME/index.html
 http://www.cse.ust.hk/
 http://www.ust.hk/
--------------------------------------------------------------------------------------------
-HKUST School of Engineering - News Center - News
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
--62135596800, -1
-0px 1; 150 1; 1st 1; 2000 1; 2017 2; 2018 1; 615px 1; 666666 1; 8th 1; absolut 1; academ 4; academia 1; achiev 2; act 1; addit 1; advanc 2; affect 1; album 1; alongsid 1; alpha 1; alumni 2; appli 1; applic 2; archiv 1; asia 1; associ 2; astri 1; attract 1; audienc 1; background 1; beevest 1; behavior 1; biggest 1; block2 1; blockchain 2; bring 1; busi 2; calli 1; campus 1; canada 1; center 1; ceo 1; ceremoni 1; chairman 1; challeng 1; chan 3; chang 2; chen 2; cheng 2; chief 2; cio 1; citi 1; cloud 1; club 1; collabor 1; color 1; comput 1; conduct 1; confer 1; configur 1; copyright 1; corpor 1; cost 2; curat 1; current 1; daili 1; data 10; dean 2; demonstr 1; depart 1; deploy 1; describ 1; detail 1; director 4; discuss 2; distinguish 1; download 1; drive 1; educ 3; emerg 1; enabl 1; engin 5; enquiri 1; event 2; evolv 1; excel 2; exchang 1; experi 2; expert 1; exponenti 1; faculti 2; fdt 5; featur 1; filter 1; financ 3; financi 5; fintech 10; follow 1; forum 4; founder 1; fraud 1; friend 1; fundament 1; futur 1; global 3; govern 1; gown 1; grow 1; grown 1; guest 2; held 1; help 1; henri 1; hkust 10; hong 3; hurdl 1; ihab 1; ilya 1; implement 1; import 1; improv 1; includ 1; inclus 1; index 1; industri 6; inevit 1; inner 1; insight 1; instal 1; institut 7; intern 1; internet 1; intersect 1; intra 1; introduct 1; invest 1; jame 1; jockey 1; keynot 1; kong 3; lead 1; leader 2; learn 3; lectur 1; left 2; lei 3; leverag 2; life 1; link 1; liu 2; local 2; ltd 1; machin 2; major 1; manag 1; margin 1; media 1; meet 1; mentor 1; metropolitan 1; microsoft 2; mobil 1; msra 2; news 3; novemb 1; offici 1; opac 2; opportun 1; optim 1; organ 2; outreach 1; oversea 1; panel 1; partner 2; partnership 1; peopl 1; person 1; photo 3; plan 1; posit 2; potenti 2; presid 2; press 1; principl 1; process 1; prof 8; promis 1; prospect 1; public 2; qiang 1; qifeng 1; recogn 1; reduc 2; relat 2; releas 1; research 8; reserv 1; revolut 1; right 1; save 1; school 1; scienc 2; scientist 1; seminar 1; seri 1; servic 1; sitemap 1; solv 1; speech 1; staff 1; stori 1; streamlin 1; student 4; studi 1; talk 1; teach 1; techniqu 1; technolog 8; tempor 1; term 1; tertiari 1; therebi 1; tim 2; toni 2; tool 1; town 1; trade 1; trader 1; transact 1; transform 1; trend 2; type 1; understood 1; unit 1; univers 5; unpreced 1; user 1; various 2; verifi 1; video 1; view 1; walk 1; waterloo 1; webank 2; weihua 1; wider 1; width 1; wireless 1; women 1; world 2; yan 1; yang 1; ying 1;  
-https://www.seng.ust.hk/web/eng/index.php
-https://www.seng.ust.hk/web/eng/cat.php?catid=1
-https://www.seng.ust.hk/web/eng/cat.php?catid=2
-https://www.seng.ust.hk/web/eng/cat.php?catid=3
-https://www.seng.ust.hk/web/eng/people.php?catid=4
-https://www.seng.ust.hk/web/eng/cat.php?catid=5
-https://www.seng.ust.hk/web/eng/news_index.php?catid=6
-https://www.seng.ust.hk/web/eng/cat.php?catid=7
-https://www.seng.ust.hk/web/eng/news_index.php
-https://www.seng.ust.hk/web/eng/news.php
-https://www.seng.ust.hk/web/eng/events.php
-https://www.seng.ust.hk/web/eng/publication.php
-https://www.seng.ust.hk/web/eng/photo_gallery.php
-https://www.seng.ust.hk/web/eng/video_gallery.php
-https://www.seng.ust.hk/web/eng/news.php?cur2=alltype
-https://www.seng.ust.hk/web/eng/news.php?id=1&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=5&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=8&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=10&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=3&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=9&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=6&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=13&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=2&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=4&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=7&cur2=type
-https://www.seng.ust.hk/web/eng/news.php?id=16&cur2=type
-https://www.seng.ust.hk/web/eng/archive.php?selF=news
-https://www.seng.ust.hk/web/file/news/1511511831_pb.JPG
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-https://www.seng.ust.hk/web/eng/news_detail.php?id=1054
-http://www.cse.ust.hk/BDI/FinTech/
-https://www.seng.ust.hk/web/eng/photo_gallery.php#41
-http://www.ust.hk
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=1
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=2
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=3
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=4
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=5
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=6
-https://www.seng.ust.hk/web/eng/cat_page.php?cat2id=7
-https://www.seng.ust.hk/web/eng/sitemap.php
-http://www.facebook.com/hkustengineering
-http://www.youtube.com/user/sengpr
-http://www.instagram.com/hkustengineering
--------------------------------------------------------------------------------------------
-HKUST Path Advisor
-http://pathadvisor.ust.hk/?query=a;5;IAS2|b;34;IAS2|&floor=IAS2&scale=1&offsetX=217&offsetY=181
--62135596800, -1
-11m 1; 6495475 1; academ 1; access 1; advanc 2; advisor 4; alt 1; atrium 1; avail 1; build 1; bus 3; campus 1; center 1; class 3; com 2; command 1; consol 2; counter 3; customiz 2; cyt 1; debug 1; display 1; distanc 2; div 2; escal 1; f93a2d0c 1; floor 1; found 1; free 1; hit 1; hkust 1; href 1; html 1; http 2; ia 1; img 1; indic 1; inform 1; involv 3; legend 2; lg1 1; lg3 1; lg4 1; lg5 1; lg7 1; lift 2; link 3; locat 1; lsk 1; mini 2; minimum 1; mtr 1; nearest 2; option 2; path 6; photo 2; pleas 1; print 1; result 3; search 5; shortest 2; sorri 1; src 1; staircas 1; start 2; statcount 5; station 1; stop 1; suggest 2; text 1; time 2; titl 1; toilet 1; tweet 1; univers 1; upload 1; wait 1;  
-http://twitter.com/share
-http://pathadvisor.ust.hk/print_page.php
--------------------------------------------------------------------------------------------
-HKUST Path Advisor
-http://pathadvisor.ust.hk/?query=a;5;IAS5|b;17;IAS5|&floor=IAS5&scale=1&offsetX=-101&offsetY=132
--62135596800, -1
-11m 1; 6495475 1; academ 1; access 1; advanc 2; advisor 4; alt 1; atrium 1; avail 1; build 1; bus 3; campus 1; center 1; class 3; com 2; command 1; consol 2; counter 3; customiz 2; cyt 1; debug 1; display 1; distanc 2; div 2; escal 1; f93a2d0c 1; floor 1; found 1; free 1; hit 1; hkust 1; href 1; html 1; http 2; ia 1; img 1; indic 1; inform 1; involv 3; legend 2; lg1 1; lg3 1; lg4 1; lg5 1; lg7 1; lift 2; link 3; locat 1; lsk 1; mini 2; minimum 1; mtr 1; nearest 2; option 2; path 6; photo 2; pleas 1; print 1; result 3; search 5; shortest 2; sorri 1; src 1; staircas 1; start 2; statcount 5; station 1; stop 1; suggest 2; text 1; time 2; titl 1; toilet 1; tweet 1; univers 1; upload 1; wait 1;  
-http://twitter.com/share
-http://pathadvisor.ust.hk/print_page.php
 -------------------------------------------------------------------------------------------
 HKUST Jockey Club Institute for Advanced Study
 http://ias.ust.hk/web/ias/eng/research.php
@@ -797,4 +366,457 @@ http://ias.ust.hk/web/ias/eng/event.php
 http://iasprogram.ust.hk
 http://www.ust.hk
 http://publish.ust.hk/
+-------------------------------------------------------------------------------------------
+CS System
+http://cssystem.cse.ust.hk/UGuides/index.html
+-62135596800, 6938
+10px 1; 115 2; 117 1; 131 2; 156 2; 191 1; 1px 7; 223 1; 228 1; 231 2; 249 2; 251 1; 254 1; 255 3; 5px 5; 8px 4; aaa 1; access 2; account 1; align 1; background 5; block 1; bold 2; border 11; bottom 3; box 1; center 1; channel 1; color 8; comment 1; comput 2; csd 4; cssystem 1; cursor 1; depart 1; display 1; engin 1; establish 1; f0f0f0 5; facil 2; faculti 2; faq 2; font 4; form 2; guest 2; guid 3; hong kong 2; hover 1; ident 1; inlin 1; left 2; manag 1; margin 1; news 1; orang 1; pad 3; pki 1; pleas 2; pointer 1; polici 1; postgradu 2; radius 5; remot 2; reserv 1; rgb 8; right 1; safeti 1; scienc 2; select 1; send 1; shadow 1; size 2; solid 6; span 1; staff 2; suggest 1; tab 1; tabselect 1; tabtitl 1; technolog 1; text 1; top 4; trust 1; uguidescontain 1; uguidestab 3; undergradu 2; univers 1; use 2; user 3; weight 2; width 1;  
+http://cssystem.cse.ust.hk/UGuides/index.html
+http://cssystem.cse.ust.hk/Facilities/index.html
+http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
+http://cssystem.cse.ust.hk/FAQ/index.html
+http://cssystem.cse.ust.hk/Forms/index.html
+http://cssystem.cse.ust.hk/HOME/index.html
+http://cssystem.cse.ust.hk/UGuides/csd_only/account_policy
+http://cssystem.cse.ust.hk/UGuides/csd_manage.html
+http://cssystem.cse.ust.hk/UGuides/csd_only/PKI/csd_pki.html
+http://cssystem.cse.ust.hk/UGuides/newsChannel.html
+http://cssystem.cse.ust.hk/UGuides/index.html
+http://cssystem.cse.ust.hk/Facilities/index.html
+http://cssystem.cse.ust.hk/UGuides/RemoteAccess/index.html
+http://cssystem.cse.ust.hk/FAQ/index.html
+http://cssystem.cse.ust.hk/Forms/index.html
+http://cssystem.cse.ust.hk/HOME/index.html
+http://www.cse.ust.hk/
+http://www.ust.hk/
+-------------------------------------------------------------------------------------------
+Undergraduate Intranet (4-Year Curriculum)
+http://www.cse.ust.hk/ug/hkust_only/
+-62135596800, -1
+00pm 1; 120 1; 12nn 1; 1991 1; 2014 1; 2015 2; 2016 2; 2017 7; 2018 8; 2466 1; 2501 1; 2501a 1; 3528 1; 3530 1; 4900 1; academ 3; access 1; achiev 1; addit 1; admin 1; advic 1; advis 3; affair 1; alumni 2; ambassador 2; announc 1; applic 5; appoint 1; arr 1; associ 1; assur 1; asterisk 1; bay 2; bdt 1; calendar 1; career 3; catalog 2; center 1; chief 1; class 1; club 1; committe 2; common 3; communic 3; comp 7; comput 2; connect 1; contact 3; coordin 2; copi 1; core 1; cosc 1; cours 8; credit 1; cse 11; csess 1; curriculum 3; data 1; date 2; deadlin 5; defens 1; degre 1; depart 4; department 1; destin 1; develop 1; direct 2; editor 1; effect 1; elect 1; email 1; employ 1; engin 4; entrant 4; entrepreneurship 2; entri 1; event 1; exchang 1; experi 3; facil 3; faculti 2; faq 1; februari 3; final 2; follow 1; form 1; free 1; friday 1; fulfil 1; glanc 2; guid 2; hard 1; hkust 2; hong kong 8; honor 1; hunt 1; independ 1; industri 1; info 1; inform 1; internship 2; intranet 4; involv 1; itsc 1; job 3; kowloon 2; lab 3; learn 2; liaison 1; link 3; logo 1; loung 1; major 1; map 1; mark 1; meet 1; midterm 1; minor 5; myport 1; network 1; news 1; note 1; offer 1; offic 3; opportun 3; orient 1; outsid 1; pathway 1; pedro 1; peopl 1; plan 2; polici 2; portal 1; postgradu 2; ppt 1; privaci 1; profession 1; program 18; project 1; pursu 1; qualiti 1; quota 1; recruit 2; registr 2; regul 1; repres 1; requir 3; research 2; sander 1; schedul 4; scienc 4; seng 1; servic 3; sheet 1; site 1; slide 4; societi 2; spring 3; staff 2; start 1; structur 1; student 18; studi 2; submit 1; success 1; suggest 1; system 5; teach 2; team 2; technolog 3; tentat 1; term 1; these 1; thesi 1; thursday 1; timet 3; transfer 1; tutor 3; undergradu 4; univers 2; updat 1; use 2; user 1; vpn 1; water 2; webmail 1; wednesday 1; week 1; welcom 1;  
+http://www.cse.ust.hk/
+http://www.cse.ust.hk/ug/hkust_only/?lang=hk
+http://www.cse.ust.hk/ug/hkust_only/?lang=cn
+http://www.ust.hk/
+http://www.seng.ust.hk/
+http://www.cse.ust.hk/admin/sitemap/?map=About
+http://www.cse.ust.hk/admin/welcome/
+http://www.cse.ust.hk/admin/about/
+http://www.cse.ust.hk/admin/factsheet/
+http://www.cse.ust.hk/News/?type=news|achievement
+http://www.cse.ust.hk/News/?type=event
+http://www.cse.ust.hk/admin/QA/
+http://www.cse.ust.hk/admin/contact/
+http://www.ust.hk/about-hkust/about-the-campus/map-directions-2015/
+http://www.cse.ust.hk/admin/sitemap/?map=People
+http://www.cse.ust.hk/admin/people/faculty/
+http://www.cse.ust.hk/admin/people/staff/
+http://www.cse.ust.hk/ct/
+http://www.cse.ust.hk/admin/people/pg/
+http://www.cse.ust.hk/alumni/
+http://www.cse.ust.hk/admin/recruitment/
+http://www.cse.ust.hk/admin/people/eic/
+http://www.cse.ust.hk/admin/sitemap/?map=Undergraduate
+http://www.cse.ust.hk/ug/
+http://www.cse.ust.hk/ug/hkust_only/
+http://www.cse.ust.hk/admin/sitemap/?map=Postgraduate
+http://www.cse.ust.hk/pg/
+http://www.cse.ust.hk/pg/hkust_only/
+http://www.cse.ust.hk/pg/admissions/recruiting/
+http://www.cse.ust.hk/pg/ourgraduates/
+http://www.cse.ust.hk/pg/research/
+http://www.cse.ust.hk/admin/sitemap/?map=Career
+http://www.cse.ust.hk/ug/internship/
+http://www.cse.ust.hk/ug/internship/forEmployer/
+http://www.cse.ust.hk/ug/career/service/
+http://www.cse.ust.hk/admin/facilities/
+http://www.cse.ust.hk/admin/facilities/committee/
+http://www.cse.ust.hk/admin/lab/
+http://cssystem.cse.ust.hk/UGuides/index.html
+http://cssystem.cse.ust.hk/
+http://www.cse.ust.hk/admin/sitemap/?map=Links
+https://imail.cse.ust.hk/sqmail/
+http://www.cse.ust.hk/Restricted/
+http://my.ust.hk
+http://www.cse.ust.hk/acm/
+http://ihome.ust.hk/~su_csess/
+https://www.facebook.com/cseaa.hkust
+http://www.cse.ust.hk/admin/sitemap/
+http://www.cse.ust.hk/bsc/
+http://www.cse.ust.hk/ug/minor/BDT/
+http://www.cse.ust.hk/ug/transfer/
+http://www.seng.ust.hk/SA_application
+http://prog-crs.ust.hk/ugprog
+http://ugadmin.ust.hk/prog_crs/pdf/ug/comp.pdf
+http://ugadmin.ust.hk/curriculum_hb/1718hb/4y/pdf/16-17comp2.pdf
+http://ugadmin.ust.hk/curriculum_hb/1718hb/4y/pdf/15-16comp3.pdf
+http://ugadmin.ust.hk/curriculum_hb/1718hb/4y/pdf/14-15comp4.pdf
+http://www.cse.ust.hk/ug/comp/curriculum_diagram.pdf
+http://prog-crs.ust.hk/ugprog/pathways.html
+http://www.cse.ust.hk/ug/comp/4yr_study_pathways.pdf
+http://uce.ust.hk/web/courses/course_curriculum.html
+http://prog-crs.ust.hk/ugcourse
+http://prog-crs.ust.hk/ugcourse/2017-18/COMP
+http://www.cse.ust.hk/ug/additional_major/
+http://www.cse.ust.hk/ug/minor/
+http://www.cse.ust.hk/ug/minor/BDT/
+http://www.cse.ust.hk/ug/minor/IT/
+http://www.cse.ust.hk/ug/faq/registration/
+http://www.cse.ust.hk/ug/faq/honors/
+http://www.cse.ust.hk/ug/faq/direct_entry/
+http://www.cse.ust.hk/ug/faq/career/
+http://www.cse.ust.hk/admin/lounge/
+http://www.cse.ust.hk/admin/stucommons/
+http://www.cse.ust.hk/admin/stubooking/
+http://www.seng.ust.hk/SA_application
+http://e-club.cse.ust.hk/
+http://one.cse.ust.hk/
+http://www.cse.ust.hk/ug/representatives/
+http://ihome.ust.hk/~su_csess/
+https://www.cse.ust.hk/ug/Password_Only/sslc/
+http://tl.ust.hk/conduct/good_learning_experience.pps
+http://www.cse.ust.hk/ug/csd_only/orientation/f17_ugcoord_psander.pdf
+http://www.cse.ust.hk/ug/csd_only/orientation/f17_cssystem_dominic.pdf
+http://www.cse.ust.hk/ug/csd_only/orientation/f17_ct_noor.pdf
+http://www.cse.ust.hk/ug/csd_only/orientation/f17_csess.pdf
+http://www.cse.ust.hk/ug/exchange/
+http://urop.ust.hk/
+http://urop.ust.hk/cgi-bin/uropos/index.php?dpoption=CSE
+http://www.cse.ust.hk/ug/comp1991/
+http://www.cse.ust.hk/ug/internship/
+http://www.cse.ust.hk/ug/internship/?id=listjob
+http://www.cse.ust.hk/ug/career/service/
+http://www.ec.ust.hk/
+http://www.cse.ust.hk/acm/
+http://www.cse.ust.hk/ug/advising/
+http://www.cse.ust.hk/ug/comp4900/
+http://www.cse.ust.hk/ug/fyp/?fyp_year=2017-2018
+http://www.cse.ust.hk/ug/fyt/
+http://e-advising.seng.ust.hk/
+http://www.cse.ust.hk/ug/courses/
+https://w5.ab.ust.hk/wcq/cgi-bin/1730/subject/COMP
+http://www.cse.ust.hk/ug/timetable/
+https://labschedule.cse.ust.hk/
+http://www.cse.ust.hk/ug/timetable/?lab
+http://www.cse.ust.hk/ug/midterm/
+https://sisprod.psft.ust.hk/psp/SISPROD/EMPLOYEE/HRMS/h/?tab=DEFAULT
+http://my.ust.hk/
+http://cssystem.cse.ust.hk/
+http://www.cse.ust.hk/ct/
+http://www.cse.ust.hk/ug/pcs/
+http://ugadmin.ust.hk/ug-guide/who/
+http://arr.ust.hk/reg/
+http://arr.ust.hk/reg/in/in_forms/forms_std_student/forms_std_student.html?ticket=ST-4335-RG1OCkr7zpneuSq3iTTf-cas1.ust.hk
+https://sao.ust.hk/
+http://prog-crs.ust.hk/
+http://acadreg.ust.hk/
+http://registry.ust.hk/calendar_dates/dates17-18confirmed.pdf
+http://fys.ust.hk/
+http://www.seng.ust.hk/web/eng/thirdcat.php?catid=2&subid=11&thirdid=49
+http://www.cse.ust.hk/admin/logos/
+http://www.cse.ust.hk/~psander/
+http://qa.ust.hk/student_feedback.html
+http://itsc.ust.hk/apps/vpn/
+https://www.facebook.com/hkust/
+https://www.instagram.com/hkust/
+https://www.linkedin.com/company/department-of-computer-science-and-engineering-the-hong-kong-university-of-science-and-technology
+https://www.youtube.com/channel/UC1Gky4HCpEOK5EmoUj6zhGg
+http://www.cse.ust.hk/admin/contact/
+http://www.cse.ust.hk/admin/recruitment/
+http://www.ust.hk/privacy-policy/
+-------------------------------------------------------------------------------------------
+Head of the Department of Computer Science and Engineering
+http://www.cse.ust.hk/admin/recruitment/head/?lang=cn
+-62135596800, -1
+1991 1; 2018 1; 270 1; 770 1; academ 3; accomplish 1; acquir 1; activ 1; addit 1; address 1; administr 3; advanc 1; advantag 1; appli 1; applic 4; appoint 2; appropri 1; artifici 1; aspect 1; basic 1; benefit 1; beng 1; broad 1; bsc 1; busi 1; candid 1; capabl 1; capac 1; categor 1; chair 1; close 1; collabor 1; commerci 1; commit 1; committe 1; competit 1; comprehens 1; comput 6; concurr 1; conduct 1; cse 6; current 1; curriculum 1; cybersecur 1; data 1; dean 1; dedic 2; degre 1; demonstr 1; depart 8; divers 2; educ 4; effect 1; email 2; emphasi 1; employ 1; engin 6; english 2; entrepreneuri 1; expect 1; experi 1; extens 1; faculti 2; famili 1; five 1; found 1; friend 1; fring 1; function 1; generous 1; global 1; govern 1; graphic 1; head 3; headship 1; histori 1; hkust 3; hong kong 2; hous 1; http 2; https 1; human 1; includ 1; increas 1; industri 2; inform 3; initi 1; innov 1; intellig 1; interact 2; interdisciplinari 1; intern 2; invit 1; knowledg 1; lead 1; leadership 2; learn 1; level 1; manag 2; medium 1; mphil 1; msc 1; myport 1; name 1; network 1; nomin 3; normal 1; offer 1; outlook 1; past 1; phd 1; player 1; pleas 1; polici 1; posit 1; postgradu 2; professori 1; program 2; promot 1; proven 1; provid 4; purpos 1; qualifi 1; rang 1; rank 2; recruit 1; refere 1; regard 1; relat 1; remuner 1; renew 1; renown 1; report 1; research 6; respect 1; role 1; round 1; scene 1; scholar 1; scholarship 1; school 1; scienc 5; search 1; sector 1; seng 1; sent 1; short 1; softwar 1; special 1; spirit 1; strong 2; student 3; studi 1; success 1; system 1; teach 4; technolog 2; term 3; tertiari 1; theoret 1; think 1; time 1; top 1; undergradu 1; univers 7; ust 3; vision 1; visit 1; vita 1; world 2; www 3;  
+http://www.cse.ust.hk/
+http://www.cse.ust.hk/admin/recruitment/head/?lang=en
+http://www.cse.ust.hk/admin/recruitment/head/?lang=hk
+http://www.ust.hk/
+http://www.seng.ust.hk/
+http://www.cse.ust.hk/admin/sitemap/?map=About
+http://www.cse.ust.hk/admin/welcome/
+http://www.cse.ust.hk/admin/about/
+http://www.cse.ust.hk/admin/factsheet/
+http://www.cse.ust.hk/News/?type=news|achievement
+http://www.cse.ust.hk/News/?type=event
+http://www.cse.ust.hk/admin/QA/
+http://www.cse.ust.hk/admin/contact/
+http://www.ust.hk/zh-hans/about-hkust/about-the-campus-2/map-directions-2015/
+http://www.cse.ust.hk/admin/sitemap/?map=People
+http://www.cse.ust.hk/admin/people/faculty/
+http://www.cse.ust.hk/admin/people/staff/
+http://www.cse.ust.hk/ct/
+http://www.cse.ust.hk/admin/people/pg/
+http://www.cse.ust.hk/alumni/
+http://www.cse.ust.hk/admin/recruitment/
+http://www.cse.ust.hk/admin/people/eic/
+http://www.cse.ust.hk/admin/sitemap/?map=Undergraduate
+http://www.cse.ust.hk/ug/
+http://www.cse.ust.hk/ug/hkust_only/
+http://www.cse.ust.hk/admin/sitemap/?map=Postgraduate
+http://www.cse.ust.hk/pg/
+http://www.cse.ust.hk/pg/hkust_only/
+http://www.cse.ust.hk/pg/admissions/recruiting/
+http://www.cse.ust.hk/pg/ourgraduates/
+http://www.cse.ust.hk/pg/research/
+http://www.cse.ust.hk/admin/sitemap/?map=Career
+http://www.cse.ust.hk/ug/internship/
+http://www.cse.ust.hk/ug/internship/forEmployer/
+http://www.cse.ust.hk/ug/career/service/
+http://www.cse.ust.hk/admin/facilities/
+http://www.cse.ust.hk/admin/facilities/committee/
+http://www.cse.ust.hk/admin/lab/
+http://cssystem.cse.ust.hk/UGuides/index.html
+http://cssystem.cse.ust.hk/
+http://www.cse.ust.hk/admin/sitemap/?map=Links
+https://imail.cse.ust.hk/sqmail/
+http://www.cse.ust.hk/Restricted/
+http://my.ust.hk
+http://www.cse.ust.hk/acm/
+http://ihome.ust.hk/~su_csess/
+https://www.facebook.com/cseaa.hkust
+http://www.cse.ust.hk/admin/sitemap/
+http://www.ust.hk/
+https://www.seng.ust.hk/
+http://www.cse.ust.hk/
+https://www.facebook.com/hkust/
+https://www.instagram.com/hkust/
+https://www.linkedin.com/company/department-of-computer-science-and-engineering-the-hong-kong-university-of-science-and-technology
+https://www.youtube.com/channel/UC1Gky4HCpEOK5EmoUj6zhGg
+http://www.cse.ust.hk/admin/contact/
+http://www.cse.ust.hk/admin/recruitment/
+http://www.ust.hk/zh-hans/privacy-policy-2/
+-------------------------------------------------------------------------------------------
+Head of the Department of Computer Science and Engineering
+http://www.cse.ust.hk/admin/recruitment/head/?lang=hk
+-62135596800, -1
+1991 1; 2018 1; 270 1; 770 1; academ 3; accomplish 1; acquir 1; activ 1; addit 1; address 1; administr 3; advanc 1; advantag 1; appli 1; applic 4; appoint 2; appropri 1; artifici 1; aspect 1; basic 1; benefit 1; beng 1; broad 1; bsc 1; busi 1; candid 1; capabl 1; capac 1; categor 1; chair 1; close 1; collabor 1; commerci 1; commit 1; committe 1; competit 1; comprehens 1; comput 6; concurr 1; conduct 1; cse 6; current 1; curriculum 1; cybersecur 1; data 1; dean 1; dedic 2; degre 1; demonstr 1; depart 8; divers 2; educ 4; effect 1; email 2; emphasi 1; employ 1; engin 6; english 2; entrepreneuri 1; expect 1; experi 1; extens 1; faculti 2; famili 1; five 1; found 1; friend 1; fring 1; function 1; generous 1; global 1; govern 1; graphic 1; head 3; headship 1; histori 1; hkust 3; hong kong 2; hous 1; http 2; https 1; human 1; includ 1; increas 1; industri 2; inform 3; initi 1; innov 1; intellig 1; interact 2; interdisciplinari 1; intern 2; invit 1; knowledg 1; lead 1; leadership 2; learn 1; level 1; manag 2; medium 1; mphil 1; msc 1; myport 1; name 1; network 1; nomin 3; normal 1; offer 1; outlook 1; past 1; phd 1; player 1; pleas 1; polici 1; posit 1; postgradu 2; professori 1; program 2; promot 1; proven 1; provid 4; purpos 1; qualifi 1; rang 1; rank 2; recruit 1; refere 1; regard 1; relat 1; remuner 1; renew 1; renown 1; report 1; research 6; respect 1; role 1; round 1; scene 1; scholar 1; scholarship 1; school 1; scienc 5; search 1; sector 1; seng 1; sent 1; short 1; softwar 1; special 1; spirit 1; strong 2; student 3; studi 1; success 1; system 1; teach 4; technolog 2; term 3; tertiari 1; theoret 1; think 1; time 1; top 1; undergradu 1; univers 7; ust 3; vision 1; visit 1; vita 1; world 2; www 3;  
+http://www.cse.ust.hk/
+http://www.cse.ust.hk/admin/recruitment/head/?lang=en
+http://www.cse.ust.hk/admin/recruitment/head/?lang=cn
+http://www.ust.hk/
+http://www.seng.ust.hk/
+http://www.cse.ust.hk/admin/sitemap/?map=About
+http://www.cse.ust.hk/admin/welcome/
+http://www.cse.ust.hk/admin/about/
+http://www.cse.ust.hk/admin/factsheet/
+http://www.cse.ust.hk/News/?type=news|achievement
+http://www.cse.ust.hk/News/?type=event
+http://www.cse.ust.hk/admin/QA/
+http://www.cse.ust.hk/admin/contact/
+http://www.ust.hk/zh-hant/about-hkust/about-the-campus-2/map-directions-2015/
+http://www.cse.ust.hk/admin/sitemap/?map=People
+http://www.cse.ust.hk/admin/people/faculty/
+http://www.cse.ust.hk/admin/people/staff/
+http://www.cse.ust.hk/ct/
+http://www.cse.ust.hk/admin/people/pg/
+http://www.cse.ust.hk/alumni/
+http://www.cse.ust.hk/admin/recruitment/
+http://www.cse.ust.hk/admin/people/eic/
+http://www.cse.ust.hk/admin/sitemap/?map=Undergraduate
+http://www.cse.ust.hk/ug/
+http://www.cse.ust.hk/ug/hkust_only/
+http://www.cse.ust.hk/admin/sitemap/?map=Postgraduate
+http://www.cse.ust.hk/pg/
+http://www.cse.ust.hk/pg/hkust_only/
+http://www.cse.ust.hk/pg/admissions/recruiting/
+http://www.cse.ust.hk/pg/ourgraduates/
+http://www.cse.ust.hk/pg/research/
+http://www.cse.ust.hk/admin/sitemap/?map=Career
+http://www.cse.ust.hk/ug/internship/
+http://www.cse.ust.hk/ug/internship/forEmployer/
+http://www.cse.ust.hk/ug/career/service/
+http://www.cse.ust.hk/admin/facilities/
+http://www.cse.ust.hk/admin/facilities/committee/
+http://www.cse.ust.hk/admin/lab/
+http://cssystem.cse.ust.hk/UGuides/index.html
+http://cssystem.cse.ust.hk/
+http://www.cse.ust.hk/admin/sitemap/?map=Links
+https://imail.cse.ust.hk/sqmail/
+http://www.cse.ust.hk/Restricted/
+http://my.ust.hk
+http://www.cse.ust.hk/acm/
+http://ihome.ust.hk/~su_csess/
+https://www.facebook.com/cseaa.hkust
+http://www.cse.ust.hk/admin/sitemap/
+http://www.ust.hk/
+https://www.seng.ust.hk/
+http://www.cse.ust.hk/
+https://www.facebook.com/hkust/
+https://www.instagram.com/hkust/
+https://www.linkedin.com/company/department-of-computer-science-and-engineering-the-hong-kong-university-of-science-and-technology
+https://www.youtube.com/channel/UC1Gky4HCpEOK5EmoUj6zhGg
+http://www.cse.ust.hk/admin/contact/
+http://www.cse.ust.hk/admin/recruitment/
+http://www.ust.hk/zh-hant/privacy-policy-3/
+-------------------------------------------------------------------------------------------
+HKUST - School of Engineering
+http://www.sengpp.ust.hk
+1357203876, 193
+ 
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Information Technology
+http://www.sengpp.ust.hk/programs/it/en/index.html
+1513610197, 5926
+2015 1; 2016 1; 2017 2; 2018 2; aim 1; applic 1; avail 1; base 1; broad 1; career 1; challeng 1; china 2; commenc 1; cours 1; deadlin 1; design 1; edg 1; employ 1; engin 3; fall 1; focus 1; genesi 1; global 2; graduat 2; guid 1; hkust 2; hong kong 2; inform 3; januari 1; lead 1; market 1; master 1; msc 2; news 1; newslett 1; obtain 1; offer 1; path 1; postgradu 1; prepar 1; program 2; public 1; rank 4; scholarship 1; scienc 1; sept 1; skill 1; standard 1; technolog 5; univers 3; wish 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/it/en/index.html
+http://www.sengpp.ust.hk/programs/it/en/application.html
+http://www.sengpp.ust.hk/programs/it/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+http://www.sengpp.ust.hk/programs/it/images/news_201703.jpg
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+http://www.sengpp.ust.hk/programs/it/images/news_201301.jpg
+-------------------------------------------------------------------------------------------
+ITSC | Overview
+http://itsc.ust.hk/apps/vpn/
+1488351977, -1
+2fa 1; access 6; activ 1; address 3; airport 1; allow 3; applic 1; assign 1; authent 2; bandwidth 1; benefit 1; caf 1; call 1; campus 6; client 5; communic 2; comput 1; confidenti 1; connect 11; conserv 1; data 4; depart 1; department 1; devic 5; direct 1; encrypt 2; establish 3; factor 2; frequent 1; get 1; hkust 8; home 1; inact 1; includ 2; inform 2; instal 4; instead 1; internet 5; key 1; length 1; method 1; mobil 2; network 10; overview 2; pass 1; password 1; path 1; person 1; privat 2; protect 1; provid 2; pubic 1; public 1; puls 2; question 1; remot 1; requir 2; resourc 2; restrict 1; secur 8; send 2; sensit 1; sent 1; server 2; servic 6; session 1; softwar 1; ssl 1; start 1; store 1; system 2; technic 2; timeout 1; traffic 3; travel 1; unavail 1; univers 3; use 3; user 1; virtual 1; vpn 14; webpag 2; wireless 1;  
+http://itsc.ust.hk
+http://itsc.ust.hk/apps/vpn/index.html
+http://itsc.ust.hk/apps/vpn/technical.html
+http://itsc.ust.hk/apps/vpn/require.html
+http://itsc.ust.hk/apps/vpn/client.html
+http://itsc.ust.hk/apps/vpn/connect.html
+http://itsc.ust.hk/apps/vpn/session.html
+http://itsc.ust.hk/apps/vpn/faq.html
+http://itsc.ust.hk/apps/vpn/technical.html
+http://itsc.ust.hk/apps/vpn/client.html
+http://itsc.ust.hk/apps/vpn/connect.html
+http://itsc.ust.hk/services/cyber-security/vpn/using-secure-remote-access-vpn-2FA
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Electronic Engineering
+http://www.sengpp.ust.hk/programs/eleg/en/index.html
+1513608929, 6081
+2015 1; 2016 1; 2017 2; 2018 2; access 1; acquir 1; act 1; advanc 4; analyz 1; applic 1; architectur 1; art 1; autom 1; automat 1; avail 1; balanc 1; base 1; bring 1; broad 1; chang 1; china 2; chip 1; commenc 1; communic 1; comput 2; control 1; date 1; deadlin 1; deliber 1; design 1; display 1; electron 3; employ 1; enabl 2; engin 6; fall 1; flexibl 1; focus 1; genesi 1; global 2; graduat 1; hkust 3; hong kong 2; improv 1; increas 1; inform 3; interpret 1; line 1; market 1; master 2; maximum 1; msc 3; network 1; news 1; newslett 1; novemb 1; pattern 1; photon 1; power 1; process 1; product 1; program 4; provid 1; public 1; rang 1; rank 4; rapid 1; recognit 1; reconfigur 1; respons 1; scholarship 1; scienc 1; sept 1; signal 1; speed 1; standard 1; student 3; supplement 1; tailor 1; technolog 5; uniqu 1; univers 3; view 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/eleg/en/index.html
+http://www.sengpp.ust.hk/programs/eleg/en/application.html
+http://www.sengpp.ust.hk/programs/eleg/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+http://www.sengpp.ust.hk/programs/eleg/images/news_20171121.jpg
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Mechanical Engineering
+http://www.sengpp.ust.hk/programs/mech/en/index.html
+1513610560, 5337
+2015 1; 2016 1; 2017 1; 2018 4; advanc 1; applic 2; avail 1; china 2; commenc 2; compon 1; date 1; deadlin 2; design 1; electr 1; employ 1; engin 5; fall 1; feb 1; focus 1; genesi 1; global 2; graduat 1; hkust 2; hong kong 2; knowledg 1; manufactur 1; master 1; materi 2; mechan 3; msc 2; news 1; newslett 1; program 2; provid 1; public 1; rank 4; scholarship 1; scienc 1; select 1; sept 1; spring 1; system 1; technic 1; technolog 3; thermal 1; univers 3; various 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/mech/en/index.html
+http://www.sengpp.ust.hk/programs/mech/en/application.html
+http://www.sengpp.ust.hk/programs/mech/en/application.html
+http://www.sengpp.ust.hk/programs/mech/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in IC Design Engineering
+http://www.sengpp.ust.hk/programs/icde/en/index.html
+1513609715, 5267
+2015 1; 2016 1; 2017 2; 2018 2; advanc 2; applic 1; avail 1; china 2; circuit 1; commenc 1; critic 1; deadlin 1; design 2; driver 1; electron 2; employ 1; engin 5; fall 1; focus 1; genesi 1; global 2; graduat 1; hkust 2; hong kong 2; industri 1; inform 1; integr 2; master 1; microscal 1; msc 2; nanoscal 1; news 1; newslett 1; novemb 1; past 1; princip 1; program 1; public 1; rank 4; scholarship 1; scienc 1; sept 1; standard 1; supplement 1; technolog 4; thirti 2; univers 3; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/icde/en/index.html
+http://www.sengpp.ust.hk/programs/icde/en/application.html
+http://www.sengpp.ust.hk/programs/icde/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+http://www.sengpp.ust.hk/programs/icde/images/news_20171121.jpg
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Intelligent Building Technology and Management
+http://www.sengpp.ust.hk/programs/ibtm/en/index.html
+1513610334, 5652
+2015 1; 2016 1; 2017 1; 2018 4; applic 2; avail 1; build 4; built 1; china 2; commenc 2; compet 1; complex 1; deadlin 2; disciplinari 1; effect 1; effici 1; employ 1; engag 1; engin 3; enhanc 1; environ 1; evolv 1; fall 1; feb 1; focus 1; genesi 1; global 2; graduat 1; help 1; hkust 2; hong kong 2; intellig 2; involv 1; knowledg 1; manag 2; master 1; msc 2; multi 1; news 1; newslett 1; profession 1; program 2; project 1; provis 1; public 1; rank 4; relat 1; scholarship 1; scienc 1; sept 1; servic 1; solut 1; spring 1; technolog 4; univers 3; urban 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/ibtm/en/index.html
+http://www.sengpp.ust.hk/programs/ibtm/en/application.html
+http://www.sengpp.ust.hk/programs/ibtm/en/application.html
+http://www.sengpp.ust.hk/programs/ibtm/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Engineering Enterprise Management
+http://www.sengpp.ust.hk/programs/eem/en/index.html
+1513609114, 6243
+2015 1; 2016 1; 2017 1; 2018 2; addit 1; advanc 1; applic 1; arena 1; avail 1; background 1; base 1; basic 2; busi 2; career 2; chain 1; china 2; collabor 1; commenc 1; compani 2; compet 2; context 1; cost 1; cut 1; deadlin 1; deploy 1; design 1; economi 1; edg 1; effect 1; employ 1; engin 6; enterpris 4; essenti 1; fall 1; focus 1; foundat 1; genesi 1; global 5; graduat 1; help 1; hkust 2; hong kong 2; inform 1; knowledg 3; launch 2; line 1; logist 1; manag 16; manageri 1; market 1; master 1; middl 1; msc 3; news 1; newslett 1; oper 1; peopl 1; process 1; profession 1; program 3; project 1; provid 1; public 1; qualiti 1; rank 4; relentless 1; result 1; scholarship 1; school 2; scienc 1; sept 1; sigma 1; six 1; special 1; success 1; suppli 1; technic 1; techniqu 3; technolog 3; term 1; themselv 1; time 1; train 1; uniqu 1; univers 3; wish 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/eem/en/index.html
+http://www.sengpp.ust.hk/programs/eem/en/application.html
+http://www.sengpp.ust.hk/programs/eem/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+http://www.sengpp.ust.hk/programs/eem/images/news_201512.jpg
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Big Data Technology
+http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
+1455873134, 5558
+0170 1; 550 1; abil 1; academ 1; admiss 5; america 1; applic 6; approv 1; australia 1; bachelor 3; base 2; class 2; code 2; complet 1; comput 3; credit 5; data 1; date 1; degre 2; depart 1; director 1; disciplin 1; elsewher 1; engin 1; english 9; etc 1; evid 1; experi 1; field 2; follow 1; foreign 1; fresh 1; govern 1; graduat 3; grant 1; hkust 1; hong kong 2; ibt 1; ielt 2; includ 1; industri 1; institut 3; instruct 2; intern 1; internet 1; kingdom 1; languag 2; lectur 2; mail 1; materi 2; mathemat 3; maximum 1; medium 3; msc 2; normal 1; north 1; note 1; offic 2; outreach 1; overal 1; paper 1; pbt 1; pleas 2; possess 1; postgradu 2; profession 1; profici 1; program 5; proof 1; provid 1; recogn 1; recognit 1; recommend 1; record 1; relat 3; relev 1; requir 6; school 1; scienc 1; score 6; singapor 1; student 3; studi 2; sub 1; subject 1; system 1; target 3; teach 1; team 1; technolog 1; term 1; tertiari 1; test 5; toefl 2; transfer 5; unit 1; univers 6; valid 1; zealand 1;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/bdt/en/index.html
+http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html
+http://www.sengpp.ust.hk/programs/bdt/en/admission_requirements.html#english_requirements
+http://pg.ust.hk/cgi-bin/pg/eng/detail.php?catid=3&sid=10&tid=152
+-------------------------------------------------------------------------------------------
+Master of Science program in Chemical and Bio-molecular Engineering – HKUST School of Engineering MSc in Chemical and Bio-molecular Engineering (CBME) program
+http://www.sengpp.ust.hk/programs/cbme/en/index.html
+1513608682, 6549
+2015 1; 2016 1; 2017 2; 2018 4; advanc 1; applic 2; avail 1; biomolecular 4; career 1; chemic 5; china 2; commenc 2; compet 1; confid 1; cours 1; deadlin 2; employ 1; engin 8; fall 1; feb 1; focus 1; genesi 1; global 2; graduat 2; guid 1; hkust 3; hong kong 2; leader 1; level 2; master 1; msc 3; news 1; newslett 1; offer 1; program 2; public 1; rank 4; scholarship 1; scienc 1; senior 1; sept 1; spring 1; technolog 2; univers 3; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/cbme/en/index.html
+http://www.sengpp.ust.hk/programs/cbme/en/application.html
+http://www.sengpp.ust.hk/programs/cbme/en/application.html
+http://www.sengpp.ust.hk/programs/cbme/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+http://www.sengpp.ust.hk/programs/cbme/images/news_201609.pdf
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc / Postgraduate Diploma in Environmental Engineering and Management
+http://www.sengpp.ust.hk/programs/evem/en/index.html
+1519611730, 5919
+2015 1; 2016 1; 2017 1; 2018 4; advanc 2; applic 2; avail 1; beyond 1; china 2; commenc 2; cours 1; deadlin 2; design 1; diploma 1; elect 1; employ 1; enabl 1; engin 9; environment 5; fall 1; feb 1; focus 1; genesi 1; global 2; graduat 1; hkust 3; hong kong 2; knowledg 1; level 1; manag 5; master 1; msc 3; news 1; newslett 1; offer 1; postgradu 1; practic 1; prepar 1; program 4; public 1; rank 4; relat 1; respons 1; scholarship 1; scienc 1; sept 1; spring 1; strengthen 1; student 2; technolog 2; themselv 1; time 2; undergradu 1; univers 3; wish 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/evem/en/index.html
+http://www.sengpp.ust.hk/programs/evem/en/application.html
+http://www.sengpp.ust.hk/programs/evem/en/application.html
+http://www.sengpp.ust.hk/programs/evem/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
+-------------------------------------------------------------------------------------------
+HKUST School of Engineering - MSc program in Telecommunications
+http://www.sengpp.ust.hk/programs/telc/en/index.html
+1513610687, 5250
+2015 1; 2016 1; 2017 2; 2018 2; applic 1; avail 1; base 1; broadband 1; china 2; commenc 1; communic 1; converg 1; date 1; deadlin 1; depth 1; design 1; employ 1; engin 3; equip 1; fall 1; focus 1; genesi 1; global 2; graduat 1; hkust 2; hong kong 2; knowledg 1; master 1; msc 2; multimedia 1; network 1; news 1; newslett 1; novemb 1; optic 1; particip 1; program 2; protocol 1; public 1; rank 4; scholarship 1; scienc 1; sept 1; standard 1; supplement 1; system 1; technic 1; technolog 2; telecommun 2; topic 1; univers 3; wireless 1; world 3;  
+http://www.sengpp.ust.hk/programs/list/en/index.html
+http://www.sengpp.ust.hk/programs/telc/en/index.html
+http://www.sengpp.ust.hk/programs/telc/en/application.html
+http://www.sengpp.ust.hk/programs/telc/en/program_fee.html#scholarship
+http://www.seng.ust.hk/web/eng/publication.php
+http://www.ust.hk/about-hkust/publications-multimedia/genesis/
+http://www.sengpp.ust.hk/programs/telc/images/news_20171121.jpg
+https://www.topuniversities.com/university-rankings/university-subject-rankings/2017/engineering-technology
+http://www.timeshighereducation.co.uk/world-university-rankings/2015-16/subject-ranking/subject/engineering-and-IT
+http://www.ust.hk/about-hkust/media-relations/press-releases/hkust-graduates-move-13th-worldwide-tops-greater-china-latest-global-employability-university-ranking-2/
 -------------------------------------------------------------------------------------------

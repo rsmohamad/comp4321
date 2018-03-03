@@ -1,14 +1,15 @@
 package webcrawler
 
 import (
-	"github.com/surgebase/porter2"
-	"golang.org/x/net/html"
+	"models"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
 	"time"
-	"models"
+
+	"github.com/surgebase/porter2"
+	"golang.org/x/net/html"
 )
 
 // Get url from html token
@@ -57,14 +58,20 @@ func tokenizeString(s string) (rv []string) {
 		// Exclude short words and stopwords
 		token = strings.TrimSpace(token)
 		if len(token) > 2 && !isStopWord(token) {
-			rv = append(rv, porter2.Stem(token))
+			var t = ""
+			if token == "hong" || token == "kong" {
+				t = "hong kong"
+			} else {
+				t = porter2.Stem(token)
+			}
+			rv = append(rv, t)
 		}
 	}
 	return
 }
 
 func Fetch(uri string) (page *models.Document) {
-    words := make([]string, 0)
+	words := make([]string, 0)
 	var lastElement string
 	page = &models.Document{Uri: uri}
 	inBody := false
@@ -118,7 +125,7 @@ func Fetch(uri string) (page *models.Document) {
 			// Skip if text is empty, not in between body tags or between script tags
 			trimmed := strings.TrimSpace(t.Data)
 			if trimmed != "" && inBody && lastElement != "script" {
-                words = append(words, trimmed)
+				words = append(words, trimmed)
 			}
 		}
 	}

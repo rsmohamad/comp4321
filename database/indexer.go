@@ -3,9 +3,8 @@ package database
 import (
 	"encoding/binary"
 	"encoding/json"
-	"models"
 	"sync"
-
+	"comp4321/models"
 	"github.com/boltdb/bolt"
 )
 

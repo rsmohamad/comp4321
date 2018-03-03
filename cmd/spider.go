@@ -1,10 +1,10 @@
 package main
 
 import (
-	"database"
 	"fmt"
 	"time"
-	"webcrawler"
+	"comp4321/database"
+	"comp4321/webcrawler"
 )
 
 func main() {

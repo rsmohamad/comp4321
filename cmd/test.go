@@ -2,16 +2,16 @@ package main
 
 import (
 	"bufio"
-	"database"
 	"fmt"
-	"models"
 	"os"
 	"text/template"
+	"comp4321/models"
+	"comp4321/database"
 )
 
 func main() {
 	index, _ := database.LoadIndexer("index.db")
-	file, _ := os.Create("spider_test.txt")
+	file, _ := os.Create("spider_result.txt")
 	fileStream := bufio.NewWriter(file)
 	outTemplate, _ := template.ParseFiles("templates/testOutput.txt")
 

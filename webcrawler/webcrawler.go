@@ -2,8 +2,8 @@ package webcrawler
 
 import (
 	"sync"
-	"database"
-	"models"
+	"comp4321/database"
+	"comp4321/models"
 )
 
 func Crawl(uri string, num int, indexer *database.Indexer) []*models.Document {

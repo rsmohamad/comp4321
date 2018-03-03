@@ -4,6 +4,7 @@
 *.db
 spider
 test
+spider_result.txt
 
 # User-specific stuff:
 .idea/**/workspace.xml

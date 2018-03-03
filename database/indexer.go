@@ -3,17 +3,19 @@ package database
 import (
 	"encoding/binary"
 	"encoding/json"
-	"sync"
 	"comp4321/models"
 	"github.com/boltdb/bolt"
+	"sync"
 )
 
-const WordIdTable = "wordIDs"
-const PageIdTable = "pageIds"
+const WordToWordId = "wordIDs"
+const UrlToPageId = "pageIDs"
+const WordIdToWord = "invWordIDs"
+const PageIdToUrl = "invPageIDs"
 const ForwardTable = "forwardIndex"
 const InvertedTable = "invertedIndex"
 
-var TableNames = [4]string{WordIdTable, PageIdTable, ForwardTable, InvertedTable}
+var TableNames = [6]string{WordToWordId, WordIdToWord, UrlToPageId, PageIdToUrl, ForwardTable, InvertedTable}
 
 type Indexer struct {
 	db *bolt.DB
@@ -56,57 +58,71 @@ func itob(v uint64) []byte {
 	return b
 }
 
-// Get the pageId for the given URL, create new one if does not exist
-func (i *Indexer) getPageId(url string) (id []byte) {
-	i.db.Batch(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(PageIdTable))
-		res := b.Get([]byte(url))
+// Generic id retriever from mapping table
+// Forward map table converts textual representation -> unique Id
+// Inverse map table converts unique Id -> textual representation
+func (i *Indexer) getId(text string, fwMapTable string, invMapTable string) (id []byte) {
+	id = nil
+	i.db.View(func(tx *bolt.Tx) error {
+		forwardMap := tx.Bucket([]byte(fwMapTable))
+		res := forwardMap.Get([]byte(text))
 		if res != nil {
 			id = make([]byte, len(res))
 			copy(id, res)
-			return nil
 		}
-		pageId, _ := b.NextSequence()
-		id = itob(pageId)
-		b.Put([]byte(url), id)
+		return nil
+	})
+
+	if id == nil {
+		i.db.Batch(func(tx *bolt.Tx) error {
+			forwardMap := tx.Bucket([]byte(fwMapTable))
+			uniqueId, _ := forwardMap.NextSequence()
+			id = itob(uniqueId)
+			forwardMap.Put([]byte(text), id)
+
+			invMap := tx.Bucket([]byte(invMapTable))
+			invMap.Put(id, []byte(text))
+
+			return nil
+		})
+	}
+	return
+}
+
+// Check if the URL is present in the database
+func (i *Indexer) IsUrlPresent(url string) (present bool) {
+	i.db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(UrlToPageId))
+		val := b.Get([]byte(url))
+		present = (val != nil)
 		return nil
 	})
 	return
 }
 
-// Get the wordId for the given URL, create new one if does not exist
-func (i *Indexer) getWordId(word string) (id []byte) {
-	i.db.Batch(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(WordIdTable))
-		res := b.Get([]byte(word))
-		if res != nil {
-			id = make([]byte, len(res))
-			copy(id, res)
-			return nil
-		}
-		wordId, _ := b.NextSequence()
-		id = itob(wordId)
-		b.Put([]byte(word), id)
-		return nil
-	})
-	return
+// Get the pageId for the given URL, create new one if does not exist
+func (i *Indexer) getPageId(url string) []byte {
+	return i.getId(url, UrlToPageId, PageIdToUrl)
+}
+
+// Get the wordId for the given word, create new one if does not exist
+func (i *Indexer) getWordId(word string) []byte {
+	return i.getId(word, WordToWordId, WordToWordId)
 }
 
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	pageId := i.getPageId(p.Uri)
-	addWord := func(word string, wg *sync.WaitGroup) {
+	var wg sync.WaitGroup
+	addWord := func(word string) {
 		i.updateInverted(word, pageId)
 		wg.Done()
 	}
 
-	// Update words in
-	// Use goroutine to do checking concurrently
-	var wg sync.WaitGroup
+	// Update inverted table concurrently
 	wg.Add(len(p.Words))
 	for word := range p.Words {
-		go addWord(word, &wg)
+		go addWord(word)
 	}
-	wg.Wait()
 
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket([]byte(ForwardTable))
@@ -114,6 +130,7 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 		documents.Put(pageId, encoded)
 		return nil
 	})
+	wg.Wait()
 }
 
 func (i *Indexer) updateInverted(word string, pageId []byte) {
@@ -122,7 +139,6 @@ func (i *Indexer) updateInverted(word string, pageId []byte) {
 
 	i.db.Batch(func(tx *bolt.Tx) error {
 		inverted := tx.Bucket([]byte(InvertedTable))
-
 		wordSet, _ := inverted.CreateBucketIfNotExists(wordId)
 		wordSet.Put(pageId, []byte{1})
 		return nil
@@ -146,20 +162,6 @@ func (i *Indexer) ForEachDocument(fn func(p *models.Document, i int)) {
 			}
 			return nil
 		})
-
-		return nil
-	})
-}
-
-func (i *Indexer) ForEachWord(fn func(word string, i int)) {
-	i.db.View(func(tx *bolt.Tx) error {
-		// Get inverted index
-		inverted := tx.Bucket([]byte(InvertedTable))
-
-		inverted.ForEach(func(k, v []byte) error {
-			return nil
-		})
-
 		return nil
 	})
 }

@@ -6,30 +6,29 @@ import (
 	"comp4321/models"
 )
 
-func Crawl(uri string, num int, indexer *database.Indexer) []*models.Document {
+func concurrentUpdate(page *models.Document, index *database.Indexer, wg *sync.WaitGroup) {
+	index.UpdateOrAddPage(page)
+	wg.Done()
+}
+
+func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGroup) {
+	page := Fetch(url)
+	if page != nil {
+		// send the page to results channel
+		*results <- page
+		wg.Done()
+	}
+}
+
+func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
 	pages := make([]*models.Document, 0)
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
-
-	// the 'fetch' goroutine
-	fetch := func(url string, wg *sync.WaitGroup) {
-		page := Fetch(url)
-		if page != nil {
-			// send the page to results channel
-			results <- page
-			wg.Done()
-		}
-	}
-
-	// the 'update' goroutine
-	update := func(page *models.Document, wg *sync.WaitGroup) {
-		indexer.UpdateOrAddPage(page)
-		wg.Done()
-	}
-
-	var wg sync.WaitGroup
+	wg := sync.WaitGroup{}
 	wg.Add(num)
-	go fetch(uri, &wg)
+
+	// Visit first page
+	go concurrentFetch(uri, &results, &wg)
 	visited[uri] = true
 
 	for len(pages) < num {
@@ -37,14 +36,17 @@ func Crawl(uri string, num int, indexer *database.Indexer) []*models.Document {
 		page := <-results
 		pages = append(pages, page)
 
-		// update page to indexer
+		// update page to index
 		wg.Add(1)
-		go update(page, &wg)
+		go concurrentUpdate(page, index, &wg)
 
 		// fetch all unvisited links
 		for _, link := range page.Links {
-			if !visited[link] {
-				go fetch(link, &wg)
+			// skip if the link is already visited or indexed
+			if visited[link] || index.IsUrlPresent(link) {
+				continue
+			} else {
+				go concurrentFetch(link, &results, &wg)
 				visited[link] = true
 			}
 		}

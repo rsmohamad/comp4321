@@ -107,7 +107,7 @@ func (i *Indexer) getPageId(url string) []byte {
 
 // Get the wordId for the given word, create new one if does not exist
 func (i *Indexer) getWordId(word string) []byte {
-	return i.getId(word, WordToWordId, WordToWordId)
+	return i.getId(word, WordToWordId, WordIdToWord)
 }
 
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {

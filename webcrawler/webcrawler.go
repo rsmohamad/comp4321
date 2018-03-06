@@ -14,7 +14,10 @@ func concurrentUpdate(page *models.Document, index *database.Indexer, wg *sync.W
 func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGroup) {
 	page := Fetch(url)
 	if page != nil {
-		// send the page to results channel
+		// skip if the page has no title and text
+		if len(page.Words) == 0 && page.Title == ""{
+			return
+		}
 		*results <- page
 		wg.Done()
 	}

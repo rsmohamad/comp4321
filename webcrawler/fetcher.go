@@ -86,9 +86,9 @@ func Fetch(uri string) (page *models.Document) {
 		return nil
 	}
 
-	page.Len = res.ContentLength
 	tm, _ := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
 	page.Modtime = tm.Unix()
+	page.Len = 0
 
 	// Tokenize
 	tokenizer := html.NewTokenizer(res.Body)
@@ -98,6 +98,9 @@ func Fetch(uri string) (page *models.Document) {
 	for {
 		tokenType := tokenizer.Next()
 		t := tokenizer.Token()
+
+		page.Len += len(tokenizer.Raw())
+
 		if tokenType == html.ErrorToken {
 			break
 		}

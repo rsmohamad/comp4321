@@ -1,6 +1,6 @@
 {{.Title}}
 {{.Uri}}
-{{.Modtime}}, {{.Len}}
+{{.GetTimeStr}}, {{.GetSizeStr}}
 {{range $key, $value := .Words}}{{$key}} {{$value}}; {{end}} {{range .Links}}
 {{.}}{{end}}
 -------------------------------------------------------------------------------------------

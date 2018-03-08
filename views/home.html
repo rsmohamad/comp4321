@@ -12,6 +12,10 @@
         .home-content {
             margin-top: 30vh;
         }
+
+        body {
+            background-color: #fafafa;
+        }
     </style>
 </head>
 
@@ -27,15 +31,12 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <form>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="searchTerm" placeholder="Search topics or keywords">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
+                <form class="input-group" action="/search" method="get">
+                    <input type="text" class="form-control" name="keywords"
+                           placeholder="Search topics or keywords">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
-                    <br>
-
                 </form>
             </div>
             <div class="col-md-3"></div>

@@ -4,6 +4,7 @@
 *.db
 spider
 test
+server
 spider_result.txt
 
 # User-specific stuff:

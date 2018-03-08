@@ -6,6 +6,7 @@ dep:
 all:
 	go build cmd/spider.go
 	go build cmd/test.go
+	go build cmd/testServer.go
 
 clean:
-	rm -f spider test
+	rm -f spider test testServer

@@ -1,12 +1,14 @@
 package webcrawler
 
 import (
+	"comp4321/models"
+	"comp4321/stopword"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
 	"time"
-	"comp4321/models"
+
 	"github.com/surgebase/porter2"
 	"golang.org/x/net/html"
 )
@@ -56,7 +58,7 @@ func tokenizeString(s string) (rv []string) {
 
 		// Exclude short words and stopwords
 		token = strings.TrimSpace(token)
-		if len(token) > 2 && !isStopWord(token) {
+		if len(token) > 2 && !stopword.IsStopWord(token) {
 			var t = ""
 			if token == "hong" || token == "kong" {
 				t = "hong kong"

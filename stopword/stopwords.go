@@ -1,4 +1,4 @@
-package webcrawler
+package stopword
 
 import (
 	"io/ioutil"
@@ -21,7 +21,8 @@ func loadStopWords() {
 	stopWordsRegex = regexp.MustCompile("^(" + stopWords + ")$")
 }
 
-func isStopWord(s string) bool {
+// IsStopWord checks if a word is stopword or not
+func IsStopWord(s string) bool {
 	// Check if string matches stopwords regex
 	if stopWordsRegex == nil {
 		loadStopWords()

@@ -1,11 +1,12 @@
 package database
 
 import (
+	"comp4321/models"
 	"encoding/binary"
 	"encoding/json"
-	"comp4321/models"
-	"github.com/boltdb/bolt"
 	"sync"
+
+	"github.com/boltdb/bolt"
 )
 
 const WordToWordId = "wordIDs"
@@ -106,7 +107,7 @@ func (i *Indexer) getPageId(url string) []byte {
 }
 
 // Get the wordId for the given word, create new one if does not exist
-func (i *Indexer) getWordId(word string) []byte {
+func (i *Indexer) GetWordId(word string) []byte {
 	return i.getId(word, WordToWordId, WordIdToWord)
 }
 
@@ -135,7 +136,7 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 
 func (i *Indexer) updateInverted(word string, pageId []byte) {
 	// Inverted index consists of <wordId, set>
-	wordId := i.getWordId(word)
+	wordId := i.GetWordId(word)
 
 	i.db.Batch(func(tx *bolt.Tx) error {
 		inverted := tx.Bucket([]byte(InvertedTable))
@@ -168,4 +169,40 @@ func (i *Indexer) ForEachDocument(fn func(p *models.Document, i int)) {
 
 func (i *Indexer) Close() {
 	i.db.Close()
+}
+
+func (i *Indexer) GetDocument(docIDs [][]byte) (documents []models.Document) {
+	i.db.View(func(tx *bolt.Tx) error {
+		forwardIndex := tx.Bucket([]byte(ForwardTable))
+
+		for _, id := range docIDs {
+			doc := models.Document{}
+			json.Unmarshal(forwardIndex.Get(id), doc)
+
+			documents = append(documents, doc)
+
+			return nil
+		}
+
+		return nil
+	})
+
+	return
+}
+
+func (i *Indexer) GetDocID(wordID []byte) (docIDs [][]byte) {
+	i.db.View(func(tx *bolt.Tx) error {
+		wordBucket := tx.Bucket([]byte(InvertedTable))
+		docBucket := wordBucket.Bucket(wordID)
+
+		docBucket.ForEach(func(k, v []byte) error {
+			docIDs = append(docIDs, k)
+
+			return nil
+		})
+
+		return nil
+	})
+
+	return
 }

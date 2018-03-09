@@ -28,5 +28,5 @@ func (d Document) GetTimeStr() string {
 	}
 
 	t := time.Unix(d.Modtime, 0)
-	return t.Format(time.RFC1123)
+	return t.Format("02 Jan 2006")
 }

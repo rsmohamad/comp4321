@@ -8,8 +8,10 @@ import (
 type Document struct {
 	Title   string
 	Uri     string
+	Desc    string
 	Links   []string
 	Words   map[string]int
+	Titles  map[string]int
 	Len     int
 	Modtime int64
 }

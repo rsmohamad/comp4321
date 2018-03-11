@@ -9,6 +9,7 @@ import (
 	"comp4321/models"
 	"github.com/surgebase/porter2"
 	"golang.org/x/net/html"
+	"mvdan.cc/xurls"
 )
 
 // Get url from html token
@@ -20,6 +21,32 @@ func getUrl(t html.Token) string {
 		}
 	}
 	return ""
+}
+
+func getMetaDesc(t html.Token) (desc string, found bool) {
+	found = false
+	for _, a := range t.Attr {
+		if a.Key == "name" && a.Val == "description" {
+			found = true
+		}
+		if a.Key == "content" && found {
+			desc = a.Val
+		}
+	}
+	return
+}
+
+func handleMetaRedirect(t html.Token) (url string, redirect bool) {
+	redirect = false
+	for _, a := range t.Attr {
+		if a.Key == "http-equiv" && a.Val == "refresh" {
+			redirect = true
+		}
+		if a.Key == "content" && redirect {
+			url = xurls.Strict().FindString(a.Val)
+		}
+	}
+	return
 }
 
 // Fix relative URL to absolute URL
@@ -122,6 +149,18 @@ func Fetch(uri string) (page *models.Document) {
 			}
 			lastElement = t.Data
 			break
+		case html.SelfClosingTagToken:
+			if t.Data == "meta" {
+				desc, found := getMetaDesc(t)
+				if found {
+					page.Desc = desc
+				}
+				link, redirect := handleMetaRedirect(t)
+				if redirect {
+					return Fetch(link)
+				}
+				break
+			}
 
 		case html.TextToken:
 			// Skip if text is empty, not in between body tags or between script tags
@@ -133,6 +172,7 @@ func Fetch(uri string) (page *models.Document) {
 	}
 
 	// Clean data
+	page.Titles = countTf(tokenizeString(page.Title))
 	page.Words = countTf(tokenizeString(strings.Join(words, " ")))
 	page.Links = toAbsoluteUrl(page.Links, uri)
 	return

@@ -13,7 +13,7 @@ func main() {
 	index.DropAll()
 
 	start := time.Now()
-	webcrawler.Crawl("http://www.cse.ust.hk/", 30, index)
+	webcrawler.Crawl("https://www.cse.ust.hk/", 30, index)
 	elapsed := time.Since(start)
 	fmt.Printf("Indexing %d pages took %s\n", 30, elapsed)
 }

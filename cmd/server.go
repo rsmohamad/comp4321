@@ -10,7 +10,7 @@ import (
 
 var homeTemplate = template.Must(template.ParseFiles("views/home.html"))
 var resultTemplate = template.Must(template.ParseFiles("views/results.html"))
-var indexer *database.Indexer
+var viewer *database.Viewer
 
 func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 	homeTemplate.Execute(w, nil)
@@ -24,7 +24,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	viewModel := models.ResultView{}
 	viewModel.Query = keys[0]
 
-	indexer.ForEachDocument(func(p *models.Document, i int) {
+	viewer.ForEachDocument(func(p *models.Document, i int) {
 		viewModel.Results = append(viewModel.Results, p)
 	})
 
@@ -37,7 +37,7 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// Load indexer
-	indexer, _ = database.LoadIndexer("index.db")
+	viewer, _ = database.LoadViewer("index.db")
 
 	// File servers
 	staticServer := http.FileServer(http.Dir("static"))

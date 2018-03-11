@@ -7,6 +7,10 @@ import (
 	"sync"
 )
 
+// The Indexer object abstracts away data structure manipulations
+// for inserting web documents into the search engine database.
+// The Indexer object will read the .db file in read-write mode.
+// Only one Indexer object can operate on the same .db file at a time.
 type Indexer struct {
 	db *bolt.DB
 }
@@ -76,17 +80,17 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 }
 
 // Get the pageId for the given URL, create new one if does not exist
-func (i *Indexer) getPageId(url string) []byte {
+func (i *Indexer) getOrCreatePageId(url string) []byte {
 	return i.getId(url, UrlToPageId, PageIdToUrl)
 }
 
 // Get the wordId for the given word, create new one if does not exist
-func (i *Indexer) getWordId(word string) []byte {
+func (i *Indexer) getOrCreateWordId(word string) []byte {
 	return i.getId(word, WordToWordId, WordIdToWord)
 }
 
 func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
-	wordId := i.getWordId(word)
+	wordId := i.getOrCreateWordId(word)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		inverted := tx.Bucket(intToByte(tablename))
 		wordSet, _ := inverted.CreateBucketIfNotExists(wordId)
@@ -96,7 +100,7 @@ func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
 }
 
 func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename int) {
-	wordId := i.getWordId(word)
+	wordId := i.getOrCreateWordId(word)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		fw := tx.Bucket(intToByte(tablename))
 		set, _ := fw.CreateBucketIfNotExists(pageId)
@@ -106,11 +110,11 @@ func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename in
 }
 
 // Check if the URL is present in the database
-func (i *Indexer) HasUrl(url string) (present bool) {
+func (i *Indexer) ContainsUrl(url string) (present bool) {
 	i.db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket(intToByte(UrlToPageId))
 		val := b.Get([]byte(url))
-		present = (val != nil)
+		present = val != nil
 		return nil
 	})
 	return
@@ -119,7 +123,7 @@ func (i *Indexer) HasUrl(url string) (present bool) {
 // Insert page into the database.
 // This will update all mapping tables and indexes.
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {
-	pageId := i.getPageId(p.Uri)
+	pageId := i.getOrCreatePageId(p.Uri)
 	var wg sync.WaitGroup
 
 	wg.Add(len(p.Words))

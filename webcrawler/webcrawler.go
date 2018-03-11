@@ -48,7 +48,7 @@ func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
 		// fetch all unvisited links
 		for _, link := range page.Links {
 			// skip if the link is already visited or indexed
-			if visited[link] || index.HasUrl(link) {
+			if visited[link] || index.ContainsUrl(link) {
 				continue
 			} else {
 				go concurrentFetch(link, &results, &fetchWg)

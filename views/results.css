@@ -1,25 +1,48 @@
 .upper {
+    margin: 0;
     min-height: 15vh;
     background-color: #fafafa;
-    border-bottom-style: solid;
-    border-bottom-color: #e0e0e0;
-    border-bottom-width: 1px;
+    border: 0px solid #e0e0e0;
+    border-width: 0 0 1px 0;
+}
 
+.vcenter {
+    min-height: inherit;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+.nav-link {
+    color: #212529;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #ffffff;
+    background-color: #6c757d;
+}
+
 .lower {
-    margin-top: 1.5em;
+    margin-top: 1em;
 }
 
 .result-container {
-    margin: 0.5em;
+    margin: 0 0 1em 0;
+    padding: 0.5em;
+    border: 1px solid #ffffff;
+}
+
+.result-container:hover {
+    background-color: #fafafa;
+    border-color: #e0e0e0;
 }
 
 .result-title {
-    font-size: larger;
+    font-size: large;
+}
+
+a {
+    color: #0056b3;
 }
 
 .result-link {
@@ -29,6 +52,11 @@
 }
 
 .result-meta {
+    font-size: smaller;
+    margin: 0;
+}
+
+.result-desc {
     font-size: smaller;
     margin: 0;
 }

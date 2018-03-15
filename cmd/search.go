@@ -1,12 +1,17 @@
 package main
 
 import (
+	"bufio"
 	"comp4321/retrieval"
 	"fmt"
+	"os"
 )
 
 func main() {
-	query := "computer business"
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter search term: ")
+	query, _ := reader.ReadString('\n')
+
 	results := retrieval.Search(query)
 
 	fmt.Println(results)

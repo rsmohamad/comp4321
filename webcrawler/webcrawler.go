@@ -42,7 +42,7 @@ func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
 	// Concurrently fetch robots.txt
 	go func() {
 		wg.Add(1)
-		res, _ = http.Get(urlParse + "robots.txt")
+		res, _ = http.Get(urlParse.String() + "robots.txt")
 	}()
 
 	// Add 10 seconds timeout or till robots.txt is found

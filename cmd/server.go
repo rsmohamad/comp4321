@@ -8,6 +8,7 @@ import (
 	"comp4321/models"
 	"strconv"
 	"math"
+	"comp4321/retrieval"
 )
 
 var homeTemplate = template.Must(template.ParseFiles("views/home.html"))
@@ -21,19 +22,17 @@ func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	viewModel := models.ResultView{}
-	keys := r.URL.Query().Get("keywords")
+	queries := r.URL.Query().Get("keywords")
 	page := r.URL.Query().Get("page")
 	currentPage, err := strconv.Atoi(page)
 	if err != nil {
 		currentPage = 1
 	}
-	viewModel.Query = keys
-	viewer.ForEachDocument(func(p *models.Document, i int) {
-		viewModel.Results = append(viewModel.Results, p)
-	})
+	viewModel.Query = queries
+	viewModel.Results = retrieval.Search(queries)
 
 	pageNum := math.Ceil(float64(len(viewModel.Results)) / 10.0)
-	if currentPage > int(pageNum){
+	if currentPage > int(pageNum) {
 		currentPage = 1
 	}
 
@@ -46,7 +45,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	viewModel.TotalResults = len(viewModel.Results)
-	viewModel.Results = viewModel.Results[(currentPage-1)*10: currentPage*10]
+	maxindex := int(math.Min(float64(currentPage*10), float64(len(viewModel.Results))))
+	viewModel.Results = viewModel.Results[(currentPage-1)*10: maxindex]
 	viewModel.CurrentPage = currentPage;
 	viewModel.PageNum = int(pageNum)
 

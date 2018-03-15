@@ -8,13 +8,15 @@ import (
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter search term: ")
-	query, _ := reader.ReadString('\n')
+	for {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Enter search term: ")
+		query, _ := reader.ReadString('\n')
 
-	results := retrieval.Search(query)
+		results := retrieval.Search(query)
 
-	for _, doc := range results {
-		fmt.Println(doc)
+		for _, doc := range results {
+			fmt.Println(doc.Title)
+		}
 	}
 }

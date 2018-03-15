@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"time"
 	"comp4321/database"
 	"comp4321/webcrawler"
+	"fmt"
+	"time"
 )
 
 func main() {
@@ -12,8 +12,8 @@ func main() {
 	defer index.Close()
 	index.DropAll()
 
-	start := time.Now()
-	webcrawler.Crawl("https://www.nytimes.com/", 300, index)
-	elapsed := time.Since(start)
+	startCrawl := time.Now()
+	webcrawler.Crawl("http://www.nytimes.com", 30, index)
+	elapsed := time.Since(startCrawl)
 	fmt.Printf("Indexing %d pages took %s\n", 300, elapsed)
 }

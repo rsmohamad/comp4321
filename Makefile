@@ -7,6 +7,7 @@ all:
 	go build cmd/spider.go
 	go build cmd/test.go
 	go build cmd/search.go
+	go build cmd/server.go
 
 clean:
-	rm -f spider test
+	rm -f spider test server

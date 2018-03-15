@@ -13,6 +13,7 @@ const WordToWordId = "wordIDs"
 const UrlToPageId = "pageIDs"
 const WordIdToWord = "invWordIDs"
 const PageIdToUrl = "invPageIDs"
+
 const ForwardTable = "forwardIndex"
 const InvertedTable = "invertedIndex"
 

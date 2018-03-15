@@ -17,7 +17,11 @@ var viewer *database.Viewer
 func preprocessText(words []string) (rv []string) {
 	for _, word := range words {
 		if !stopword.IsStopWord(word) {
-			rv = append(rv, porter2.Stem(word))
+			cleaned := strings.TrimSpace(word)
+			cleaned = strings.Replace(cleaned, "\n", "", -1)
+			cleaned = strings.Replace(cleaned, "\r", "", -1)
+			cleaned = porter2.Stem(cleaned)
+			rv = append(rv, cleaned)
 		}
 	}
 
@@ -25,7 +29,6 @@ func preprocessText(words []string) (rv []string) {
 }
 
 func intersect(list1, list2 [][]byte) (answer [][]byte) {
-	fmt.Println(list1, list2)
 	i := 0
 	j := 0
 
@@ -51,7 +54,7 @@ func booleanFilter(query []string) (docIDs [][]byte) {
 		wordDoc[word] = viewer.GetContainingPages(word)
 	}
 
-	fmt.Print(wordDoc)
+	fmt.Println(wordDoc)
 
 	sort.Slice(query, func(i, j int) bool {
 		return len(wordDoc[query[i]]) < len(wordDoc[query[j]])
@@ -73,8 +76,6 @@ func booleanFilter(query []string) (docIDs [][]byte) {
 func searchQuery(query []string) (documents []*models.Document) {
 	docIDs := booleanFilter(query)
 
-	// fmt.Println(docIDs)
-
 	documents = viewer.GetDocuments(docIDs)
 
 	return
@@ -87,9 +88,9 @@ func Search(query string) []*models.Document {
 
 	querySplit := strings.Split(query, " ")
 
-	preprocessText(querySplit)
+	preprocessed := preprocessText(querySplit)
 
-	results := searchQuery(querySplit)
+	results := searchQuery(preprocessed)
 
 	return results
 }

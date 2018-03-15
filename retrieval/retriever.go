@@ -47,6 +47,10 @@ func intersect(list1, list2 [][]byte) (answer [][]byte) {
 }
 
 func booleanFilter(query []string) (docIDs [][]byte) {
+	if len(query) == 0 {
+		return
+	}
+
 	wordDoc := make(map[string][][]byte)
 
 	for _, word := range query {

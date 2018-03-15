@@ -72,5 +72,5 @@ func main() {
 	http.HandleFunc("/search/", searchHandler)
 	http.HandleFunc("/favicon.ico", faviconHandler)
 
-	fmt.Println(http.ListenAndServe(":80", nil))
+	fmt.Println(http.ListenAndServe(":8080", nil))
 }

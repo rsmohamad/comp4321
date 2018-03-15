@@ -46,7 +46,6 @@
     <div class="row">
         <div class="col-md-1 col-sm-1"></div>
         <div class="col-md-6 col-sm-10">
-
             <span class="text-muted small">Showing {{.TotalResults}} results in {{.PageNum}} pages</span>
             <br>
 
@@ -90,22 +89,12 @@
     <div class="container vcenter">
         <nav aria-label="Page navigation example">
             <ul class="pagination" style="margin: 0;">
-
-            {{if eq .CurrentPage 1}}
-                <li class="page-item disabled">
+                <li class="page-item {{if eq .CurrentPage 1}}disabled{{end}}">
                     <a class="page-link" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-            {{else}}
-                <li class="page-item">
-                    <a class="page-link" aria-label="Previous" onclick="previous()">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-            {{end}}
 
             {{$curpage := .CurrentPage}}
             {{range $i, $e := .Pages}}
@@ -114,22 +103,12 @@
                 </li>
             {{end}}
 
-            {{if eq .CurrentPage .PageNum}}
-                <li class="page-item disabled">
+                <li class="page-item {{if eq .CurrentPage .PageNum}}disabled{{end}}">
                     <a class="page-link" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>
                 </li>
-            {{else}}
-                <li class="page-item">
-                    <a class="page-link" aria-label="Next" onclick="next()">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            {{end}}
-
             </ul>
         </nav>
     </div>

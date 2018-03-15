@@ -1,8 +1,9 @@
 package database
 
 import (
-	"encoding/json"
 	"comp4321/models"
+	"encoding/json"
+
 	"github.com/boltdb/bolt"
 )
 
@@ -101,7 +102,7 @@ func (v *Viewer) GetDocument(pageId []byte) (document *models.Document) {
 		}
 
 		document = &models.Document{}
-		err := json.Unmarshal(docBytes, documents)
+		err := json.Unmarshal(docBytes, document)
 
 		// If there are parsing errors, return nil pointer
 		if err != nil {

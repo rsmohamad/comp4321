@@ -5,7 +5,6 @@ import (
 	"comp4321/database"
 	"comp4321/models"
 	"comp4321/stopword"
-	"fmt"
 	"sort"
 	"strings"
 
@@ -53,8 +52,6 @@ func booleanFilter(query []string) (docIDs [][]byte) {
 	for _, word := range query {
 		wordDoc[word] = viewer.GetContainingPages(word)
 	}
-
-	fmt.Println(wordDoc)
 
 	sort.Slice(query, func(i, j int) bool {
 		return len(wordDoc[query[i]]) < len(wordDoc[query[j]])

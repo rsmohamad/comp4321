@@ -14,5 +14,7 @@ func main() {
 
 	results := retrieval.Search(query)
 
-	fmt.Println(results)
+	for _, doc := range results {
+		fmt.Println(doc)
+	}
 }

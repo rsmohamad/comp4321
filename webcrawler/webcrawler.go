@@ -4,15 +4,75 @@ import (
 	"comp4321/database"
 	"comp4321/models"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
-	"robotstxt"
 	"sync"
 	"time"
+	"github.com/temoto/robotstxt"
 )
 
+// HTTP client for fetching robots.txt, with 5 seconds timeout
+var robotFetcher = http.Client{Timeout: time.Second * 5}
+
+// HashMap for storing the robots data for each hostname
+var robotMap sync.Map
+
+func fetchRobotsTxt(urlObject *url.URL) (rv *robotstxt.RobotsData) {
+	// If there's no response or timeout exceeded, give the default robots checker
+	// which will allow all paths within that website
+	rv = &robotstxt.RobotsData{}
+	robotUrl := fmt.Sprintf("%s://%s/robots.txt", urlObject.Scheme, urlObject.Host)
+	res, _ := robotFetcher.Get(robotUrl)
+
+	// Try parsing the robots.txt
+	if res != nil && res.StatusCode == 200 {
+		robots, err := robotstxt.FromResponse(res)
+		if err == nil {
+			rv = robots
+			fmt.Println("Fetched " + robotUrl)
+		}
+		res.Body.Close()
+	}
+
+	return
+}
+
+// Checks if the url is crawlable.
+// Will fetch robots.txt if not previously fetched.
+// Thread safe.
+func isAllowedToCrawl(link string) bool {
+	// Use url object to process URLs
+	urlObject, _ := url.Parse(link)
+	var robots *robotstxt.RobotsData
+
+	// Fetch a website's robots.txt if it's not already fetched
+	res, found := robotMap.Load(urlObject.Host)
+	if !found {
+		// Ensure that the same robots.txt is not fetched twice
+		robotMap.Store(urlObject.Host, nil)
+		robots = fetchRobotsTxt(urlObject)
+		robotMap.Store(urlObject.Host, robots)
+	} else {
+		// Wait for other thread to get the robots.txt
+		for res == nil{
+			res, found = robotMap.Load(urlObject.Host)
+		}
+		robots = res.(*robotstxt.RobotsData)
+	}
+
+	// Check with robots.txt
+	if !robots.TestAgent(urlObject.Path, "Agent") {
+		fmt.Println(urlObject.String() + " is not allowed; skipped!")
+		return false
+	}
+
+	return true
+}
+
 func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGroup) {
+	if !isAllowedToCrawl(url) {
+		return
+	}
 	page := Fetch(url)
 	if page != nil {
 		// skip if the page has no title and text
@@ -25,53 +85,12 @@ func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGr
 }
 
 func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
-	startRobot := time.Now()
-	var res *http.Response
-	var wg sync.WaitGroup
-	var robots *robotstxt.RobotsData
-
-	// Check if url is allowed or not
-	urlParse, _ := url.Parse(uri)
-
-	if len(urlParse.Path) == 0 || string(urlParse.Path[len(urlParse.Path)-1]) != "/" {
-		urlParse.Path = urlParse.Path + "/" // Fix path
-	}
-
-	fmt.Println(urlParse.Path)
-
-	// Concurrently fetch robots.txt
-	go func() {
-		wg.Add(1)
-		res, _ = http.Get(urlParse.String() + "robots.txt")
-	}()
-
-	// Add 10 seconds timeout or till robots.txt is found
-	for time.Since(startRobot).Nanoseconds() < 10000000000 && res == nil {
-	}
-	wg.Done()
-
-	// If there's no response or timeout exceeded, break from program
-	if res == nil || res.StatusCode != 200 {
-		fmt.Println("Time since program ran: ", time.Since(startRobot))
-		fmt.Println("Timeout exceeded or robots.txt not found")
-		robots = nil
-	} else {
-		// Parse the robots.txt
-		robots, _ = robotstxt.FromResponse(res)
-		res.Body.Close()
-	}
-
 	pages := make([]*models.Document, 0)
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
 	fetchWg := sync.WaitGroup{}
 	updateWg := sync.WaitGroup{}
 	fetchWg.Add(num)
-
-	if robots != nil && !robots.TestAgent(urlParse.Path, "Agent") {
-		log.Fatal("URI not allowed!")
-		return nil
-	}
 
 	// Visit first page
 	go concurrentFetch(uri, &results, &fetchWg)
@@ -97,22 +116,6 @@ func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
 			if visited[link] || index.ContainsUrl(link) {
 				continue
 			} else {
-				// Check if url is allowed or not
-				urlParse, _ := url.Parse(link)
-
-				if string(urlParse.Path[len(urlParse.Path)-1]) != "/" {
-					urlParse.Path = urlParse.Path + "/" // Fix path
-				}
-
-				if string(urlParse.Path[0]) != "/" {
-					urlParse.Path = "/" + urlParse.Path // Fix path
-				}
-
-				if robots != nil && !robots.TestAgent(urlParse.Path, "Agent") {
-					fmt.Println(link + "not allowed; skipped!")
-					continue
-				}
-
 				go concurrentFetch(link, &results, &fetchWg)
 				visited[link] = true
 			}

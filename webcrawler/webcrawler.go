@@ -11,13 +11,13 @@ import (
 	"github.com/temoto/robotstxt"
 )
 
-// HTTP client for fetching robots.txt, with 5 seconds timeout
-var robotFetcher = http.Client{Timeout: time.Second * 5}
-
 // HashMap for storing the robots data for each hostname
 var robotMap sync.Map
 
 func fetchRobotsTxt(urlObject *url.URL) (rv *robotstxt.RobotsData) {
+	// HTTP client with 5 seconds timeout
+	robotFetcher := http.Client{Timeout: time.Second * 5}
+
 	// If there's no response or timeout exceeded, give the default robots checker
 	// which will allow all paths within that website
 	rv = &robotstxt.RobotsData{}
@@ -33,7 +33,6 @@ func fetchRobotsTxt(urlObject *url.URL) (rv *robotstxt.RobotsData) {
 		}
 		res.Body.Close()
 	}
-
 	return
 }
 
@@ -54,7 +53,7 @@ func isAllowedToCrawl(link string) bool {
 		robotMap.Store(urlObject.Host, robots)
 	} else {
 		// Wait for other thread to get the robots.txt
-		for res == nil{
+		for res == nil {
 			res, found = robotMap.Load(urlObject.Host)
 		}
 		robots = res.(*robotstxt.RobotsData)
@@ -69,40 +68,51 @@ func isAllowedToCrawl(link string) bool {
 	return true
 }
 
+// Concurrent routine for fetching a page.
+// Feeds the page to results channel if fetch is successful.
+// Feeds nil if fetch is unsuccessful.
 func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGroup) {
 	if !isAllowedToCrawl(url) {
+		*results <- nil
 		return
 	}
 	page := Fetch(url)
-	if page != nil {
-		// skip if the page has no title and text
-		if len(page.Words) == 0 && page.Title == "" {
-			return
-		}
+	if page != nil && len(page.Words) > 0 && page.Title != "" {
 		*results <- page
 		wg.Done()
+	} else {
+		*results <- nil
 	}
 }
 
-func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
-	pages := make([]*models.Document, 0)
+func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Document) {
+	var activeCounter int
+	var fetchWg, updateWg sync.WaitGroup
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
-	fetchWg := sync.WaitGroup{}
-	updateWg := sync.WaitGroup{}
+	queue := make([]string, 0)
+	queue = append(queue, uri)
+
 	fetchWg.Add(num)
-
-	// Visit first page
-	go concurrentFetch(uri, &results, &fetchWg)
-	visited[uri] = true
-
 	for len(pages) < num {
-		// append page from results channel
+		// Create goroutines as needed
+		needed := num - len(pages) - activeCounter
+		for ; len(queue) > 0 && needed > 0; needed-- {
+			activeCounter++
+			go concurrentFetch(queue[0], &results, &fetchWg)
+			visited[queue[0]] = true
+			queue = queue[1:]
+		}
+
+		// Retrieve one page from results channel
 		page := <-results
+		activeCounter--
+		if page == nil {
+			continue
+		}
+
 		pages = append(pages, page)
-
 		fmt.Printf("Fetched page #%d out of %d : %s\n", len(pages), num, page.Uri)
-
 		updateWg.Add(1)
 		go func(i int) {
 			index.UpdateOrAddPage(page)
@@ -110,20 +120,16 @@ func Crawl(uri string, num int, index *database.Indexer) []*models.Document {
 			updateWg.Done()
 		}(len(pages))
 
-		// fetch all unvisited links
+		// Put unvisited links into queue
 		for _, link := range page.Links {
 			// skip if the link is already visited or indexed
-			if visited[link] || index.ContainsUrl(link) {
-				continue
-			} else {
-				go concurrentFetch(link, &results, &fetchWg)
-				visited[link] = true
+			if !visited[link] && !index.ContainsUrl(link) {
+				queue = append(queue, link)
 			}
 		}
 	}
 
 	fetchWg.Wait()
 	updateWg.Wait()
-	fmt.Println("Done")
 	return pages
 }

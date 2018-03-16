@@ -127,6 +127,7 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	var wg sync.WaitGroup
 
 	wg.Add(len(p.Words))
+	wg.Add(len(p.Titles))
 	for word := range p.Words {
 		go func(word string) {
 			i.updateInverted(word, pageId, InvertedTable)
@@ -134,8 +135,6 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			wg.Done()
 		}(word)
 	}
-	wg.Wait();
-	wg.Add(len(p.Titles))
 	for word := range p.Titles {
 		go func(word string) {
 			i.updateInverted(word, pageId, InvertedTableTitle)
@@ -143,13 +142,13 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			wg.Done()
 		}(word)
 	}
-	wg.Wait()
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))
 		encoded, _ := json.Marshal(p)
 		documents.Put(pageId, encoded)
 		return nil
 	})
+	wg.Wait();
 }
 
 // TODO

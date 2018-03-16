@@ -2,11 +2,11 @@ package main
 
 import (
 	"bufio"
+	"comp4321/database"
+	"comp4321/models"
 	"fmt"
 	"os"
 	"text/template"
-	"comp4321/models"
-	"comp4321/database"
 )
 
 func main() {

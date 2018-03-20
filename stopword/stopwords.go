@@ -3,29 +3,33 @@ package stopword
 import (
 	"io/ioutil"
 	"regexp"
+	"strings"
 )
 
-var stopWordsRegex *regexp.Regexp
+var stopWords map[string]bool
 
 func loadStopWords() {
-	data, err := ioutil.ReadFile("resources/stopwords.txt")
+	data, err := ioutil.ReadFile("stopword/stopwords.txt")
 	if err != nil {
 		return
 	}
 
 	// Replace all newlines with '|'
 	newlineRegex := regexp.MustCompile("\r?\n")
-	stopWords := newlineRegex.ReplaceAllString(string(data), "|")
+	stopWordsString := newlineRegex.ReplaceAllString(string(data), " ")
+	stopWordsArr := strings.Split(stopWordsString, " ")
 
-	// Make regex
-	stopWordsRegex = regexp.MustCompile("^(" + stopWords + ")$")
+	// Make set
+	stopWords = make(map[string]bool)
+	for _, word := range stopWordsArr {
+		stopWords[word] = true
+	}
 }
 
 // IsStopWord checks if a word is stopword or not
 func IsStopWord(s string) bool {
-	// Check if string matches stopwords regex
-	if stopWordsRegex == nil {
+	if stopWords == nil {
 		loadStopWords()
 	}
-	return stopWordsRegex.MatchString(s)
+	return stopWords[s]
 }

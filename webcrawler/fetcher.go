@@ -117,6 +117,10 @@ func Fetch(uri string) (page *models.Document) {
 
 	tm, _ := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
 	page.Modtime = tm.Unix()
+	if page.Modtime < 0 {
+		tm, _ := time.Parse(time.RFC1123, res.Header.Get("Date"))
+		page.Modtime = tm.Unix()
+	}
 	page.Len = 0
 
 	// Tokenize

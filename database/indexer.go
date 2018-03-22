@@ -169,33 +169,27 @@ func (i *Indexer) UpdateAdjList() {
 // countTf fetcher.go
 // updateForward(word string, pageId []byte, tf int, tablename int)
 func (i *Indexer) UpdateTermWeights(word string, pageId []byte) {
-	// wordId := i.getOrCreateWordId(word)
-	i.db.Batch(func(tx *bolt.Tx) error {
-		it := tx.Bucket(intToByte(InvertedTable))
-		ft := tx.Bucket(intToByte(ForwardTable))
-		tw := tx.Bucket(intToByte(TermWeights))
-		wi := tx.Bucket(intToByte(WordIdToWord))
-		pi := tx.Bucket(intToByte(PageIdToUrl))
+	i.db.Update(func(tx *bolt.Tx) error {
+		itBucket := tx.Bucket(intToByte(InvertedTable))
+		ftBucket := tx.Bucket(intToByte(ForwardTable))
+		twBucket := tx.Bucket(intToByte(TermWeights))
 
-		ft.ForEach(func(pageId, _ []byte) error {
-			page := pi.Get(pageId)
-			words := ft.Bucket(pageId)
+		// Forward Table (PageId - Terms)
+		ftBucket.ForEach(func(pageId, _ []byte) error {
+			words := ftBucket.Bucket(pageId)
 			if words == nil {
 				fmt.Println("Bucket nil")
 				return nil
 			}
-			fmt.Println(string(page))
-			pageSet, _ := tw.CreateBucketIfNotExists(pageId)
-			// TF
+			pageSet, _ := twBucket.CreateBucketIfNotExists(pageId)
+			// Words Bucket (Words - TF)
 			words.ForEach(func(wordId, tfByte []byte) error {
-				word := wi.Get(wordId)
-
-				// IDF
-				df := it.Bucket(wordId).Stats().KeyN
-				tf := byteToInt(tfByte)
-				tw := float64(tf) * math.Log2(float64(ft.Stats().KeyN)/float64(df))
+				// TF-IDF COMPUTATION
+				df := float64(itBucket.Bucket(wordId).Stats().KeyN)
+				N := float64(ftBucket.Stats().KeyN)
+				tf := float64(byteToInt(tfByte))
+				tw := tf * math.Log2(N/df)
 				pageSet.Put(wordId, float64ToByte(tw))
-				fmt.Println(string(word), tw)
 				return nil
 			})
 			return nil

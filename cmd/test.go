@@ -13,7 +13,7 @@ func main() {
 	// viewer, _ := database.LoadViewer("index.db")
 	indexer, _ := database.LoadIndexer("index.db")
 	pageId := []byte("pageId")
-	indexer.UpdateTermWeights("Staff", pageId)
+	indexer.UpdateTermWeights()
 	// file, _ := os.Create("spider_result.txt"
 	// fileStream := bufio.NewWriter(file)
 	// outTemplate := template.New("output_template")

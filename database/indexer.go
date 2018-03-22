@@ -156,7 +156,6 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 
 // TODO
 // Update adj list structure
-//
 func (i *Indexer) UpdateAdjList() {
 
 }
@@ -168,7 +167,7 @@ func (i *Indexer) UpdateAdjList() {
 // deeznuts
 // countTf fetcher.go
 // updateForward(word string, pageId []byte, tf int, tablename int)
-func (i *Indexer) UpdateTermWeights(word string, pageId []byte) {
+func (i *Indexer) UpdateTermWeights() {
 	i.db.Update(func(tx *bolt.Tx) error {
 		itBucket := tx.Bucket(intToByte(InvertedTable))
 		ftBucket := tx.Bucket(intToByte(ForwardTable))

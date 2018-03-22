@@ -160,18 +160,8 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 func (i *Indexer) UpdateAdjList() {
 	i.db.Update(func(tx *bolt.Tx) error {
 		piBucket := tx.Bucket(intToByte(PageInfo))
-		// puBucket := tx.Bucket(intToByte(PageIdToUrl))
 		upBucket := tx.Bucket(intToByte(UrlToPageId))
-		ftBucket := tx.Bucket(intToByte(ForwardTable))
 		alBucket := tx.Bucket(intToByte(AdjList))
-
-		ftBucket.ForEach(func(pageId, _ []byte) error {
-			// b := string(puBucket.Get(pageId))
-			// fmt.Println(pageId, b)
-			// u, _ := url.Parse(b)
-			// fmt.Println(u)
-			return nil
-		})
 
 		piBucket.ForEach(func(pageId, decoded []byte) error {
 			var p models.Document
@@ -180,23 +170,24 @@ func (i *Indexer) UpdateAdjList() {
 			for _, el := range Links {
 				u, _ := url.Parse(el)
 				newUrl := u.Scheme + "://" + u.Host + u.Path
-				id := upBucket.Get([]byte(newUrl))
-				fmt.Println(id)
+				id := upBucket.Get([]byte(newUrl)) //childId
+				if byteToInt(id) != 0 {
+					pageSet, _ := alBucket.CreateBucketIfNotExists(id)
+					pageSet.Put(pageId, intToByte(len(Links)))
+				}
 			}
-			// fmt.Println(pageId)
-			// if documents == nil {
-			// 	fmt.Println("Bucket nil")
-			// 	return nil
-			// }
-			// documents.ForEach(func(doc, _ []byte) error {
-			// 	fmt.Println(string(doc))
-			// 	return nil
-			// })
 			return nil
 		})
 
-		// 	ftBucket := tx.Bucket(intToByte(ForwardTable))
-		// 	alBucket := tx.Bucket(intToByte(AdjList))
+		alBucket.ForEach(func(id, _ []byte) error {
+			b := alBucket.Bucket(id)
+			fmt.Println("CHILD ID", id)
+			b.ForEach(func(pageId, len []byte) error {
+				fmt.Println(pageId, byteToInt(len))
+				return nil
+			})
+			return nil
+		})
 
 		return nil
 	})

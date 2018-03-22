@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"net/url"
 	"sync"
 
 	"github.com/boltdb/bolt"
@@ -157,13 +158,48 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 // TODO
 // Update adj list structure
 func (i *Indexer) UpdateAdjList() {
-	// i.db.Update(func(tx *bolt.Tx) error {
+	i.db.Update(func(tx *bolt.Tx) error {
+		piBucket := tx.Bucket(intToByte(PageInfo))
+		// puBucket := tx.Bucket(intToByte(PageIdToUrl))
+		upBucket := tx.Bucket(intToByte(UrlToPageId))
+		ftBucket := tx.Bucket(intToByte(ForwardTable))
+		alBucket := tx.Bucket(intToByte(AdjList))
 
-	// 	ftBucket := tx.Bucket(intToByte(ForwardTable))
-	// 	alBucket := tx.Bucket(intToByte(AdjList))
+		ftBucket.ForEach(func(pageId, _ []byte) error {
+			// b := string(puBucket.Get(pageId))
+			// fmt.Println(pageId, b)
+			// u, _ := url.Parse(b)
+			// fmt.Println(u)
+			return nil
+		})
 
-	// 	return nil
-	// })
+		piBucket.ForEach(func(pageId, decoded []byte) error {
+			var p models.Document
+			json.Unmarshal(decoded, &p)
+			Links := p.Links
+			for _, el := range Links {
+				u, _ := url.Parse(el)
+				newUrl := u.Scheme + "://" + u.Host + u.Path
+				id := upBucket.Get([]byte(newUrl))
+				fmt.Println(id)
+			}
+			// fmt.Println(pageId)
+			// if documents == nil {
+			// 	fmt.Println("Bucket nil")
+			// 	return nil
+			// }
+			// documents.ForEach(func(doc, _ []byte) error {
+			// 	fmt.Println(string(doc))
+			// 	return nil
+			// })
+			return nil
+		})
+
+		// 	ftBucket := tx.Bucket(intToByte(ForwardTable))
+		// 	alBucket := tx.Bucket(intToByte(AdjList))
+
+		return nil
+	})
 }
 
 // Update term weights

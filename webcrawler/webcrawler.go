@@ -91,7 +91,10 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
 	queue := make([]string, 0)
-	queue = append(queue, uri)
+
+	// Sanitize url
+	urlParse, _ := url.Parse(uri)
+	queue = append(queue, urlParse.String())
 
 	fetchWg.Add(num)
 	for len(pages) < num {
@@ -131,5 +134,6 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 
 	fetchWg.Wait()
 	updateWg.Wait()
+	index.FlushInverted()
 	return pages
 }

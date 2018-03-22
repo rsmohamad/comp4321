@@ -3,7 +3,10 @@ package database
 import (
 	"comp4321/models"
 	"encoding/json"
+	"fmt"
+	"math"
 	"sync"
+
 	"github.com/boltdb/bolt"
 )
 
@@ -148,24 +151,63 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 		documents.Put(pageId, encoded)
 		return nil
 	})
-	wg.Wait();
+	wg.Wait()
 }
 
 // TODO
 // Update adj list structure
+//
 func (i *Indexer) UpdateAdjList() {
 
 }
 
 // TODO
 // Update term weights
-func (i *Indexer) UpdateTermWeights() {
+// Precompute tf idf
+// Masukin ke TermWeights table in tables.go
+// deeznuts
+// countTf fetcher.go
+// updateForward(word string, pageId []byte, tf int, tablename int)
+func (i *Indexer) UpdateTermWeights(word string, pageId []byte) {
+	// wordId := i.getOrCreateWordId(word)
+	i.db.Batch(func(tx *bolt.Tx) error {
+		it := tx.Bucket(intToByte(InvertedTable))
+		ft := tx.Bucket(intToByte(ForwardTable))
+		tw := tx.Bucket(intToByte(TermWeights))
+		wi := tx.Bucket(intToByte(WordIdToWord))
+		pi := tx.Bucket(intToByte(PageIdToUrl))
 
+		ft.ForEach(func(pageId, _ []byte) error {
+			page := pi.Get(pageId)
+			words := ft.Bucket(pageId)
+			if words == nil {
+				fmt.Println("Bucket nil")
+				return nil
+			}
+			fmt.Println(string(page))
+			pageSet, _ := tw.CreateBucketIfNotExists(pageId)
+			// TF
+			words.ForEach(func(wordId, tfByte []byte) error {
+				word := wi.Get(wordId)
+
+				// IDF
+				df := it.Bucket(wordId).Stats().KeyN
+				tf := byteToInt(tfByte)
+				tw := float64(tf) * math.Log2(float64(ft.Stats().KeyN)/float64(df))
+				pageSet.Put(wordId, float64ToByte(tw))
+				fmt.Println(string(word), tw)
+				return nil
+			})
+			return nil
+		})
+		return nil
+	})
+	return
 }
 
 // TODO
 // Update page rank
-func (i * Indexer) UpdatePageRank() {
+func (i *Indexer) UpdatePageRank() {
 
 }
 

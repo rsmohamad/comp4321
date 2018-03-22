@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"sync"
 	"time"
+
 	"github.com/temoto/robotstxt"
 )
 

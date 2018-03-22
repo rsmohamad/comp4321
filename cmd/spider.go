@@ -14,6 +14,7 @@ func main() {
 
 	startCrawl := time.Now()
 	webcrawler.Crawl("http://www.cse.ust.hk", 30, index)
+	// index.UpdateTermWeights
 	elapsed := time.Since(startCrawl)
 	fmt.Printf("Indexing %d pages took %s\n", 30, elapsed)
 }

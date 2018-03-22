@@ -160,13 +160,9 @@ func (i *Indexer) UpdateAdjList() {
 
 }
 
-// TODO
 // Update term weights
-// Precompute tf idf
-// Masukin ke TermWeights table in tables.go
-// deeznuts
-// countTf fetcher.go
-// updateForward(word string, pageId []byte, tf int, tablename int)
+// TF, N, keywords per page, and pages are retrieved from forward table
+// DF is retrieved from inverted index
 func (i *Indexer) UpdateTermWeights() {
 	i.db.Update(func(tx *bolt.Tx) error {
 		itBucket := tx.Bucket(intToByte(InvertedTable))

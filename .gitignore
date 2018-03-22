@@ -9,6 +9,7 @@ server
 spider_result.txt
 cmd/urlparse.go
 cmd/robots_txt.go
+comp4321.zip
 
 # User-specific stuff:
 .idea/

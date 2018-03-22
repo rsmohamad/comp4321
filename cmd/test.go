@@ -1,7 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"comp4321/database"
+	"comp4321/models"
+	"fmt"
+	"html/template"
+	"os"
 )
 
 const text = "{{.Title}}\n{{.Uri}}\n{{.GetTimeStr}}, {{.GetSizeStr}}\n" +
@@ -12,9 +17,8 @@ const text = "{{.Title}}\n{{.Uri}}\n{{.GetTimeStr}}, {{.GetSizeStr}}\n" +
 func main() {
 	viewer, _ := database.LoadViewer("index.db")
 	indexer, _ := database.LoadIndexer("index.db")
-	pageId := []byte("pageId")
 	indexer.UpdateTermWeights()
-	file, _ := os.Create("spider_result.txt"
+	file, _ := os.Create("spider_result.txt")
 	fileStream := bufio.NewWriter(file)
 	outTemplate := template.New("output_template")
 	outTemplate.Parse(text)

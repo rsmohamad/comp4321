@@ -157,7 +157,13 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 // TODO
 // Update adj list structure
 func (i *Indexer) UpdateAdjList() {
+	// i.db.Update(func(tx *bolt.Tx) error {
 
+	// 	ftBucket := tx.Bucket(intToByte(ForwardTable))
+	// 	alBucket := tx.Bucket(intToByte(AdjList))
+
+	// 	return nil
+	// })
 }
 
 // Update term weights

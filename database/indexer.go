@@ -179,16 +179,6 @@ func (i *Indexer) UpdateAdjList() {
 			return nil
 		})
 
-		alBucket.ForEach(func(id, _ []byte) error {
-			b := alBucket.Bucket(id)
-			fmt.Println("CHILD ID", id)
-			b.ForEach(func(pageId, len []byte) error {
-				fmt.Println(pageId, byteToInt(len))
-				return nil
-			})
-			return nil
-		})
-
 		return nil
 	})
 }

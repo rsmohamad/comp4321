@@ -4,7 +4,9 @@ import (
 	"comp4321/database"
 	"comp4321/webcrawler"
 	"fmt"
+	"os"
 	"time"
+	"strconv"
 )
 
 func main() {
@@ -12,8 +14,13 @@ func main() {
 	defer index.Close()
 	index.DropAll()
 
-	numPages := 30
 	start := "http://www.cse.ust.hk"
+	numPages := 30
+
+	if len(os.Args) == 3{
+		start = os.Args[1]
+		numPages, _ = strconv.Atoi(os.Args[2])
+	}
 
 	startCrawl := time.Now()
 	webcrawler.Crawl(start, numPages, index)

@@ -176,17 +176,26 @@ func Fetch(uri string) (page *models.Document) {
 	// Clean data
 	page.Titles = countTf(tokenizeString(page.Title))
 	page.Words = countTf(tokenizeString(strings.Join(words, " ")))
+	page.MaxTf = countMaxTf(page.Words)
 	page.Links = toAbsoluteUrl(page.Links, uri)
 	return
 }
 
 func countTf(words []string) map[string]int {
 	m := make(map[string]int)
-
 	for _, word := range words {
 		count := m[word]
 		m[word] = count + 1
 	}
-
 	return m
+}
+
+func countMaxTf(words map[string]int) int {
+	max := 0
+	for _, val := range words {
+		if val > max {
+			max = val
+		}
+	}
+	return max
 }

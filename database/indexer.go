@@ -176,13 +176,29 @@ func (i *Indexer) ContainsUrl(url string) (present bool) {
 	return
 }
 
+func (i *Indexer) setMaxTf(pageId []byte, maxTf int){
+	i.db.Batch(func(tx *bolt.Tx) error {
+		fwTable := tx.Bucket(intToByte(ForwardTable))
+		fwTable.Put(pageId, intToByte(maxTf))
+		return nil
+	})
+}
+
+func (i *Indexer) getMaxTf(pageId []byte) (maxTf int) {
+	i.db.View(func(tx *bolt.Tx) error {
+		fwTable := tx.Bucket(intToByte(ForwardTable))
+		maxTf = byteToInt(fwTable.Get(pageId))
+		return nil
+	})
+	return
+}
+
 // Insert page into the database.
 // This will update all mapping tables and indexes.
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	pageId := i.getOrCreatePageId(p.Uri)
 	var wg sync.WaitGroup
 	wg.Add(2 * len(p.Words))
-
 	for word, tf := range p.Words {
 		go func() {
 			i.updateInverted(word, pageId, InvertedTable)
@@ -193,8 +209,8 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			wg.Done()
 		}()
 	}
-
 	wg.Wait()
+	i.setMaxTf(pageId, p.MaxTf)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))
 		encoded, _ := json.Marshal(p)

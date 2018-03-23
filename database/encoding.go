@@ -7,12 +7,12 @@ import (
 
 func uint64ToByte(v uint64) []byte {
 	b := make([]byte, 8)
-	binary.LittleEndian.PutUint64(b, v)
+	binary.BigEndian.PutUint64(b, v)
 	return b
 }
 
 func byteToUint64(arr []byte) uint64 {
-	return binary.LittleEndian.Uint64(arr)
+	return binary.BigEndian.Uint64(arr)
 }
 
 func intToByte(v int) []byte {

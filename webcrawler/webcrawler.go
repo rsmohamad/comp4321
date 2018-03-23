@@ -72,11 +72,13 @@ func isAllowedToCrawl(link string) bool {
 // Concurrent routine for fetching a page.
 // Feeds the page to results channel if fetch is successful.
 // Feeds nil if fetch is unsuccessful.
+var throttle = time.Tick(time.Millisecond * 10)
 func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGroup) {
 	if !isAllowedToCrawl(url) {
 		*results <- nil
 		return
 	}
+	<-throttle
 	page := Fetch(url)
 	if page != nil && len(page.Words) > 0 && page.Title != "" {
 		*results <- page
@@ -92,7 +94,10 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
 	queue := make([]string, 0)
-	queue = append(queue, uri)
+
+	// Sanitize url
+	urlParse, _ := url.Parse(uri)
+	queue = append(queue, urlParse.String())
 
 	fetchWg.Add(num)
 	for len(pages) < num {
@@ -132,5 +137,6 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 
 	fetchWg.Wait()
 	updateWg.Wait()
+	index.FlushInverted()
 	return pages
 }

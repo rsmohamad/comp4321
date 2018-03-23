@@ -13,6 +13,7 @@ type Document struct {
 	Words   map[string]int
 	Titles  map[string]int
 	Len     int
+	MaxTf	int
 	Modtime int64
 }
 

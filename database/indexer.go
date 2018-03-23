@@ -7,8 +7,8 @@ import (
 	"math"
 	"net/url"
 	"sync"
-
 	"github.com/boltdb/bolt"
+	"sort"
 )
 
 // The Indexer object abstracts away data structure manipulations
@@ -17,6 +17,11 @@ import (
 // Only one Indexer object can operate on the same .db file at a time.
 type Indexer struct {
 	db *bolt.DB
+
+	// Temporarily hold inverted index in memory
+	tempInverted map[uint64]map[uint64]bool
+	wordIdList   []uint64
+	sync.Mutex
 }
 
 // Return an Indexer object from .db file
@@ -89,18 +94,67 @@ func (i *Indexer) getOrCreatePageId(url string) []byte {
 }
 
 // Get the wordId for the given word, create new one if does not exist
-func (i *Indexer) getOrCreateWordId(word string) []byte {
-	return i.getId(word, WordToWordId, WordIdToWord)
+func (i *Indexer) getOrCreateWordId(word string) (rv []byte) {
+	rv = i.getId(word, WordToWordId, WordIdToWord)
+	return
 }
 
 func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
 	wordId := i.getOrCreateWordId(word)
-	i.db.Batch(func(tx *bolt.Tx) error {
-		inverted := tx.Bucket(intToByte(tablename))
-		wordSet, _ := inverted.CreateBucketIfNotExists(wordId)
-		wordSet.Put(pageId, []byte{1})
+	wordIdUint64 := byteToUint64(wordId)
+	pageIdUint64 := byteToUint64(pageId)
+
+	// Critical section - access shared map and slice
+	i.Lock()
+	if i.tempInverted == nil {
+		i.tempInverted = make(map[uint64]map[uint64]bool)
+	}
+
+	postingList := i.tempInverted[wordIdUint64]
+	if postingList == nil {
+		postingList = make(map[uint64]bool)
+		i.wordIdList = append(i.wordIdList, wordIdUint64)
+	}
+
+	postingList[pageIdUint64] = true
+	i.tempInverted[wordIdUint64] = postingList
+	i.Unlock()
+	// Non critical section
+}
+
+func (i *Indexer) FlushInverted() {
+	wordIdList := i.wordIdList
+
+	// Sort slices for sequential writes
+	sort.Slice(wordIdList, func(i, j int) bool {
+		return wordIdList[i] < wordIdList[j]
+	})
+
+	i.db.Update(func(tx *bolt.Tx) error {
+		inverted := tx.Bucket(intToByte(InvertedTable))
+		inverted.FillPercent = 1
 		return nil
 	})
+
+	var wg sync.WaitGroup
+	wg.Add(len(wordIdList))
+	for index, id := range wordIdList {
+		idBytes := uint64ToByte(id)
+		fmt.Printf("Merging word %d out of %d | WordID: ", index+1, len(wordIdList))
+		fmt.Println(idBytes)
+		go i.db.Batch(func(tx *bolt.Tx) error {
+			inverted := tx.Bucket(intToByte(InvertedTable))
+			wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
+			postingList := i.tempInverted[id]
+			for docId, _ := range postingList {
+				wordSet.Put(uint64ToByte(docId), []byte{1})
+			}
+
+			wg.Done()
+			return nil
+		})
+	}
+	wg.Wait()
 }
 
 func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename int) {
@@ -124,35 +178,47 @@ func (i *Indexer) ContainsUrl(url string) (present bool) {
 	return
 }
 
+func (i *Indexer) setMaxTf(pageId []byte, maxTf int){
+	i.db.Batch(func(tx *bolt.Tx) error {
+		fwTable := tx.Bucket(intToByte(ForwardTable))
+		fwTable.Put(pageId, intToByte(maxTf))
+		return nil
+	})
+}
+
+func (i *Indexer) getMaxTf(pageId []byte) (maxTf int) {
+	i.db.View(func(tx *bolt.Tx) error {
+		fwTable := tx.Bucket(intToByte(ForwardTable))
+		maxTf = byteToInt(fwTable.Get(pageId))
+		return nil
+	})
+	return
+}
+
 // Insert page into the database.
 // This will update all mapping tables and indexes.
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	pageId := i.getOrCreatePageId(p.Uri)
 	var wg sync.WaitGroup
-
-	wg.Add(len(p.Words))
-	wg.Add(len(p.Titles))
-	for word := range p.Words {
-		go func(word string) {
+	wg.Add(2 * len(p.Words))
+	for word, tf := range p.Words {
+		go func() {
 			i.updateInverted(word, pageId, InvertedTable)
-			i.updateForward(word, pageId, p.Words[word], ForwardTable)
 			wg.Done()
-		}(word)
-	}
-	for word := range p.Titles {
-		go func(word string) {
-			i.updateInverted(word, pageId, InvertedTableTitle)
-			i.updateForward(word, pageId, p.Titles[word], ForwardTableTitle)
+		}()
+		go func() {
+			i.updateForward(word, pageId, tf, ForwardTable)
 			wg.Done()
-		}(word)
+		}()
 	}
+	wg.Wait()
+	i.setMaxTf(pageId, p.MaxTf)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))
 		encoded, _ := json.Marshal(p)
 		documents.Put(pageId, encoded)
 		return nil
 	})
-	wg.Wait()
 }
 
 // Update Adjacency List

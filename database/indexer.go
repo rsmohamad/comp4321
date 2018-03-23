@@ -155,18 +155,21 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	wg.Wait()
 }
 
-// TODO
-// Update adj list structure
+// Update Adjacency List
+// Gets the pageId and set of child Links from PageInfo
+// Sets in each of the child link, the pageId as parent link and the number of links from the pageId
 func (i *Indexer) UpdateAdjList() {
 	i.db.Update(func(tx *bolt.Tx) error {
 		piBucket := tx.Bucket(intToByte(PageInfo))
 		upBucket := tx.Bucket(intToByte(UrlToPageId))
 		alBucket := tx.Bucket(intToByte(AdjList))
 
+		// PageInfo Table (pageId - JSON Document)
 		piBucket.ForEach(func(pageId, decoded []byte) error {
 			var p models.Document
 			json.Unmarshal(decoded, &p)
 			Links := p.Links
+			// Iterate through each link, clean them, and put according to id 1-30.
 			for _, el := range Links {
 				u, _ := url.Parse(el)
 				newUrl := u.Scheme + "://" + u.Host + u.Path

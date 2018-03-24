@@ -4,11 +4,11 @@ import (
 	"comp4321/models"
 	"encoding/json"
 	"fmt"
+	"github.com/boltdb/bolt"
 	"math"
 	"net/url"
-	"sync"
-	"github.com/boltdb/bolt"
 	"sort"
+	"sync"
 )
 
 // The Indexer object abstracts away data structure manipulations
@@ -21,7 +21,8 @@ type Indexer struct {
 	// Temporarily hold inverted index in memory
 	tempInverted map[uint64]map[uint64]bool
 	wordIdList   []uint64
-	sync.Mutex
+	idLock       sync.RWMutex
+	mapLock      sync.Mutex
 }
 
 // Return an Indexer object from .db file
@@ -61,20 +62,43 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 	id = nil
 	fw := intToByte(fwMapTable)
 	inv := intToByte(invMapTable)
-
-	i.db.View(func(tx *bolt.Tx) error {
-		forwardMap := tx.Bucket(intToByte(fwMapTable))
-		res := forwardMap.Get([]byte(text))
-		if res != nil {
-			id = make([]byte, len(res))
-			copy(id, res)
-		}
-		return nil
-	})
-
-	if id == nil {
-		i.db.Batch(func(tx *bolt.Tx) error {
+	readId := func() {
+		i.db.View(func(tx *bolt.Tx) error {
 			forwardMap := tx.Bucket(fw)
+			res := forwardMap.Get([]byte(text))
+			if res != nil {
+				id = make([]byte, len(res))
+				copy(id, res)
+			}
+			return nil
+		})
+	}
+
+	// Multiple readers and writers problem
+	// Avoid creating duplicate IDs from multiple threads
+
+	// Reader section
+	i.idLock.RLock()
+	readId()
+	i.idLock.RUnlock()
+
+	// ID doesnt exist yet, create new one
+	if id == nil {
+		// Writer section
+		i.idLock.Lock()
+		defer i.idLock.Unlock()
+
+		// The ID may have been created by another thread 
+		// while current thread was waiting on the writer lock.
+		// Return if ID is already created.
+		readId()
+		if id != nil {
+			return
+		}
+
+		i.db.Update(func(tx *bolt.Tx) error {
+			forwardMap := tx.Bucket(fw)
+
 			uniqueId, _ := forwardMap.NextSequence()
 			id = uint64ToByte(uniqueId)
 			forwardMap.Put([]byte(text), id)
@@ -99,13 +123,14 @@ func (i *Indexer) getOrCreateWordId(word string) (rv []byte) {
 	return
 }
 
+// Update the in-memory inverted index
 func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
 	wordId := i.getOrCreateWordId(word)
 	wordIdUint64 := byteToUint64(wordId)
 	pageIdUint64 := byteToUint64(pageId)
 
 	// Critical section - access shared map and slice
-	i.Lock()
+	i.mapLock.Lock()
 	if i.tempInverted == nil {
 		i.tempInverted = make(map[uint64]map[uint64]bool)
 	}
@@ -118,22 +143,17 @@ func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
 
 	postingList[pageIdUint64] = true
 	i.tempInverted[wordIdUint64] = postingList
-	i.Unlock()
+	i.mapLock.Unlock()
 	// Non critical section
 }
 
+// Sort and write the in-memory inverted index to file
 func (i *Indexer) FlushInverted() {
 	wordIdList := i.wordIdList
 
 	// Sort slices for sequential writes
 	sort.Slice(wordIdList, func(i, j int) bool {
 		return wordIdList[i] < wordIdList[j]
-	})
-
-	i.db.Update(func(tx *bolt.Tx) error {
-		inverted := tx.Bucket(intToByte(InvertedTable))
-		inverted.FillPercent = 1
-		return nil
 	})
 
 	var wg sync.WaitGroup
@@ -178,7 +198,7 @@ func (i *Indexer) ContainsUrl(url string) (present bool) {
 	return
 }
 
-func (i *Indexer) setMaxTf(pageId []byte, maxTf int){
+func (i *Indexer) setMaxTf(pageId []byte, maxTf int) {
 	i.db.Batch(func(tx *bolt.Tx) error {
 		fwTable := tx.Bucket(intToByte(ForwardTable))
 		fwTable.Put(pageId, intToByte(maxTf))
@@ -200,18 +220,20 @@ func (i *Indexer) getMaxTf(pageId []byte) (maxTf int) {
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	pageId := i.getOrCreatePageId(p.Uri)
 	var wg sync.WaitGroup
+
 	wg.Add(2 * len(p.Words))
 	for word, tf := range p.Words {
-		go func() {
-			i.updateInverted(word, pageId, InvertedTable)
+		go func(w string) {
+			i.updateInverted(w, pageId, InvertedTable)
 			wg.Done()
-		}()
-		go func() {
-			i.updateForward(word, pageId, tf, ForwardTable)
+		}(word)
+		go func(w string, t int) {
+			i.updateForward(w, pageId, t, ForwardTable)
 			wg.Done()
-		}()
+		}(word, tf)
 	}
 	wg.Wait()
+
 	i.setMaxTf(pageId, p.MaxTf)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))

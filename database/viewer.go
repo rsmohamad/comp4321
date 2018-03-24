@@ -3,7 +3,7 @@ package database
 import (
 	"comp4321/models"
 	"encoding/json"
-
+	"fmt"
 	"github.com/boltdb/bolt"
 )
 
@@ -78,6 +78,10 @@ func (v *Viewer) GetContainingPages(word string) [][]byte {
 	v.db.View(func(tx *bolt.Tx) error {
 		wordBucket := tx.Bucket(intToByte(InvertedTable))
 		docBucket := wordBucket.Bucket(wordId)
+		if docBucket == nil {
+			fmt.Println("does not exist")
+			return nil
+		}
 		docBucket.ForEach(func(k, v []byte) error {
 			pageId := make([]byte, len(k))
 			copy(pageId, k)
@@ -140,6 +144,17 @@ func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 			}
 			return nil
 		})
+		return nil
+	})
+}
+
+func (v *Viewer) PrintAllWords() {
+	v.db.View(func (tx *bolt.Tx) error {
+		words := tx.Bucket(intToByte(WordIdToWord))
+		words.ForEach(func (key, val []byte) error {
+			fmt.Println(key, string(val))
+			return nil
+		})		
 		return nil
 	})
 }

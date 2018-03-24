@@ -37,9 +37,9 @@ func intersect(list1, list2 [][]byte) (answer [][]byte) {
 			i++
 			j++
 		} else if bytes.Compare(list1[i], list2[j]) == -1 {
-			i++
-		} else {
 			j++
+		} else {
+			i++
 		}
 	}
 

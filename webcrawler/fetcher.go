@@ -3,7 +3,6 @@ package webcrawler
 import (
 	"comp4321/models"
 	"comp4321/stopword"
-	"fmt"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -183,7 +182,6 @@ func Fetch(uri string) (page *models.Document) {
 	page.Words = countTf(tokenizeString(strings.Join(words, " ")))
 	page.MaxTf = countMaxTf(page.Words)
 	page.Links = toAbsoluteUrl(page.Links, uri)
-	fmt.Println(page.Links)
 	return
 }
 

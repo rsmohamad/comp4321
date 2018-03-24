@@ -2,6 +2,11 @@ package main
 
 import (
 	"comp4321/database"
+	"comp4321/models"
+	"fmt"
+	"os"
+	"text/template"
+	"bufio"
 )
 
 const text = "{{.Title}}\n{{.Uri}}\n{{.GetTimeStr}}, {{.GetSizeStr}}\n" +
@@ -10,22 +15,22 @@ const text = "{{.Title}}\n{{.Uri}}\n{{.GetTimeStr}}, {{.GetSizeStr}}\n" +
 	"-------------------------------------------------------------------------------------------\n"
 
 func main() {
-	// viewer, _ := database.LoadViewer("index.db")
-	indexer, _ := database.LoadIndexer("index.db")
-	indexer.UpdateAdjList()
-	// indexer.UpdateTermWeights()
-	// file, _ := os.Create("spider_result.txt")
-	// fileStream := bufio.NewWriter(file)
-	// outTemplate := template.New("output_template")
-	// outTemplate.Parse(text)
+	viewer, _ := database.LoadViewer("index.db")
+	//indexer, _ := database.LoadIndexer("index.db")
+	//indexer.UpdateAdjList()
+	//indexer.UpdateTermWeights()
+	file, _ := os.Create("spider_result.txt")
+	fileStream := bufio.NewWriter(file)
+	outTemplate := template.New("output_template")
+	outTemplate.Parse(text)
 
-	// defer file.Close()
-	// defer viewer.Close()
+	defer file.Close()
+	defer viewer.Close()
 
-	// viewer.ForEachDocument(func(p *models.Document, i int) {
-	// 	fmt.Println(i + 1)
-	// 	outTemplate.Execute(os.Stdout, p)
-	// 	outTemplate.Execute(fileStream, p)
-	// 	fileStream.Flush()
-	// })
+	viewer.ForEachDocument(func(p *models.Document, i int) {
+		fmt.Println(i + 1)
+		outTemplate.Execute(os.Stdout, p)
+		outTemplate.Execute(fileStream, p)
+		fileStream.Flush()
+	})
 }

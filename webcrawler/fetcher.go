@@ -25,19 +25,6 @@ func getUrl(t html.Token) string {
 	return ""
 }
 
-func getMetaDesc(t html.Token) (desc string, found bool) {
-	found = false
-	for _, a := range t.Attr {
-		if a.Key == "name" && a.Val == "description" {
-			found = true
-		}
-		if a.Key == "content" && found {
-			desc = a.Val
-		}
-	}
-	return
-}
-
 func handleMetaRedirect(t html.Token) (url string, redirect bool) {
 	redirect = false
 	for _, a := range t.Attr {
@@ -108,19 +95,15 @@ func Fetch(uri string) (page *models.Document) {
 	res, _ := http.Get(uri)
 
 	// Return if HTTP request is not successful
-	if res == nil {
-		return nil
-	}
-	if res.StatusCode != 200 {
+	if res == nil || res.StatusCode != 200 {
 		return nil
 	}
 
-	tm, _ := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
-	page.Modtime = tm.Unix()
-	if page.Modtime < 0 {
-		tm, _ := time.Parse(time.RFC1123, res.Header.Get("Date"))
-		page.Modtime = tm.Unix()
+	tm, err := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
+	if err != nil {
+		tm, _ = time.Parse(time.RFC1123, res.Header.Get("Date"))
 	}
+	page.Modtime = tm.Unix()
 	page.Len = 0
 
 	// Tokenize
@@ -131,7 +114,6 @@ func Fetch(uri string) (page *models.Document) {
 	for {
 		tokenType := tokenizer.Next()
 		t := tokenizer.Token()
-
 		page.Len += len(tokenizer.Raw())
 
 		if tokenType == html.ErrorToken {
@@ -157,21 +139,17 @@ func Fetch(uri string) (page *models.Document) {
 			break
 		case html.SelfClosingTagToken:
 			if t.Data == "meta" {
-				desc, found := getMetaDesc(t)
-				if found {
-					page.Desc = desc
-				}
 				link, redirect := handleMetaRedirect(t)
 				if redirect {
 					return Fetch(link)
 				}
 				break
 			}
-
+			break
 		case html.TextToken:
 			// Skip if text is empty, not in between body tags or between script tags
 			trimmed := strings.TrimSpace(t.Data)
-			if trimmed != "" && inBody && lastElement != "script" {
+			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style" {
 				words = append(words, trimmed)
 			}
 		}

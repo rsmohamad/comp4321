@@ -11,17 +11,15 @@ import (
 	"sync"
 )
 
-// The Indexer object abstracts away data structure manipulations
-// for inserting web documents into the search engine database.
-// The Indexer object will read the .db file in read-write mode.
-// Only one Indexer object can operate on the same .db file at a time.
+// Class for inserting webpages into the db.
+// Reads the .db file in read-write mode.
+// Only one instance per file can be created.
 type Indexer struct {
 	db *bolt.DB
 
 	// Temporarily hold inverted index in memory
 	tempInverted map[uint64]map[uint64]bool
 	wordIdList   []uint64
-	idLock       sync.RWMutex
 	mapLock      sync.Mutex
 }
 
@@ -62,53 +60,25 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 	id = nil
 	fw := intToByte(fwMapTable)
 	inv := intToByte(invMapTable)
-	readId := func() {
-		i.db.View(func(tx *bolt.Tx) error {
-			forwardMap := tx.Bucket(fw)
-			res := forwardMap.Get([]byte(text))
-			if res != nil {
-				id = make([]byte, len(res))
-				copy(id, res)
-			}
+
+	i.db.Batch(func(tx *bolt.Tx) error {
+		forwardMap := tx.Bucket(fw)
+		res := forwardMap.Get([]byte(text))
+
+		// Check if the ID already exist
+		if res != nil {
+			id = make([]byte, len(res))
+			copy(id, res)
 			return nil
-		})
-	}
-
-	// Multiple readers and writers problem
-	// Avoid creating duplicate IDs from multiple threads
-
-	// Reader section
-	i.idLock.RLock()
-	readId()
-	i.idLock.RUnlock()
-
-	// ID doesnt exist yet, create new one
-	if id == nil {
-		// Writer section
-		i.idLock.Lock()
-		defer i.idLock.Unlock()
-
-		// The ID may have been created by another thread 
-		// while current thread was waiting on the writer lock.
-		// Return if ID is already created.
-		readId()
-		if id != nil {
-			return
 		}
+		uniqueId, _ := forwardMap.NextSequence()
+		id = uint64ToByte(uniqueId)
+		forwardMap.Put([]byte(text), id)
+		invMap := tx.Bucket(inv)
+		invMap.Put(id, []byte(text))
+		return nil
+	})
 
-		i.db.Update(func(tx *bolt.Tx) error {
-			forwardMap := tx.Bucket(fw)
-
-			uniqueId, _ := forwardMap.NextSequence()
-			id = uint64ToByte(uniqueId)
-			forwardMap.Put([]byte(text), id)
-
-			invMap := tx.Bucket(inv)
-			invMap.Put(id, []byte(text))
-
-			return nil
-		})
-	}
 	return
 }
 
@@ -221,13 +191,10 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	pageId := i.getOrCreatePageId(p.Uri)
 	var wg sync.WaitGroup
 
-	wg.Add(2 * len(p.Words))
+	wg.Add(len(p.Words))
 	for word, tf := range p.Words {
-		go func(w string) {
-			i.updateInverted(w, pageId, InvertedTable)
-			wg.Done()
-		}(word)
 		go func(w string, t int) {
+			i.updateInverted(w, pageId, InvertedTable)
 			i.updateForward(w, pageId, t, ForwardTable)
 			wg.Done()
 		}(word, tf)
@@ -282,22 +249,20 @@ func (i *Indexer) UpdateTermWeights() {
 		itBucket := tx.Bucket(intToByte(InvertedTable))
 		ftBucket := tx.Bucket(intToByte(ForwardTable))
 		twBucket := tx.Bucket(intToByte(TermWeights))
+		N := float64(ftBucket.Stats().KeyN)
 
 		// Forward Table (PageId - Terms)
 		ftBucket.ForEach(func(pageId, _ []byte) error {
 			words := ftBucket.Bucket(pageId)
-			if words == nil {
-				fmt.Println("Bucket nil")
-				return nil
-			}
 			pageSet, _ := twBucket.CreateBucketIfNotExists(pageId)
+			maxTf := float64(i.getMaxTf(pageId))
+
 			// Words Bucket (Words - TF)
 			words.ForEach(func(wordId, tfByte []byte) error {
 				// TF-IDF COMPUTATION
 				df := float64(itBucket.Bucket(wordId).Stats().KeyN)
-				N := float64(ftBucket.Stats().KeyN)
 				tf := float64(byteToInt(tfByte))
-				tw := tf * math.Log2(N/df)
+				tw := tf * math.Log2(N/df) / maxTf
 				pageSet.Put(wordId, float64ToByte(tw))
 				return nil
 			})

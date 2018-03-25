@@ -7,10 +7,8 @@ import (
 	"github.com/boltdb/bolt"
 )
 
-// The Viewer object abstracts away data structure manipulations
-// for reading a search engine database.
-// The Viewer object will read the .db file in read-only mode.
-// Multiple Viewer objects can read the same .db file simultaneously.
+// Class for reading the database
+// Reads the .db file in read-only mode.
 type Viewer struct {
 	db *bolt.DB
 }

@@ -16,9 +16,6 @@ const text = "{{.Title}}\n{{.Uri}}\n{{.GetTimeStr}}, {{.GetSizeStr}}\n" +
 
 func main() {
 	viewer, _ := database.LoadViewer("index.db")
-	//indexer, _ := database.LoadIndexer("index.db")
-	//indexer.UpdateAdjList()
-	//indexer.UpdateTermWeights()
 	file, _ := os.Create("spider_result.txt")
 	fileStream := bufio.NewWriter(file)
 	outTemplate := template.New("output_template")

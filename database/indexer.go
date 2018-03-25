@@ -3,12 +3,12 @@ package database
 import (
 	"comp4321/models"
 	"encoding/json"
-	"fmt"
-	"github.com/boltdb/bolt"
 	"math"
 	"net/url"
 	"sort"
 	"sync"
+	"github.com/boltdb/bolt"
+	"fmt"
 )
 
 // Class for inserting webpages into the db.
@@ -18,15 +18,17 @@ type Indexer struct {
 	db *bolt.DB
 
 	// Temporarily hold inverted index in memory
-	tempInverted map[uint64]map[uint64]bool
-	wordIdList   []uint64
-	mapLock      sync.Mutex
+	wordInverted, titleInverted map[uint64]map[uint64]bool
+	wordIdList, titleIdList     []uint64
+	mapLock                     sync.Mutex
 }
 
 // Return an Indexer object from .db file
 func LoadIndexer(filename string) (*Indexer, error) {
 	var indexer Indexer
 	var err error
+	indexer.wordInverted = make(map[uint64]map[uint64]bool)
+	indexer.titleInverted = make(map[uint64]map[uint64]bool)
 	indexer.db, err = bolt.Open(filename, 0666, nil)
 	if err != nil {
 		return nil, err
@@ -58,11 +60,8 @@ func (i *Indexer) DropAll() {
 // Inverse map table converts unique Id -> textual representation
 func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte) {
 	id = nil
-	fw := intToByte(fwMapTable)
-	inv := intToByte(invMapTable)
-
 	i.db.Batch(func(tx *bolt.Tx) error {
-		forwardMap := tx.Bucket(fw)
+		forwardMap := tx.Bucket(intToByte(fwMapTable))
 		res := forwardMap.Get([]byte(text))
 
 		// Check if the ID already exist
@@ -74,11 +73,10 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 		uniqueId, _ := forwardMap.NextSequence()
 		id = uint64ToByte(uniqueId)
 		forwardMap.Put([]byte(text), id)
-		invMap := tx.Bucket(inv)
+		invMap := tx.Bucket(intToByte(invMapTable))
 		invMap.Put(id, []byte(text))
 		return nil
 	})
-
 	return
 }
 
@@ -94,25 +92,31 @@ func (i *Indexer) getOrCreateWordId(word string) (rv []byte) {
 }
 
 // Update the in-memory inverted index
-func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
+func (i *Indexer) updateInverted(word string, pageId []byte, isTitle bool) {
 	wordId := i.getOrCreateWordId(word)
 	wordIdUint64 := byteToUint64(wordId)
 	pageIdUint64 := byteToUint64(pageId)
+	var postingList map[uint64]bool
 
 	// Critical section - access shared map and slice
 	i.mapLock.Lock()
-	if i.tempInverted == nil {
-		i.tempInverted = make(map[uint64]map[uint64]bool)
+	if !isTitle {
+		postingList = i.wordInverted[wordIdUint64]
+		if postingList == nil {
+			postingList = make(map[uint64]bool)
+			i.wordIdList = append(i.wordIdList, wordIdUint64)
+		}
+		postingList[pageIdUint64] = true
+		i.wordInverted[wordIdUint64] = postingList
+	} else {
+		postingList = i.titleInverted[wordIdUint64]
+		if postingList == nil {
+			postingList = make(map[uint64]bool)
+			i.titleIdList = append(i.titleIdList, wordIdUint64)
+		}
+		postingList[pageIdUint64] = true
+		i.titleInverted[wordIdUint64] = postingList
 	}
-
-	postingList := i.tempInverted[wordIdUint64]
-	if postingList == nil {
-		postingList = make(map[uint64]bool)
-		i.wordIdList = append(i.wordIdList, wordIdUint64)
-	}
-
-	postingList[pageIdUint64] = true
-	i.tempInverted[wordIdUint64] = postingList
 	i.mapLock.Unlock()
 	// Non critical section
 }
@@ -120,31 +124,40 @@ func (i *Indexer) updateInverted(word string, pageId []byte, tablename int) {
 // Sort and write the in-memory inverted index to file
 func (i *Indexer) FlushInverted() {
 	wordIdList := i.wordIdList
+	titleIdList := i.titleIdList
+	wg := sync.WaitGroup{}
+	wg.Add(len(wordIdList) + len(titleIdList))
+	merge := func(id uint64, tablename int) {
+		i.db.Batch(func(tx *bolt.Tx) error {
+			idBytes := uint64ToByte(id)
+			inverted := tx.Bucket(intToByte(tablename))
+			wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
+			postingList := i.wordInverted[id]
+			for docId, _ := range postingList {
+				wordSet.Put(uint64ToByte(docId), []byte{1})
+			}
+			wg.Done()
+			return nil
+		})
+	}
 
 	// Sort slices for sequential writes
 	sort.Slice(wordIdList, func(i, j int) bool {
 		return wordIdList[i] < wordIdList[j]
 	})
-
-	var wg sync.WaitGroup
-	wg.Add(len(wordIdList))
-	for index, id := range wordIdList {
-		idBytes := uint64ToByte(id)
-		fmt.Printf("Merging word %d out of %d | WordID: ", index+1, len(wordIdList))
-		fmt.Println(idBytes)
-		go i.db.Batch(func(tx *bolt.Tx) error {
-			inverted := tx.Bucket(intToByte(InvertedTable))
-			wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
-			postingList := i.tempInverted[id]
-			for docId, _ := range postingList {
-				wordSet.Put(uint64ToByte(docId), []byte{1})
-			}
-
-			wg.Done()
-			return nil
-		})
+	sort.Slice(titleIdList, func(i, j int) bool {
+		return titleIdList[i] < titleIdList[j]
+	})
+	for j, id := range wordIdList {
+		fmt.Printf("Merging word %d out of %d\n", j, len(wordIdList)+len(titleIdList))
+		go merge(id, InvertedTable)
+	}
+	for j, id := range titleIdList {
+		fmt.Printf("Merging word %d out of %d\n", j+len(wordIdList), len(wordIdList)+len(titleIdList))
+		go merge(id, InvertedTableTitle)
 	}
 	wg.Wait()
+	i.wordInverted = make(map[uint64]map[uint64]bool)
 }
 
 func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename int) {
@@ -194,13 +207,21 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	wg.Add(len(p.Words))
 	for word, tf := range p.Words {
 		go func(w string, t int) {
-			i.updateInverted(w, pageId, InvertedTable)
+			i.updateInverted(w, pageId, false)
 			i.updateForward(w, pageId, t, ForwardTable)
 			wg.Done()
 		}(word, tf)
 	}
 	wg.Wait()
-
+	wg.Add(len(p.Titles))
+	for word, tf := range p.Titles {
+		go func(w string, t int) {
+			i.updateInverted(w, pageId, true)
+			i.updateForward(w, pageId, t, ForwardTable)
+			wg.Done()
+		}(word, tf)
+	}
+	wg.Wait()
 	i.setMaxTf(pageId, p.MaxTf)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))

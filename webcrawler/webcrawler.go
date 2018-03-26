@@ -106,7 +106,6 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 		for ; len(queue) > 0 && needed > 0; needed-- {
 			activeCounter++
 			go concurrentFetch(queue[0], &results, &fetchWg)
-			visited[queue[0]] = true
 			queue = queue[1:]
 		}
 
@@ -120,17 +119,18 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 		pages = append(pages, page)
 		fmt.Printf("Fetched page #%d out of %d : %s\n", len(pages), num, page.Uri)
 		updateWg.Add(1)
-		go func(i int) {
-			index.UpdateOrAddPage(page)
-			fmt.Printf("Indexed page #%d out of %d : %s\n", i, num, page.Uri)
+		go func(i int, doc *models.Document) {
+			index.UpdateOrAddPage(doc)
+			//fmt.Printf("Indexed page #%d out of %d : %s\n", i, num, page.Uri)
 			updateWg.Done()
-		}(len(pages))
+		}(len(pages), page)
 
 		// Put unvisited links into queue
 		for _, link := range page.Links {
 			// skip if the link is already visited or indexed
-			if !visited[link] && !index.ContainsUrl(link) {
+			if !visited[link] && !index.ContainsUrl(link){
 				queue = append(queue, link)
+				visited[link] = true
 			}
 		}
 	}

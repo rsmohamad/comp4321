@@ -21,6 +21,7 @@ type Indexer struct {
 	wordInverted, titleInverted map[uint64]map[uint64]bool
 	wordIdList, titleIdList     []uint64
 	mapLock                     sync.Mutex
+	idLock						sync.Mutex
 }
 
 // Return an Indexer object from .db file
@@ -60,29 +61,42 @@ func (i *Indexer) DropAll() {
 // Inverse map table converts unique Id -> textual representation
 func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte) {
 	id = nil
-	i.db.Batch(func(tx *bolt.Tx) error {
+	i.db.View(func(tx *bolt.Tx) error {
 		forwardMap := tx.Bucket(intToByte(fwMapTable))
 		res := forwardMap.Get([]byte(text))
-
-		// Check if the ID already exist
 		if res != nil {
 			id = make([]byte, len(res))
 			copy(id, res)
-			return nil
 		}
-		uniqueId, _ := forwardMap.NextSequence()
-		id = uint64ToByte(uniqueId)
-		forwardMap.Put([]byte(text), id)
-		invMap := tx.Bucket(intToByte(invMapTable))
-		invMap.Put(id, []byte(text))
 		return nil
 	})
+
+	if id == nil {
+		i.db.Batch(func(tx *bolt.Tx) error {
+			forwardMap := tx.Bucket(intToByte(fwMapTable))
+			res := forwardMap.Get([]byte(text))
+			if res != nil {
+				id = make([]byte, len(res))
+				copy(id, res)
+				return nil
+			}
+			uniqueId, _ := forwardMap.NextSequence()
+			id = uint64ToByte(uniqueId)
+			forwardMap.Put([]byte(text), id)
+			invMap := tx.Bucket(intToByte(invMapTable))
+			invMap.Put(id, []byte(text))
+			return nil
+		})
+	}
 	return
 }
 
 // Get the pageId for the given URL, create new one if does not exist
-func (i *Indexer) getOrCreatePageId(url string) []byte {
-	return i.getId(url, UrlToPageId, PageIdToUrl)
+func (i *Indexer) getOrCreatePageId(url string) (rv []byte) {
+	//i.idLock.Lock()
+	//defer i.idLock.Unlock()
+	rv =  i.getId(url, UrlToPageId, PageIdToUrl)
+	return
 }
 
 // Get the wordId for the given word, create new one if does not exist
@@ -148,12 +162,12 @@ func (i *Indexer) FlushInverted() {
 	sort.Slice(titleIdList, func(i, j int) bool {
 		return titleIdList[i] < titleIdList[j]
 	})
-	for j, id := range wordIdList {
-		fmt.Printf("Merging word %d out of %d\n", j, len(wordIdList)+len(titleIdList))
+	for _, id := range wordIdList {
+		//fmt.Printf("Merging word %d out of %d\n", j+1, len(wordIdList)+len(titleIdList))
 		go merge(id, InvertedTable)
 	}
-	for j, id := range titleIdList {
-		fmt.Printf("Merging word %d out of %d\n", j+len(wordIdList), len(wordIdList)+len(titleIdList))
+	for _, id := range titleIdList {
+		//fmt.Printf("Merging word %d out of %d\n", j+1+len(wordIdList), len(wordIdList)+len(titleIdList))
 		go merge(id, InvertedTableTitle)
 	}
 	wg.Wait()
@@ -203,8 +217,10 @@ func (i *Indexer) getMaxTf(pageId []byte) (maxTf int) {
 func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	pageId := i.getOrCreatePageId(p.Uri)
 	var wg sync.WaitGroup
+	fmt.Println(pageId, p.Uri)
 
 	wg.Add(len(p.Words))
+	wg.Add(len(p.Titles))
 	for word, tf := range p.Words {
 		go func(w string, t int) {
 			i.updateInverted(w, pageId, false)
@@ -212,12 +228,10 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			wg.Done()
 		}(word, tf)
 	}
-	wg.Wait()
-	wg.Add(len(p.Titles))
 	for word, tf := range p.Titles {
 		go func(w string, t int) {
 			i.updateInverted(w, pageId, true)
-			i.updateForward(w, pageId, t, ForwardTable)
+			i.updateForward(w, pageId, t, ForwardTableTitle)
 			wg.Done()
 		}(word, tf)
 	}

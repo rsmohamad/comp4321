@@ -148,7 +148,7 @@ func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 
 func (v *Viewer) PrintAllWords() {
 	v.db.View(func (tx *bolt.Tx) error {
-		words := tx.Bucket(intToByte(WordIdToWord))
+		words := tx.Bucket(intToByte(PageIdToUrl))
 		words.ForEach(func (key, val []byte) error {
 			fmt.Println(key, string(val))
 			return nil

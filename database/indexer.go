@@ -3,12 +3,13 @@ package database
 import (
 	"comp4321/models"
 	"encoding/json"
+	"fmt"
 	"math"
 	"net/url"
 	"sort"
 	"sync"
+
 	"github.com/boltdb/bolt"
-	"fmt"
 )
 
 // Class for inserting webpages into the db.
@@ -21,7 +22,7 @@ type Indexer struct {
 	wordInverted, titleInverted map[uint64]map[uint64]bool
 	wordIdList, titleIdList     []uint64
 	mapLock                     sync.Mutex
-	idLock						sync.Mutex
+	idLock                      sync.Mutex
 }
 
 // Return an Indexer object from .db file
@@ -95,7 +96,7 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 func (i *Indexer) getOrCreatePageId(url string) (rv []byte) {
 	//i.idLock.Lock()
 	//defer i.idLock.Unlock()
-	rv =  i.getId(url, UrlToPageId, PageIdToUrl)
+	rv = i.getId(url, UrlToPageId, PageIdToUrl)
 	return
 }
 
@@ -249,31 +250,67 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 // Gets the pageId and set of child Links from PageInfo
 // Sets in each of the child link, the pageId as parent link and the number of links from the pageId
 func (i *Indexer) UpdateAdjList() {
-	i.db.Update(func(tx *bolt.Tx) error {
+	var parentList map[uint64]int
+	var childIds []uint64
+	adjList := make(map[uint64]map[uint64]int)
+
+	i.db.View(func(tx *bolt.Tx) error {
 		piBucket := tx.Bucket(intToByte(PageInfo))
 		upBucket := tx.Bucket(intToByte(UrlToPageId))
-		alBucket := tx.Bucket(intToByte(AdjList))
 
-		// PageInfo Table (pageId - JSON Document)
-		piBucket.ForEach(func(pageId, decoded []byte) error {
+		piBucket.ForEach(func(parentId, decoded []byte) error {
 			var p models.Document
+			parentIdUint64 := byteToUint64(parentId)
 			json.Unmarshal(decoded, &p)
 			Links := p.Links
-			// Iterate through each link, clean them, and put according to id 1-30.
+			// Iterate through each link, cleanthem, and put according to id 1-30.
 			for _, el := range Links {
 				u, _ := url.Parse(el)
 				newUrl := u.Scheme + "://" + u.Host + u.Path
-				id := upBucket.Get([]byte(newUrl)) //childId
-				if byteToInt(id) != 0 {
-					pageSet, _ := alBucket.CreateBucketIfNotExists(id)
-					pageSet.Put(pageId, intToByte(len(Links)))
+				childId := upBucket.Get([]byte(newUrl)) //childId
+				if childId != nil {
+					childIdUint64 := byteToUint64(childId)
+					parentList = adjList[childIdUint64]
+					if parentList == nil {
+						parentList = make(map[uint64]int)
+						childIds = append(childIds, childIdUint64)
+					}
+					parentList[parentIdUint64] = len(Links)
+					adjList[childIdUint64] = parentList
 				}
 			}
+
 			return nil
 		})
 
 		return nil
 	})
+
+	merge := func(id uint64, tablename int) {
+		i.db.Batch(func(tx *bolt.Tx) error {
+			alBucket := tx.Bucket(intToByte(AdjList))
+
+			idBytes := uint64ToByte(id)
+			pageSet, _ := alBucket.CreateBucketIfNotExists(idBytes)
+			for pageId, len := range adjList[id] {
+				pageSet.Put(uint64ToByte(pageId), intToByte(len))
+			}
+			return nil
+		})
+	}
+
+	sort.Slice(childIds, func(i, j int) bool {
+		return childIds[i] < childIds[j]
+	})
+
+	for _, id := range childIds {
+		merge(id, AdjList)
+	}
+}
+
+// FlushAdj writes the in-memory adjacency list to file
+func (i *Indexer) FlushAdj() {
+
 }
 
 // Update term weights

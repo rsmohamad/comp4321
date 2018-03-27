@@ -5,8 +5,8 @@ import (
 	"comp4321/webcrawler"
 	"fmt"
 	"os"
-	"time"
 	"strconv"
+	"time"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 	start := "http://www.cse.ust.hk"
 	numPages := 30
 
-	if len(os.Args) == 3{
+	if len(os.Args) == 3 {
 		start = os.Args[1]
 		numPages, _ = strconv.Atoi(os.Args[2])
 	}

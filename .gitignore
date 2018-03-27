@@ -3,6 +3,7 @@
 
 *.db
 search
+print
 spider
 test
 server

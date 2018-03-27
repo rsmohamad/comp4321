@@ -13,7 +13,7 @@ func main() {
 	index, _ := database.LoadIndexer("index.db")
 	defer index.Close()
 
-	start := "http://www.cse.ust.hk"
+	start := "https://www.cse.ust.hk/"
 	numPages := 30
 
 	if len(os.Args) == 3 {

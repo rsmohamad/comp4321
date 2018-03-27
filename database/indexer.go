@@ -308,11 +308,6 @@ func (i *Indexer) UpdateAdjList() {
 	}
 }
 
-// FlushAdj writes the in-memory adjacency list to file
-func (i *Indexer) FlushAdj() {
-
-}
-
 // Update term weights
 // TF, N, keywords per page, and pages are retrieved from forward table
 // DF is retrieved from inverted index

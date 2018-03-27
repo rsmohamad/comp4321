@@ -146,13 +146,39 @@ func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 	})
 }
 
-func (v *Viewer) PrintAllWords() {
-	v.db.View(func (tx *bolt.Tx) error {
-		words := tx.Bucket(intToByte(PageIdToUrl))
-		words.ForEach(func (key, val []byte) error {
+func (v *Viewer) printAllIDs(tablename int) {
+	v.db.View(func(tx *bolt.Tx) error {
+		words := tx.Bucket(intToByte(tablename))
+		words.ForEach(func(key, val []byte) error {
 			fmt.Println(key, string(val))
 			return nil
-		})		
+		})
+		return nil
+	})
+}
+
+func (v *Viewer) PrintAllPages() {
+	v.printAllIDs(PageIdToUrl)
+}
+
+func (v *Viewer) PrintAllWords() {
+	v.printAllIDs(WordIdToWord)
+}
+
+func (v *Viewer) PrintAdjList() {
+	v.db.View(func(tx *bolt.Tx) error {
+		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
+		adjList := tx.Bucket(intToByte(AdjList))
+		adjList.ForEach(func(child, _ []byte) error {
+			fmt.Println("Child:", child, string(idToUrl.Get(child)))
+			parentList := adjList.Bucket(child)
+			parentList.ForEach(func(parent, _ []byte) error {
+				fmt.Println(parent, string(idToUrl.Get(parent)))
+				return nil
+			})
+			fmt.Println("----------------------------------------------------------")
+			return nil
+		})
 		return nil
 	})
 }

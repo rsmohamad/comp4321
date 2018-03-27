@@ -12,7 +12,6 @@ import (
 func main() {
 	index, _ := database.LoadIndexer("index.db")
 	defer index.Close()
-	index.DropAll()
 
 	start := "http://www.cse.ust.hk"
 	numPages := 30

@@ -98,6 +98,7 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 	// Sanitize url
 	urlParse, _ := url.Parse(uri)
 	queue = append(queue, urlParse.String())
+    visited[urlParse.String()] = true
 
 	fetchWg.Add(num)
 	for len(pages) < num {

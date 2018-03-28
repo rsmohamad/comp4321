@@ -9,6 +9,8 @@ make
 ./spider
 ./test
 
+Files index.db and spider_result.txt can be found inside the project directory.
+
 --- Notes ---
 
 - The project requires Go compiler. Lab2 has version 1.9.

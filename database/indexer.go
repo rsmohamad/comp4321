@@ -94,8 +94,8 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 
 // Get the pageId for the given URL, create new one if does not exist
 func (i *Indexer) getOrCreatePageId(url string) (rv []byte) {
-	//i.idLock.Lock()
-	//defer i.idLock.Unlock()
+	i.idLock.Lock()
+	defer i.idLock.Unlock()
 	rv = i.getId(url, UrlToPageId, PageIdToUrl)
 	return
 }
@@ -263,7 +263,7 @@ func (i *Indexer) UpdateAdjList() {
 			parentIdUint64 := byteToUint64(parentId)
 			json.Unmarshal(decoded, &p)
 			Links := p.Links
-			// Iterate through each link, cleanthem, and put according to id 1-30.
+			// Iterate through each link, clean them, and put according to id 1-30.
 			for _, el := range Links {
 				u, _ := url.Parse(el)
 				newUrl := u.Scheme + "://" + u.Host + u.Path

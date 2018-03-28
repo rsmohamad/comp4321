@@ -73,7 +73,7 @@ func isAllowedToCrawl(link string) bool {
 // Feeds the page to results channel if fetch is successful.
 // Feeds nil if fetch is unsuccessful.
 var throttle = time.Tick(time.Millisecond * 10)
-func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGroup) {
+func concurrentFetch(url string, results *chan *models.Document) {
 	if !isAllowedToCrawl(url) {
 		*results <- nil
 		return
@@ -82,7 +82,6 @@ func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGr
 	page := Fetch(url)
 	if page != nil && len(page.Words) > 0 && page.Title != "" {
 		*results <- page
-		wg.Done()
 	} else {
 		*results <- nil
 	}
@@ -90,24 +89,34 @@ func concurrentFetch(url string, results *chan *models.Document, wg *sync.WaitGr
 
 func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Document) {
 	var activeCounter int
-	var fetchWg, updateWg sync.WaitGroup
+	var updateWg sync.WaitGroup
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
 	queue := make([]string, 0)
 
 	// Sanitize url
-	urlParse, _ := url.Parse(uri)
-	queue = append(queue, urlParse.String())
-	visited[urlParse.String()] = true
+	u, _ := url.Parse(uri)
+	newUrl := u.Scheme + "://" + u.Host + u.Path
+	fmt.Println(newUrl)
+	queue = append(queue, newUrl)
+	visited[newUrl] = true
 
-	fetchWg.Add(num)
 	for len(pages) < num {
 		// Create goroutines as needed
 		needed := num - len(pages) - activeCounter
 		for ; len(queue) > 0 && needed > 0; needed-- {
 			activeCounter++
-			go concurrentFetch(queue[0], &results, &fetchWg)
+			go concurrentFetch(queue[0], &results)
 			queue = queue[1:]
+		}
+
+		// End prematurely if no links are available
+		if activeCounter == 0 {
+			if len(queue) == 0 {
+				break
+			} else {
+				continue
+			}
 		}
 
 		// Retrieve one page from results channel
@@ -117,6 +126,7 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 			continue
 		}
 
+		visited[page.Uri] = true
 		pages = append(pages, page)
 		fmt.Printf("Fetched page #%d out of %d : %s\n", len(pages), num, page.Uri)
 		updateWg.Add(1)
@@ -129,14 +139,15 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 		// Put unvisited links into queue
 		for _, link := range page.Links {
 			// skip if the link is already visited or indexed
-			if !visited[link] && !index.ContainsUrl(link) {
-				queue = append(queue, link)
-				visited[link] = true
+			if visited[link] || index.ContainsUrl(link) {
+				continue
 			}
+
+			queue = append(queue, link)
+			visited[link] = true
 		}
 	}
 
-	fetchWg.Wait()
 	updateWg.Wait()
 	index.FlushInverted()
 	return pages

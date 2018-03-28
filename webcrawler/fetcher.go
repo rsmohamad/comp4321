@@ -53,7 +53,8 @@ func toAbsoluteUrl(links []string, base string) (rv []string) {
 		}
 
 		if strings.HasPrefix(uri.String(), "http") {
-			rv = append(rv, uri.String())
+			newUrl := uri.Scheme + "://" + uri.Host + uri.Path
+			rv = append(rv, newUrl)
 		}
 	}
 	return

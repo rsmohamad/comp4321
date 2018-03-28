@@ -99,11 +99,12 @@ func Fetch(uri string) (page *models.Document) {
 		return nil
 	}
 
-	tm, err := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
-	if err != nil {
-		tm, _ = time.Parse(time.RFC1123, res.Header.Get("Date"))
-	}
+	tm, _ := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
 	page.Modtime = tm.Unix()
+	if page.Modtime < 0 {
+		tm, _ = time.Parse(time.RFC1123, res.Header.Get("Date"))
+		page.Modtime = tm.Unix()
+	}
 	page.Len = 0
 
 	// Tokenize
@@ -156,8 +157,9 @@ func Fetch(uri string) (page *models.Document) {
 	}
 
 	// Clean data
+	hue := tokenizeString(strings.Join(words, " "))
 	page.Titles = countTf(tokenizeString(page.Title))
-	page.Words = countTf(tokenizeString(strings.Join(words, " ")))
+	page.Words = countTf(hue)
 	page.MaxTf = countMaxTf(page.Words)
 	page.Links = toAbsoluteUrl(page.Links, uri)
 	return

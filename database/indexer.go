@@ -286,26 +286,22 @@ func (i *Indexer) UpdateAdjList() {
 		return nil
 	})
 
-	merge := func(id uint64, tablename int) {
-		i.db.Batch(func(tx *bolt.Tx) error {
-			alBucket := tx.Bucket(intToByte(AdjList))
+	sort.Slice(childIds, func(i, j int) bool {
+		return childIds[i] < childIds[j]
+	})
 
+	i.db.Update(func(tx *bolt.Tx) error {
+		alBucket := tx.Bucket(intToByte(AdjList))
+
+		for _, id := range childIds {
 			idBytes := uint64ToByte(id)
 			pageSet, _ := alBucket.CreateBucketIfNotExists(idBytes)
 			for pageId, len := range adjList[id] {
 				pageSet.Put(uint64ToByte(pageId), intToByte(len))
 			}
-			return nil
-		})
-	}
-
-	sort.Slice(childIds, func(i, j int) bool {
-		return childIds[i] < childIds[j]
+		}
+		return nil
 	})
-
-	for _, id := range childIds {
-		merge(id, AdjList)
-	}
 }
 
 // Update term weights

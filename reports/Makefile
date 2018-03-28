@@ -7,6 +7,7 @@ all: $(TARGETS)
 
 %.pdf: %.tex
 	$(COMPILER) $<
+	gnome-open $@
 	rm -f *.aux *.log
 
 clean:

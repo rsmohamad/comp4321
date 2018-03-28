@@ -25,8 +25,8 @@ func main() {
 	webcrawler.Crawl(start, numPages, index)
 	elapsed := time.Since(startCrawl)
 	fmt.Printf("Indexing %d pages took %s\n", numPages, elapsed)
-	fmt.Println("Updating term weights")
-	index.UpdateTermWeights()
+	// fmt.Println("Updating term weights")
+	// index.UpdateTermWeights()
 	fmt.Println("Updating adj list")
 	index.UpdateAdjList()
 }

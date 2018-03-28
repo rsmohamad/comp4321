@@ -1,18 +1,24 @@
 package models
 
 import (
-	"code.cloudfoundry.org/bytefmt"
 	"time"
+
+	"code.cloudfoundry.org/bytefmt"
 )
+
+type Word struct {
+	Tf  int
+	Idx []int
+}
 
 type Document struct {
 	Title   string
 	Uri     string
 	Links   []string
-	Words   map[string]int
-	Titles  map[string]int
+	Words   map[string]Word
+	Titles  map[string]Word
 	Len     int
-	MaxTf	int
+	MaxTf   int
 	Modtime int64
 }
 

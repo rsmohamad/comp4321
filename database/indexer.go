@@ -350,7 +350,7 @@ func (i *Indexer) UpdatePageRank() {
 
 		pageRank := make(map[uint64]float64)
 
-		for i := 0; i < 1; i++ {
+		for i := 0; i < 15; i++ {
 			adjBucket.ForEach(func(childID, _ []byte) error {
 				parents := adjBucket.Bucket(childID)
 				d := 0.15
@@ -374,6 +374,13 @@ func (i *Indexer) UpdatePageRank() {
 				prBucket.Put(uint64ToByte(id), float64ToByte(pr))
 			}
 		}
+
+		// DEBUGGING
+		// prBucket.ForEach(func(k, v []byte) error {
+		// 	fmt.Println(byteToUint64(k), ": ", byteToFloat64(v))
+
+		// 	return nil
+		// })
 
 		return nil
 	})

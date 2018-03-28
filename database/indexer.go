@@ -175,26 +175,6 @@ func (i *Indexer) FlushInverted() {
 	}
 	wg.Wait()
 	i.wordInverted = make(map[uint64]map[uint64][]int)
-
-	i.db.View(func(tx *bolt.Tx) error {
-		inverted := tx.Bucket(intToByte(InvertedTable))
-		inverted.ForEach(func(wordId, _ []byte) error {
-			pages := inverted.Bucket(wordId)
-			pages.ForEach(func(pageId, decoded []byte) error {
-				var idx []int
-				json.Unmarshal(decoded, idx)
-				// fmt.Println(idx)
-				// fmt.Println("Page ID : ", byteToUint64(pageId))
-				// for _, i := range idx {
-				// fmt.Printf("%d", i)
-				// }
-				// fmt.Println("")
-				return nil
-			})
-			return nil
-		})
-		return nil
-	})
 }
 
 func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename int) {

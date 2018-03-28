@@ -11,7 +11,7 @@ all: dep
 	go build cmd/print.go
 
 clean:
-	rm -f spider test server search phase1.zip
+	rm -f spider test server search phase1.zip print
 
 report:
 	$(MAKE) -C reports

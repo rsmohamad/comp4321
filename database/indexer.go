@@ -336,8 +336,7 @@ func (i *Indexer) UpdateTermWeights() {
 	return
 }
 
-// TODO
-// Update page rank
+// UpdatePageRank calculates the PageRank of every documents by resetting each of their value to one and then iterates through each documents several times.
 func (i *Indexer) UpdatePageRank() {
 	i.db.Update(func(tx *bolt.Tx) error {
 		prBucket := tx.Bucket(intToByte(PageRank))
@@ -374,13 +373,6 @@ func (i *Indexer) UpdatePageRank() {
 				prBucket.Put(uint64ToByte(id), float64ToByte(pr))
 			}
 		}
-
-		// DEBUGGING
-		// prBucket.ForEach(func(k, v []byte) error {
-		// 	fmt.Println(byteToUint64(k), ": ", byteToFloat64(v))
-
-		// 	return nil
-		// })
 
 		return nil
 	})

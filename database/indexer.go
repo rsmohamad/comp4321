@@ -107,7 +107,7 @@ func (i *Indexer) getOrCreateWordId(word string) (rv []byte) {
 }
 
 // Update the in-memory inverted index
-func (i *Indexer) updateInverted(word string, pageId []byte, isTitle bool) {
+func (i *Indexer) updateInverted(word string, pageId []byte, idx int, isTitle bool) {
 	wordId := i.getOrCreateWordId(word)
 	wordIdUint64 := byteToUint64(wordId)
 	pageIdUint64 := byteToUint64(pageId)
@@ -222,16 +222,20 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 
 	wg.Add(len(p.Words))
 	wg.Add(len(p.Titles))
+	var idx int = 0
 	for word, tf := range p.Words {
 		go func(w string, t int) {
-			i.updateInverted(w, pageId, false)
+			i.updateInverted(w, pageId, idx, false)
+			idx++
 			i.updateForward(w, pageId, t, ForwardTable)
 			wg.Done()
 		}(word, tf)
 	}
+	idx = 0
 	for word, tf := range p.Titles {
 		go func(w string, t int) {
-			i.updateInverted(w, pageId, true)
+			i.updateInverted(w, pageId, idx, true)
+			idx++
 			i.updateForward(w, pageId, t, ForwardTableTitle)
 			wg.Done()
 		}(word, tf)

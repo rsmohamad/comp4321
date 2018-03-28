@@ -326,7 +326,11 @@ func (i *Indexer) UpdateTermWeights() {
 				df := float64(itBucket.Bucket(wordId).Stats().KeyN)
 				tf := float64(byteToInt(tfByte))
 				tw := tf * math.Log2(N/df) / maxTf
-				pageSet.Put(wordId, float64ToByte(tw))
+				if wordId != nil {
+					pageSet.Put(wordId, float64ToByte(tw))
+				} else {
+					fmt.Println("wordId is nil!")
+				}
 				return nil
 			})
 			return nil

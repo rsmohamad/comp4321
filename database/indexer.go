@@ -339,7 +339,23 @@ func (i *Indexer) UpdateTermWeights() {
 // TODO
 // Update page rank
 func (i *Indexer) UpdatePageRank() {
+	i.db.Update(func(tx *bolt.Tx) error {
+		prBucket := tx.Bucket(intToByte(PageRank))
+		adjBucket := tx.Bucket(intToByte(AdjList))
 
+		adjBucket.ForEach(func(parentID, _ []byte) error {
+			prBucket.Put(parentID, float64ToByte(1.0))
+
+			children := adjBucket.Bucket(parentID)
+			// children.ForEach(func(childID, _ []byte) error {
+
+			// 	return nil
+			// })
+			return nil
+		})
+		return nil
+	})
+	return
 }
 
 func (i *Indexer) Close() {

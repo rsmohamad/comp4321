@@ -159,27 +159,34 @@ func Fetch(uri string) (page *models.Document) {
 
 	// Clean data
 	hue := tokenizeString(strings.Join(words, " "))
-	page.Titles = countTf(tokenizeString(page.Title))
-	page.Words = countTf(hue)
+	// fmt.Println(hue)
+	page.Titles = countTfandIdx(tokenizeString(page.Title))
+	page.Words = countTfandIdx(hue)
+	// fmt.Println(page.Words)
 	page.MaxTf = countMaxTf(page.Words)
 	page.Links = toAbsoluteUrl(page.Links, uri)
 	return
 }
 
-func countTf(words []string) map[string]int {
-	m := make(map[string]int)
+func countTfandIdx(words []string) map[string]models.Word {
+	m := make(map[string]models.Word)
+	var idx int = 0
 	for _, word := range words {
-		count := m[word]
-		m[word] = count + 1
+		count := m[word].Tf
+		wordModel := m[word]
+		wordModel.Tf = count + 1
+		wordModel.Idx = append(wordModel.Idx, idx)
+		m[word] = wordModel
+		idx++
 	}
 	return m
 }
 
-func countMaxTf(words map[string]int) int {
+func countMaxTf(words map[string]models.Word) int {
 	max := 0
-	for _, val := range words {
-		if val > max {
-			max = val
+	for _, word := range words {
+		if word.Tf > max {
+			max = word.Tf
 		}
 	}
 	return max

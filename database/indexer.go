@@ -7,6 +7,7 @@ import (
 	"math"
 	"net/url"
 	"sort"
+	"strings"
 	"sync"
 
 	"github.com/boltdb/bolt"
@@ -19,7 +20,7 @@ type Indexer struct {
 	db *bolt.DB
 
 	// Temporarily hold inverted index in memory
-	wordInverted, titleInverted map[uint64]map[uint64]bool
+	wordInverted, titleInverted map[uint64]map[uint64][]int
 	wordIdList, titleIdList     []uint64
 	mapLock                     sync.Mutex
 	idLock                      sync.Mutex
@@ -29,8 +30,8 @@ type Indexer struct {
 func LoadIndexer(filename string) (*Indexer, error) {
 	var indexer Indexer
 	var err error
-	indexer.wordInverted = make(map[uint64]map[uint64]bool)
-	indexer.titleInverted = make(map[uint64]map[uint64]bool)
+	indexer.wordInverted = make(map[uint64]map[uint64][]int)
+	indexer.titleInverted = make(map[uint64]map[uint64][]int)
 	indexer.db, err = bolt.Open(filename, 0666, nil)
 	if err != nil {
 		return nil, err
@@ -107,29 +108,29 @@ func (i *Indexer) getOrCreateWordId(word string) (rv []byte) {
 }
 
 // Update the in-memory inverted index
-func (i *Indexer) updateInverted(word string, pageId []byte, isTitle bool) {
+func (i *Indexer) updateInverted(word string, indexes []int, pageId []byte, isTitle bool) {
 	wordId := i.getOrCreateWordId(word)
 	wordIdUint64 := byteToUint64(wordId)
 	pageIdUint64 := byteToUint64(pageId)
-	var postingList map[uint64]bool
+	var postingList map[uint64][]int
 
 	// Critical section - access shared map and slice
 	i.mapLock.Lock()
 	if !isTitle {
 		postingList = i.wordInverted[wordIdUint64]
 		if postingList == nil {
-			postingList = make(map[uint64]bool)
+			postingList = make(map[uint64][]int)
 			i.wordIdList = append(i.wordIdList, wordIdUint64)
 		}
-		postingList[pageIdUint64] = true
+		postingList[pageIdUint64] = indexes
 		i.wordInverted[wordIdUint64] = postingList
 	} else {
 		postingList = i.titleInverted[wordIdUint64]
 		if postingList == nil {
-			postingList = make(map[uint64]bool)
+			postingList = make(map[uint64][]int)
 			i.titleIdList = append(i.titleIdList, wordIdUint64)
 		}
-		postingList[pageIdUint64] = true
+		postingList[pageIdUint64] = indexes
 		i.titleInverted[wordIdUint64] = postingList
 	}
 	i.mapLock.Unlock()
@@ -148,8 +149,9 @@ func (i *Indexer) FlushInverted() {
 			inverted := tx.Bucket(intToByte(tablename))
 			wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
 			postingList := i.wordInverted[id]
-			for docId, _ := range postingList {
-				wordSet.Put(uint64ToByte(docId), []byte{1})
+			for docId, idx := range postingList {
+				pos := strings.Trim(strings.Replace(fmt.Sprint(idx), " ", ",", -1), "[]")
+				wordSet.Put(uint64ToByte(docId), []byte(pos))
 			}
 			wg.Done()
 			return nil
@@ -172,7 +174,7 @@ func (i *Indexer) FlushInverted() {
 		go merge(id, InvertedTableTitle)
 	}
 	wg.Wait()
-	i.wordInverted = make(map[uint64]map[uint64]bool)
+	i.wordInverted = make(map[uint64]map[uint64][]int)
 }
 
 func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename int) {
@@ -222,19 +224,19 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 
 	wg.Add(len(p.Words))
 	wg.Add(len(p.Titles))
-	for word, tf := range p.Words {
-		go func(w string, t int) {
-			i.updateInverted(w, pageId, false)
+	for word, wordModel := range p.Words {
+		go func(w string, t int, idx []int) {
+			i.updateInverted(w, idx, pageId, false)
 			i.updateForward(w, pageId, t, ForwardTable)
 			wg.Done()
-		}(word, tf)
+		}(word, wordModel.Tf, wordModel.Idx)
 	}
-	for word, tf := range p.Titles {
-		go func(w string, t int) {
-			i.updateInverted(w, pageId, true)
+	for word, wordModel := range p.Titles {
+		go func(w string, t int, idx []int) {
+			i.updateInverted(w, idx, pageId, true)
 			i.updateForward(w, pageId, t, ForwardTableTitle)
 			wg.Done()
-		}(word, tf)
+		}(word, wordModel.Tf, wordModel.Idx)
 	}
 	wg.Wait()
 	i.setMaxTf(pageId, p.MaxTf)

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"comp4321/database"
 	"fmt"
-	"bufio"
 	"os"
 	"strconv"
 )
@@ -14,12 +14,12 @@ func main() {
 	defer viewer.Close()
 
 	for {
-		fmt.Println("Print: 1)Words, 2)Pages, 3)AdjList")
+		fmt.Println("Print: 1)Words, 2)Pages, 3)AdjList, 4)PageRank")
 		fmt.Print("Enter option (q to quit): ")
 		opt, _ := reader.ReadString('\n')
 		num, _ := strconv.Atoi(string(opt[0]))
 
-		if opt == "q\n"{
+		if opt == "q\n" {
 			break
 		}
 
@@ -32,6 +32,9 @@ func main() {
 			break
 		case 3:
 			viewer.PrintAdjList()
+			break
+		case 4:
+			viewer.PrintPageRank()
 			break
 		default:
 			fmt.Println("Invalid option")

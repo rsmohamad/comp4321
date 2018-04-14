@@ -4,6 +4,7 @@ import (
 	"comp4321/models"
 	"encoding/json"
 	"fmt"
+
 	"github.com/boltdb/bolt"
 )
 
@@ -183,6 +184,18 @@ func (v *Viewer) PrintAdjList() {
 	})
 }
 
+func (v *Viewer) PrintPageRank() {
+	v.db.View(func(tx *bolt.Tx) error {
+		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
+		prBucket := tx.Bucket(intToByte(PageRank))
+		prBucket.ForEach(func(docID, pageRank []byte) error {
+			fmt.Println("Document:", string(idToUrl.Get(docID)))
+			fmt.Println("PageRank: ", byteToFloat64(pageRank))
+			return nil
+		})
+		return nil
+	})
+}
 func (v *Viewer) Close() {
 	v.db.Close()
 }

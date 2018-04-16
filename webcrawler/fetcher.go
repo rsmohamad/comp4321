@@ -73,14 +73,9 @@ func tokenizeString(s string) (rv []string) {
 
 		// Exclude short words and stopwords
 		token = strings.TrimSpace(token)
-		if len(token) > 2 && !stopword.IsStopWord(token) {
-			var t = ""
-			if token == "hong" || token == "kong" {
-				t = "hong kong"
-			} else {
-				t = porter2.Stem(token)
-			}
-			rv = append(rv, t)
+		token = porter2.Stem(token)
+		if len(token) > 1 && !stopword.IsStopWord(token) {
+			rv = append(rv, token)
 		}
 	}
 	return
@@ -175,7 +170,7 @@ func countTfandIdx(words []string) map[string]models.Word {
 		count := m[word].Tf
 		wordModel := m[word]
 		wordModel.Tf = count + 1
-		wordModel.Idx = append(wordModel.Idx, idx)
+		wordModel.Positions = append(wordModel.Positions, idx)
 		m[word] = wordModel
 		idx++
 	}

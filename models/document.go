@@ -2,15 +2,16 @@ package models
 
 import (
 	"time"
-
 	"code.cloudfoundry.org/bytefmt"
 )
 
 type Word struct {
-	Tf  int
-	Idx []int
+	Tf        int
+	Positions []int
 }
 
+// Document class for representation inside the system.
+// Has fields relevant to search execution but not presentation.
 type Document struct {
 	Title   string
 	Uri     string

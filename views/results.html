@@ -56,7 +56,27 @@
                     <br>
                     <span class="result-link">{{.Uri}}</span>
                     <br>
-                    <span class="result-meta">{{.GetTimeStr}}, {{.GetSizeStr}}</span>
+                    <span class="result-meta"><b>Date: </b>{{.Date}}</span>
+                    <br>
+                    <span class="result-meta"><b>Size: </b>{{.Size}} bytes</span>
+                    <br>
+                    <span class="result-meta"><b>Score: </b>{{.Score}}</span>
+                    <br>
+                    <span class="result-meta"><b>Top 5 Terms: </b>{{range .Keywords}}{{.Word}} {{.Tf}}; {{end}}</span>
+                    <br>
+                    <span class="result-meta"><b>Parents:</b></span>
+                    <br>
+                {{range .Parents}}
+                    <a class="result-meta" href={{.}}>{{.}}</a>
+                    <br>
+                {{end}}
+                    <span class="result-meta"><b>Children:</b></span>
+                    <br>
+                {{range .Children}}
+                    <a class="result-meta" href={{.}}>{{.}}</a>
+                    <br>
+                {{end}}
+                    <br>
                 </div>
             </div>
         {{end}}

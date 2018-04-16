@@ -1,12 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"comp4321/database"
 	"comp4321/models"
 	"fmt"
 	"os"
 	"text/template"
-	"bufio"
 )
 
 const text = "{{.Title}}\n{{.Uri}}\n{{.GetTimeStr}}, {{.GetSizeStr}}\n" +

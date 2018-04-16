@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"net/url"
 	"sort"
 	"strings"
 	"sync"
@@ -166,15 +165,12 @@ func (i *Indexer) FlushInverted() {
 		return titleIdList[i] < titleIdList[j]
 	})
 	for _, id := range wordIdList {
-		//fmt.Printf("Merging word %d out of %d\n", j+1, len(wordIdList)+len(titleIdList))
 		go merge(id, InvertedTable)
 	}
 	for _, id := range titleIdList {
-		//fmt.Printf("Merging word %d out of %d\n", j+1+len(wordIdList), len(wordIdList)+len(titleIdList))
 		go merge(id, InvertedTableTitle)
 	}
 	wg.Wait()
-	i.wordInverted = make(map[uint64]map[uint64][]int)
 }
 
 func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename int) {
@@ -229,14 +225,14 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			i.updateInverted(w, idx, pageId, false)
 			i.updateForward(w, pageId, t, ForwardTable)
 			wg.Done()
-		}(word, wordModel.Tf, wordModel.Idx)
+		}(word, wordModel.Tf, wordModel.Positions)
 	}
 	for word, wordModel := range p.Titles {
 		go func(w string, t int, idx []int) {
 			i.updateInverted(w, idx, pageId, true)
 			i.updateForward(w, pageId, t, ForwardTableTitle)
 			wg.Done()
-		}(word, wordModel.Tf, wordModel.Idx)
+		}(word, wordModel.Tf, wordModel.Positions)
 	}
 	wg.Wait()
 	i.setMaxTf(pageId, p.MaxTf)
@@ -267,9 +263,7 @@ func (i *Indexer) UpdateAdjList() {
 			Links := p.Links
 			// Iterate through each link, clean them, and put according to id 1-30.
 			for _, el := range Links {
-				u, _ := url.Parse(el)
-				newUrl := u.Scheme + "://" + u.Host + u.Path
-				childId := upBucket.Get([]byte(newUrl)) //childId
+				childId := upBucket.Get([]byte(el)) //childId
 				if childId != nil {
 					childIdUint64 := byteToUint64(childId)
 					parentList = adjList[childIdUint64]
@@ -281,10 +275,8 @@ func (i *Indexer) UpdateAdjList() {
 					adjList[childIdUint64] = parentList
 				}
 			}
-
 			return nil
 		})
-
 		return nil
 	})
 
@@ -342,7 +334,7 @@ func (i *Indexer) UpdateTermWeights() {
 	return
 }
 
-// UpdatePageRank calculates the PageRank of every documents by resetting each of their value to one and then iterates through each documents several times.
+// Calculates the PageRank iteratively.
 func (i *Indexer) UpdatePageRank() {
 	i.db.Update(func(tx *bolt.Tx) error {
 		prBucket := tx.Bucket(intToByte(PageRank))

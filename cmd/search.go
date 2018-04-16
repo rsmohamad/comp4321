@@ -13,8 +13,10 @@ func main() {
 		fmt.Print("Enter search term: ")
 		query, _ := reader.ReadString('\n')
 
-		results := retrieval.Search(query)
+		se := retrieval.NewSearchEngine("index.db")
+		defer se.Close()
 
+		results := se.RetrieveBoolean(query)
 		for _, doc := range results {
 			fmt.Println(doc.Title)
 		}

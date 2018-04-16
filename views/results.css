@@ -56,6 +56,10 @@ a {
     margin: 0;
 }
 
+.result-meta > b{
+    color: #212529;
+}
+
 .result-desc {
     font-size: smaller;
     margin: 0;

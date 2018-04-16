@@ -126,6 +126,24 @@ func (v *Viewer) GetDocuments(pageIds [][]byte) (documents []*models.Document) {
 	return
 }
 
+func (v *Viewer) GetParentLinks(pageId []byte) []string{
+	rv := make([]string, 0)
+	v.db.View(func(tx *bolt.Tx) error {
+		adjLists := tx.Bucket(intToByte(AdjList))
+		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
+
+		parents := adjLists.Bucket(pageId)
+		parents.ForEach(func(parentId, _ []byte) error {
+			linkStr := string(idToUrl.Get(parentId))
+			rv = append(rv, linkStr)
+			return nil
+		})
+		return nil
+	})
+
+	return rv
+}
+
 // Iterate over all documents
 func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 	v.db.View(func(tx *bolt.Tx) error {

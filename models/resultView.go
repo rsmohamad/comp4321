@@ -2,7 +2,7 @@ package models
 
 type ResultView struct {
 	Query        string
-	Results      []*Document
+	Results      []*DocumentView
 	TotalResults int
 	PageNum      int
 	Pages        []int

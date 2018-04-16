@@ -1,19 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"html/template"
-	"comp4321/database"
 	"comp4321/models"
-	"strconv"
-	"math"
 	"comp4321/retrieval"
+	"fmt"
+	"html/template"
+	"math"
+	"net/http"
+	"strconv"
 )
 
 var homeTemplate = template.Must(template.ParseFiles("views/home.html"))
 var resultTemplate = template.Must(template.ParseFiles("views/results.html"))
-var viewer *database.Viewer
 
 func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 	homeTemplate.Execute(w, nil)
@@ -25,11 +23,15 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	queries := r.URL.Query().Get("keywords")
 	page := r.URL.Query().Get("page")
 	currentPage, err := strconv.Atoi(page)
+
 	if err != nil {
 		currentPage = 1
 	}
+
+	se := retrieval.NewSearchEngine("index.db")
+	defer se.Close()
 	viewModel.Query = queries
-	viewModel.Results = retrieval.Search(queries)
+	viewModel.Results = se.RetrieveBoolean(queries)
 
 	pageNum := math.Ceil(float64(len(viewModel.Results)) / 10.0)
 	if currentPage > int(pageNum) {
@@ -46,8 +48,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	viewModel.TotalResults = len(viewModel.Results)
 	maxindex := int(math.Min(float64(currentPage*10), float64(len(viewModel.Results))))
-	viewModel.Results = viewModel.Results[(currentPage-1)*10: maxindex]
-	viewModel.CurrentPage = currentPage;
+	viewModel.Results = viewModel.Results[(currentPage-1)*10 : maxindex]
+	viewModel.CurrentPage = currentPage
 	viewModel.PageNum = int(pageNum)
 
 	resultTemplate.Execute(w, viewModel)
@@ -59,7 +61,6 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// Load indexer
-	viewer, _ = database.LoadViewer("index.db")
 
 	// File servers
 	staticServer := http.FileServer(http.Dir("static"))

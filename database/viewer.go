@@ -3,9 +3,9 @@ package database
 import (
 	"comp4321/models"
 	"encoding/json"
-	"fmt"
 
 	"github.com/boltdb/bolt"
+	"fmt"
 )
 
 // Class for reading the database
@@ -68,8 +68,8 @@ func (v *Viewer) ContainsWord(word string) bool {
 }
 
 // Returns a list of page IDs containing a word
-func (v *Viewer) GetContainingPages(word string) [][]byte {
-	rv := make([][]byte, 0)
+func (v *Viewer) GetContainingPages(word string) []uint64 {
+	rv := make([]uint64, 0)
 	wordId := v.wordToId(word)
 	if wordId == nil {
 		return rv
@@ -82,9 +82,7 @@ func (v *Viewer) GetContainingPages(word string) [][]byte {
 			return nil
 		}
 		docBucket.ForEach(func(k, v []byte) error {
-			pageId := make([]byte, len(k))
-			copy(pageId, k)
-			rv = append(rv, pageId)
+			rv = append(rv, byteToUint64(k))
 			return nil
 		})
 		return nil
@@ -94,10 +92,11 @@ func (v *Viewer) GetContainingPages(word string) [][]byte {
 
 // Returns a document object from a pageId.
 // Returns nil if the pageId does not exist
-func (v *Viewer) GetDocument(pageId []byte) (document *models.Document) {
+func (v *Viewer) GetDocument(pageId uint64) (document *models.Document) {
+	pageIdByte := uint64ToByte(pageId)
 	v.db.View(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))
-		docBytes := documents.Get(pageId)
+		docBytes := documents.Get(pageIdByte)
 
 		// pageId does not exist if docBytes == nil
 		if docBytes == nil {
@@ -117,7 +116,7 @@ func (v *Viewer) GetDocument(pageId []byte) (document *models.Document) {
 }
 
 // Returns a list of documents from a list of IDs
-func (v *Viewer) GetDocuments(pageIds [][]byte) (documents []*models.Document) {
+func (v *Viewer) GetDocuments(pageIds []uint64) (documents []*models.Document) {
 	documents = make([]*models.Document, 0)
 	for _, pageId := range pageIds {
 		document := v.GetDocument(pageId)
@@ -126,13 +125,14 @@ func (v *Viewer) GetDocuments(pageIds [][]byte) (documents []*models.Document) {
 	return
 }
 
-func (v *Viewer) GetParentLinks(pageId []byte) []string{
+func (v *Viewer) GetParentLinks(pageId uint64) []string {
+	pageIdByte := uint64ToByte(pageId)
 	rv := make([]string, 0)
 	v.db.View(func(tx *bolt.Tx) error {
 		adjLists := tx.Bucket(intToByte(AdjList))
 		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
 
-		parents := adjLists.Bucket(pageId)
+		parents := adjLists.Bucket(pageIdByte)
 		parents.ForEach(func(parentId, _ []byte) error {
 			linkStr := string(idToUrl.Get(parentId))
 			rv = append(rv, linkStr)
@@ -164,6 +164,50 @@ func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 		return nil
 	})
 }
+
+func (v *Viewer) GetDocumentMagnitude(docId uint64) (rv float64) {
+	v.db.View(func(tx *bolt.Tx) error {
+		tw := tx.Bucket(intToByte(PageMagnitude))
+		val := tw.Get(uint64ToByte(docId))
+		if val == nil {
+			rv = 0
+		} else {
+			rv = byteToFloat64(val)
+		}
+		return nil
+	})
+	return
+}
+
+func (v *Viewer) GetTfIdf(docId uint64, word string) (rv float64) {
+	var wordId []byte
+	v.db.View(func(tx *bolt.Tx) error {
+		wId := tx.Bucket(intToByte(WordToWordId))
+		wordId = wId.Get([]byte(word))
+		return nil
+	})
+
+	if wordId == nil {
+		return 0
+	}
+
+	v.db.View(func(tx *bolt.Tx) error {
+		tw := tx.Bucket(intToByte(TermWeights))
+		words := tw.Bucket(uint64ToByte(docId))
+		val := words.Get(wordId)
+
+		if val == nil {
+			rv = 0
+		} else {
+			rv = byteToFloat64(val)
+		}
+		return nil
+	})
+
+	return
+}
+
+//--- PRINTING UTILITIES ---//
 
 func (v *Viewer) printAllIDs(tablename int) {
 	v.db.View(func(tx *bolt.Tx) error {

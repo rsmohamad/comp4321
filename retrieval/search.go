@@ -49,13 +49,35 @@ func (e *SEngine) RetrieveBoolean(query string) []*models.DocumentView {
 		if doc != nil {
 			docView := models.NewDocumentView(doc)
 			docView.Score = 1;
-
 			parents := e.viewer.GetParentLinks(id)
 			upper := int(math.Min(float64(len(parents)), 5.0))
 			docView.Parents = parents[0:upper]
 			rv[i] = docView
 		}
 	}
+	return rv
+}
+
+func (e *SEngine) RetrieveVSpace(query string) []*models.DocumentView {
+	e.viewer, _ = database.LoadViewer("index.db")
+	querySplit := strings.Split(query, " ")
+	preprocessed := preprocessText(querySplit)
+	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
+
+	rv := make([]*models.DocumentView, len(docIds))
+
+	for i, id := range docIds {
+		doc := e.viewer.GetDocument(id)
+		if doc != nil {
+			docView := models.NewDocumentView(doc)
+			docView.Score = scores[id];
+			parents := e.viewer.GetParentLinks(id)
+			upper := int(math.Min(float64(len(parents)), 5.0))
+			docView.Parents = parents[0:upper]
+			rv[i] = docView
+		}
+	}
+
 	return rv
 }
 

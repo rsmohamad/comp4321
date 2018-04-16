@@ -13,5 +13,7 @@ const (
 	AdjList
 	TermWeights
 	PageRank
+	PageMagnitude
+	MaxTf
 	NumTable
 )

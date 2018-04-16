@@ -20,7 +20,7 @@ type DocumentView struct {
 	Children []string
 	Keywords []kw
 	Tf       []int
-	Score    int
+	Score    float64
 }
 
 func NewDocumentView(d *Document) *DocumentView {
@@ -36,7 +36,10 @@ func NewDocumentView(d *Document) *DocumentView {
 	}
 
 	sort.Slice(words, func(i, j int) bool {
-		return d.Words[words[i]].Tf < d.Words[words[j]].Tf
+		if d.Words[words[i]].Tf == d.Words[words[j]].Tf {
+			return words[i] < words[j]
+		}
+		return d.Words[words[i]].Tf > d.Words[words[j]].Tf
 	})
 
 	upper := int(math.Min(float64(len(d.Links)), 5.0))

@@ -196,16 +196,16 @@ func (i *Indexer) ContainsUrl(url string) (present bool) {
 
 func (i *Indexer) setMaxTf(pageId []byte, maxTf int) {
 	i.db.Batch(func(tx *bolt.Tx) error {
-		fwTable := tx.Bucket(intToByte(ForwardTable))
-		fwTable.Put(pageId, intToByte(maxTf))
+		maxTfTable := tx.Bucket(intToByte(MaxTf))
+		maxTfTable.Put(pageId, intToByte(maxTf))
 		return nil
 	})
 }
 
 func (i *Indexer) getMaxTf(pageId []byte) (maxTf int) {
 	i.db.View(func(tx *bolt.Tx) error {
-		fwTable := tx.Bucket(intToByte(ForwardTable))
-		maxTf = byteToInt(fwTable.Get(pageId))
+		maxTfTable := tx.Bucket(intToByte(MaxTf))
+		maxTf = byteToInt(maxTfTable.Get(pageId))
 		return nil
 	})
 	return
@@ -306,10 +306,11 @@ func (i *Indexer) UpdateTermWeights() {
 		itBucket := tx.Bucket(intToByte(InvertedTable))
 		ftBucket := tx.Bucket(intToByte(ForwardTable))
 		twBucket := tx.Bucket(intToByte(TermWeights))
+		pageMag := tx.Bucket(intToByte(PageMagnitude))
 		N := float64(ftBucket.Stats().KeyN)
 
 		// Forward Table (PageId - Terms)
-		ftBucket.ForEach(func(pageId, _ []byte) error {
+		ftBucket.ForEach(func(pageId, val []byte) error {
 			words := ftBucket.Bucket(pageId)
 			pageSet, _ := twBucket.CreateBucketIfNotExists(pageId)
 			maxTf := float64(i.getMaxTf(pageId))
@@ -327,6 +328,17 @@ func (i *Indexer) UpdateTermWeights() {
 				}
 				return nil
 			})
+
+			// Calculate vector magnitude
+			var magnitude float64 = 0
+			pageSet.ForEach(func(wordId, scoreByte []byte) error {
+				score := byteToFloat64(scoreByte)
+				magnitude += score * score
+				return nil
+			})
+			magnitude = math.Sqrt(magnitude)
+			pageMag.Put(pageId, float64ToByte(magnitude))
+
 			return nil
 		})
 		return nil

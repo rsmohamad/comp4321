@@ -1,36 +1,34 @@
 package retrieval
 
 import (
-	"bytes"
 	"comp4321/database"
 	"sort"
 )
 
-func intersect(list1, list2 [][]byte) (answer [][]byte) {
+func intersect(list1, list2 []uint64) (answer []uint64) {
 	i := 0
 	j := 0
 
 	for i != len(list1) && j != len(list2) {
-		if bytes.Equal(list1[i], list2[j]) {
+		if list1[i] == list2[j] {
 			answer = append(answer, list1[i])
 			i++
 			j++
-		} else if bytes.Compare(list1[i], list2[j]) == -1 {
-			j++
-		} else {
+		} else if list1[i] < list2[j] {
 			i++
+		} else {
+			j++
 		}
 	}
-
 	return
 }
 
-func booleanFilter(query []string, viewer *database.Viewer) (docIDs [][]byte) {
+func booleanFilter(query []string, viewer *database.Viewer) (docIDs []uint64) {
 	if len(query) == 0 {
 		return
 	}
 
-	wordDoc := make(map[string][][]byte)
+	wordDoc := make(map[string][]uint64)
 
 	for _, word := range query {
 		wordDoc[word] = viewer.GetContainingPages(word)

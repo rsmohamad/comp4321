@@ -81,6 +81,7 @@ func tokenizeString(s string) (rv []string) {
 	return
 }
 
+var fetchClient = http.Client{Timeout: time.Second * 10}
 func Fetch(uri string) (page *models.Document) {
 	words := make([]string, 0)
 	var lastElement string
@@ -88,7 +89,7 @@ func Fetch(uri string) (page *models.Document) {
 	inBody := false
 
 	// Make HTTP GET request
-	res, _ := http.Get(uri)
+	res, _ := fetchClient.Get(uri)
 
 	// Return if HTTP request is not successful
 	if res == nil || res.StatusCode != 200 {
@@ -165,7 +166,7 @@ func Fetch(uri string) (page *models.Document) {
 
 func countTfandIdx(words []string) map[string]models.Word {
 	m := make(map[string]models.Word)
-	var idx int = 0
+	idx := 0
 	for _, word := range words {
 		count := m[word].Tf
 		wordModel := m[word]

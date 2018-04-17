@@ -3,6 +3,7 @@ package retrieval
 import (
 	"comp4321/database"
 	"sort"
+	"math"
 )
 
 func intersect(list1, list2 []uint64) (answer []uint64) {
@@ -39,7 +40,6 @@ func booleanFilter(query []string, viewer *database.Viewer) (docIDs []uint64) {
 	})
 
 	docIDs = append(docIDs, wordDoc[query[0]]...)
-
 	for i, word := range query {
 		if i == 0 {
 			continue
@@ -47,6 +47,7 @@ func booleanFilter(query []string, viewer *database.Viewer) (docIDs []uint64) {
 		docIDs = intersect(docIDs, wordDoc[word])
 	}
 
-	return
+	upper := int(math.Min(50.0, float64(len(docIDs))))
+	return docIDs[0:upper]
 }
 

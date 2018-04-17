@@ -15,10 +15,10 @@ import (
 // HashMap for storing the robots data for each hostname
 var robotMap sync.Map
 
-func fetchRobotsTxt(urlObject *url.URL) (rv *robotstxt.RobotsData) {
-	// HTTP client with 5 seconds timeout
-	robotFetcher := http.Client{Timeout: time.Second * 5}
+// HTTP client with 5 seconds timeout
+var	robotFetcher = http.Client{Timeout: time.Second * 5}
 
+func fetchRobotsTxt(urlObject *url.URL) (rv *robotstxt.RobotsData) {
 	// If there's no response or timeout exceeded, give the default robots checker
 	// which will allow all paths within that website
 	rv = &robotstxt.RobotsData{}
@@ -87,7 +87,7 @@ func concurrentFetch(url string, results *chan *models.Document) {
 	}
 }
 
-func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Document) {
+func Crawl(uri string, num int, index *database.Indexer, restrictHost bool) (pages []*models.Document) {
 	var activeCounter int
 	var updateWg sync.WaitGroup
 	visited := make(map[string]bool)
@@ -111,7 +111,7 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 		}
 
 		// End prematurely if no links are available
-		if activeCounter == 0 {
+		if activeCounter <= 0 {
 			if len(queue) == 0 {
 				break
 			} else {
@@ -138,6 +138,14 @@ func Crawl(uri string, num int, index *database.Indexer) (pages []*models.Docume
 
 		// Put unvisited links into queue
 		for _, link := range page.Links {
+			// Crawl only the starting domain
+			if restrictHost {
+				urlParse, _ := url.Parse(link)
+				if urlParse.Host != u.Host{
+					continue
+				}
+			}
+
 			// skip if the link is already visited or indexed
 			if visited[link] || index.ContainsUrl(link) {
 				continue

@@ -6,6 +6,8 @@ import (
 
 	"github.com/boltdb/bolt"
 	"fmt"
+	"strings"
+	"strconv"
 )
 
 // Class for reading the database
@@ -138,6 +140,38 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 			rv = append(rv, linkStr)
 			return nil
 		})
+		return nil
+	})
+
+	return rv
+}
+
+func (v *Viewer) GetPositionIndices (docId uint64, word string) []uint64{
+	rv := make([]uint64, 0)
+
+	v.db.View(func(tx *bolt.Tx) error {
+		wordToId := tx.Bucket(intToByte(WordToWordId))
+		wordId := wordToId.Get([]byte(word))
+
+		if wordId == nil {
+			return nil
+		}
+
+		inv := tx.Bucket(intToByte(InvertedTable))
+		docs := inv.Bucket(wordId)
+		indices := docs.Get(uint64ToByte(docId))
+
+		if indices == nil {
+			return nil
+		}
+
+		indicesArr := strings.Split(string(indices), ",")
+
+		for _, indexStr := range indicesArr {
+			index, _ := strconv.Atoi(indexStr)
+			rv = append(rv, uint64(index))
+		}
+
 		return nil
 	})
 

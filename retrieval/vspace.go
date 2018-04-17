@@ -6,7 +6,12 @@ import (
 	"sort"
 )
 
-func cosSim(query []string, docId uint64, viewer *database.Viewer) float64 {
+type CosSimResult struct {
+	score float64
+	docId uint64
+}
+
+func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *CosSimResult) {
 	var innerProduct float64 = 0
 	queryMag := math.Sqrt(float64(len(query)))
 	docMag := viewer.GetDocumentMagnitude(docId)
@@ -15,22 +20,28 @@ func cosSim(query []string, docId uint64, viewer *database.Viewer) float64 {
 		innerProduct += viewer.GetTfIdf(docId, word)
 	}
 
-	return innerProduct / (queryMag * docMag)
+	score := innerProduct / (queryMag * docMag)
+	*res <- &CosSimResult{score, docId}
 }
 
-func vspaceRetrieval(query []string, viewer *database.Viewer) (map[uint64]float64, []uint64) {
+func getDocumentScores(query []string, viewer *database.Viewer, docsToSearch []uint64) (map[uint64]float64, []uint64) {
 	documentScores := make(map[uint64]float64)
 	documentIds := make([]uint64, 0)
+	res := make(chan *CosSimResult)
+	defer close(res)
 
-	for _, word := range query {
-		docsToSearch := booleanFilter([]string{word}, viewer)
-		for _, id := range docsToSearch {
-			_, exist := documentScores[id]
-			if !exist {
-				documentScores[id] = cosSim(query, id, viewer)
-				documentIds = append(documentIds, id)
-			}
+	for _, id := range docsToSearch {
+		_, exist := documentScores[id]
+		if !exist {
+			go cosSim(query, id, viewer, &res)
+			documentScores[id] = 0
+			documentIds = append(documentIds, id)
 		}
+	}
+
+	for range documentIds {
+		result := <-res
+		documentScores[result.docId] = result.score
 	}
 
 	sort.Slice(documentIds, func(i, j int) bool {
@@ -38,4 +49,17 @@ func vspaceRetrieval(query []string, viewer *database.Viewer) (map[uint64]float6
 	})
 
 	return documentScores, documentIds
+}
+
+func vspaceRetrieval(query []string, viewer *database.Viewer) (map[uint64]float64, []uint64) {
+	docsToSearch := make([]uint64, 0)
+
+	for _, word := range query {
+		docsToSearch = append(docsToSearch, booleanFilter([]string{word}, viewer)...)
+	}
+
+	scores, ids := getDocumentScores(query, viewer, docsToSearch)
+
+	upper := int(math.Min(50.0, float64(len(ids))))
+	return scores, ids[0:upper]
 }

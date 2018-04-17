@@ -14,17 +14,19 @@ func main() {
 	defer index.Close()
 
 	start := "https://www.cse.ust.hk/"
-	numPages := 30
+	numPages := 10000
+	restrict := true
 
 	if len(os.Args) == 3 {
 		start = os.Args[1]
 		numPages, _ = strconv.Atoi(os.Args[2])
+		restrict = false
 	}
 
 	startCrawl := time.Now()
-	webcrawler.Crawl(start, numPages, index)
+	obtained := webcrawler.Crawl(start, numPages, index, restrict)
 	elapsed := time.Since(startCrawl)
-	fmt.Printf("Indexing %d pages took %s\n", numPages, elapsed)
+	fmt.Printf("Indexing %d pages took %s\n", len(obtained), elapsed)
 	fmt.Println("Updating term weights...")
 	index.UpdateTermWeights()
 	fmt.Println("Updating adj list...")

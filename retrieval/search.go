@@ -9,11 +9,14 @@ import (
 	"log"
 	"math"
 	"sort"
+	"regexp"
 )
 
 func preprocessText(words []string) (rv []string) {
+	regex := regexp.MustCompile("[^a-zA-Z0-9 ]")
 	for _, word := range words {
-		cleaned := strings.TrimSpace(word)
+		cleaned := regex.ReplaceAllString(word, " ")
+		cleaned = strings.TrimSpace(word)
 		cleaned = strings.ToLower(cleaned)
 		cleaned = porter2.Stem(cleaned)
 		if !stopword.IsStopWord(cleaned) {
@@ -38,19 +41,17 @@ func NewSearchEngine(filename string) *SEngine {
 	return &se;
 }
 
-func (e *SEngine) RetrieveBoolean(query string) []*models.DocumentView {
-	e.viewer, _ = database.LoadViewer("index.db")
-	querySplit := strings.Split(query, " ")
-	preprocessed := preprocessText(querySplit)
-	docIds := booleanFilter(preprocessed, e.viewer)
-
+func (e *SEngine) getDocumentViewModels(docIds []uint64, scores map[uint64]float64) []*models.DocumentView {
 	rv := make([]*models.DocumentView, len(docIds))
-
 	for i, id := range docIds {
 		doc := e.viewer.GetDocument(id)
 		if doc != nil {
 			docView := models.NewDocumentView(doc)
-			docView.Score = 1;
+			if scores == nil {
+				docView.Score = 1;
+			} else {
+				docView.Score = scores[id];
+			}
 			parents := e.viewer.GetParentLinks(id)
 			upper := int(math.Min(float64(len(parents)), 5.0))
 			docView.Parents = parents[0:upper]
@@ -58,6 +59,15 @@ func (e *SEngine) RetrieveBoolean(query string) []*models.DocumentView {
 		}
 	}
 	return rv
+}
+
+func (e *SEngine) RetrieveBoolean(query string) []*models.DocumentView {
+	e.viewer, _ = database.LoadViewer("index.db")
+	querySplit := strings.Split(query, " ")
+	preprocessed := preprocessText(querySplit)
+	docIds := booleanFilter(preprocessed, e.viewer)
+
+	return e.getDocumentViewModels(docIds, nil)
 }
 
 func (e *SEngine) RetrievePhrase(query string) []*models.DocumentView {
@@ -74,19 +84,7 @@ func (e *SEngine) RetrievePhrase(query string) []*models.DocumentView {
 	upper := int(math.Min(50.0, float64(len(ids))))
 	ids = ids[0:upper]
 
-	rv := make([]*models.DocumentView, len(ids))
-	for i, id := range ids {
-		doc := e.viewer.GetDocument(id)
-		if doc != nil {
-			docView := models.NewDocumentView(doc)
-			docView.Score = scores[id];
-			parents := e.viewer.GetParentLinks(id)
-			upper := int(math.Min(float64(len(parents)), 5.0))
-			docView.Parents = parents[0:upper]
-			rv[i] = docView
-		}
-	}
-	return rv
+	return e.getDocumentViewModels(ids, scores)
 }
 
 func (e *SEngine) RetrieveVSpace(query string) []*models.DocumentView {
@@ -95,21 +93,7 @@ func (e *SEngine) RetrieveVSpace(query string) []*models.DocumentView {
 	preprocessed := preprocessText(querySplit)
 	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
 
-	rv := make([]*models.DocumentView, len(docIds))
-
-	for i, id := range docIds {
-		doc := e.viewer.GetDocument(id)
-		if doc != nil {
-			docView := models.NewDocumentView(doc)
-			docView.Score = scores[id];
-			parents := e.viewer.GetParentLinks(id)
-			upper := int(math.Min(float64(len(parents)), 5.0))
-			docView.Parents = parents[0:upper]
-			rv[i] = docView
-		}
-	}
-
-	return rv
+	return e.getDocumentViewModels(docIds, scores)
 }
 
 func (e *SEngine) Close() {

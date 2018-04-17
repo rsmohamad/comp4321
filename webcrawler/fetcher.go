@@ -12,6 +12,9 @@ import (
 	"github.com/surgebase/porter2"
 	"golang.org/x/net/html"
 	"mvdan.cc/xurls"
+	"io"
+	"io/ioutil"
+	"fmt"
 )
 
 // Get url from html token
@@ -81,7 +84,16 @@ func tokenizeString(s string) (rv []string) {
 	return
 }
 
-var fetchClient = http.Client{Timeout: time.Second * 10}
+var tr = &http.Transport{
+	MaxIdleConnsPerHost: 32768,
+	TLSHandshakeTimeout: 0 * time.Second,
+}
+
+var fetchClient = http.Client{
+	Timeout:   time.Second * 15,
+	Transport: tr,
+}
+
 func Fetch(uri string) (page *models.Document) {
 	words := make([]string, 0)
 	var lastElement string
@@ -89,7 +101,12 @@ func Fetch(uri string) (page *models.Document) {
 	inBody := false
 
 	// Make HTTP GET request
-	res, _ := fetchClient.Get(uri)
+	res, err := fetchClient.Get(uri)
+
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
 
 	// Return if HTTP request is not successful
 	if res == nil || res.StatusCode != 200 {
@@ -152,6 +169,9 @@ func Fetch(uri string) (page *models.Document) {
 			}
 		}
 	}
+
+	// Makes sure all bytes are read
+	io.Copy(ioutil.Discard, res.Body)
 
 	// Clean data
 	hue := tokenizeString(strings.Join(words, " "))

@@ -90,7 +90,7 @@ var tr = &http.Transport{
 }
 
 var fetchClient = http.Client{
-	Timeout:   time.Second * 15,
+	Timeout:   time.Second * 5,
 	Transport: tr,
 }
 
@@ -174,12 +174,10 @@ func Fetch(uri string) (page *models.Document) {
 	io.Copy(ioutil.Discard, res.Body)
 
 	// Clean data
-	hue := tokenizeString(strings.Join(words, " "))
-	// fmt.Println(hue)
 	page.Titles = countTfandIdx(tokenizeString(page.Title))
-	page.Words = countTfandIdx(hue)
-	// fmt.Println(page.Words)
+	page.Words = countTfandIdx(tokenizeString(strings.Join(words, " ")))
 	page.MaxTf = countMaxTf(page.Words)
+	page.TitleMaxTf = countMaxTf(page.Titles)
 	page.Links = toAbsoluteUrl(page.Links, uri)
 	return
 }

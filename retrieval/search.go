@@ -12,11 +12,13 @@ import (
 	"regexp"
 )
 
-func preprocessText(words []string) (rv []string) {
+func preprocessText(query string) (rv []string) {
 	regex := regexp.MustCompile("[^a-zA-Z0-9 ]")
+	query = regex.ReplaceAllString(query, " ")
+	query = strings.TrimSpace(query)
+	words := strings.Split(query, " ")
 	for _, word := range words {
-		cleaned := regex.ReplaceAllString(word, " ")
-		cleaned = strings.TrimSpace(word)
+		cleaned := strings.TrimSpace(word)
 		cleaned = strings.ToLower(cleaned)
 		cleaned = porter2.Stem(cleaned)
 		if !stopword.IsStopWord(cleaned) {
@@ -62,18 +64,13 @@ func (e *SEngine) getDocumentViewModels(docIds []uint64, scores map[uint64]float
 }
 
 func (e *SEngine) RetrieveBoolean(query string) []*models.DocumentView {
-	e.viewer, _ = database.LoadViewer("index.db")
-	querySplit := strings.Split(query, " ")
-	preprocessed := preprocessText(querySplit)
+	preprocessed := preprocessText(query)
 	docIds := booleanFilter(preprocessed, e.viewer)
-
 	return e.getDocumentViewModels(docIds, nil)
 }
 
 func (e *SEngine) RetrievePhrase(query string) []*models.DocumentView {
-	e.viewer, _ = database.LoadViewer("index.db")
-	querySplit := strings.Split(query, " ")
-	preprocessed := preprocessText(querySplit)
+	preprocessed := preprocessText(query)
 	docIds := searchPhrase(preprocessed, e.viewer)
 	scores, ids := getDocumentScores(preprocessed, e.viewer, docIds)
 
@@ -88,11 +85,8 @@ func (e *SEngine) RetrievePhrase(query string) []*models.DocumentView {
 }
 
 func (e *SEngine) RetrieveVSpace(query string) []*models.DocumentView {
-	e.viewer, _ = database.LoadViewer("index.db")
-	querySplit := strings.Split(query, " ")
-	preprocessed := preprocessText(querySplit)
+	preprocessed := preprocessText(query)
 	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
-
 	return e.getDocumentViewModels(docIds, scores)
 }
 

@@ -13,14 +13,15 @@ type Word struct {
 // Document class for representation inside the system.
 // Has fields relevant to search execution but not presentation.
 type Document struct {
-	Title   string
-	Uri     string
-	Links   []string
-	Words   map[string]Word
-	Titles  map[string]Word
-	Len     int
-	MaxTf   int
-	Modtime int64
+	Title      string
+	Uri        string
+	Links      []string
+	Words      map[string]Word
+	Titles     map[string]Word
+	Len        int
+	MaxTf      int
+	TitleMaxTf int
+	Modtime    int64
 }
 
 func (d Document) GetSizeStr() string {

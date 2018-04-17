@@ -7,7 +7,6 @@ import (
 	"github.com/boltdb/bolt"
 	"strings"
 	"strconv"
-	"math"
 	"sync"
 )
 
@@ -183,77 +182,6 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 	return rv
 }
 
-func (v *Viewer) GetTitleMagnitude(docId uint64) float64 {
-	words := make([]string, 0)
-	v.db.View(func(tx *bolt.Tx) error {
-		ft := tx.Bucket(intToByte(ForwardTableTitle))
-		terms := ft.Bucket(uint64ToByte(docId))
-		terms.ForEach(func(k, val []byte) error {
-			words = append(words, v.idToWord(k))
-			return nil
-		})
-		return nil
-	})
-
-	mag := 0.0
-	for _, word := range words {
-		mag += v.GetTitleScore(docId, word)
-	}
-	return math.Sqrt(mag)
-}
-
-func (v *Viewer) UpdateMaxTfCache(docId uint64) int {
-	max := 0
-	v.db.View(func(tx *bolt.Tx) error {
-		ft := tx.Bucket(intToByte(ForwardTableTitle))
-		terms := ft.Bucket(uint64ToByte(docId))
-		terms.ForEach(func(k, val []byte) error {
-			tf := byteToInt(val)
-			if tf > max {
-				max = tf
-			}
-			return nil
-		})
-		return nil
-	})
-	v.mapLock.Lock()
-	v.maxTf[docId] = max
-	v.mapLock.Unlock()
-	return max
-}
-
-func (v *Viewer) GetTitleScore(docId uint64, word string) float64 {
-	v.mapLock.RLock()
-	maxTf, ok := v.maxTf[docId]
-	v.mapLock.RUnlock()
-
-	if !ok {
-		maxTf = v.UpdateMaxTfCache(docId)
-	}
-
-	rv := 0.0
-	wordId := v.wordToId(word)
-	if wordId == nil {
-		return rv
-	}
-
-	v.db.View(func(tx *bolt.Tx) error {
-		itBucket := tx.Bucket(intToByte(InvertedTableTitle))
-		ftBucket := tx.Bucket(intToByte(ForwardTableTitle))
-		N := float64(ftBucket.Stats().KeyN)
-		wordSet := ftBucket.Bucket(uint64ToByte(docId))
-		tfByte := wordSet.Get(wordId)
-		if tfByte == nil {
-			return nil
-		}
-		df := float64(itBucket.Bucket(wordId).Stats().KeyN)
-		tf := float64(byteToInt(tfByte))
-		rv = tf * math.Log2(N/df) / float64(maxTf)
-		return nil
-	})
-	return rv
-}
-
 func (v *Viewer) GetPositionIndices(docId uint64, word string, title bool) []uint64 {
 	rv := make([]uint64, 0)
 
@@ -306,9 +234,14 @@ func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 	})
 }
 
-func (v *Viewer) GetDocumentMagnitude(docId uint64) (rv float64) {
+func (v *Viewer) GetMagnitude(docId uint64, title bool) (rv float64) {
+	tablename := intToByte(PageMagnitude)
+	if title {
+		tablename = intToByte(TitleMagnitude)
+	}
+
 	v.db.View(func(tx *bolt.Tx) error {
-		tw := tx.Bucket(intToByte(PageMagnitude))
+		tw := tx.Bucket(tablename)
 		val := tw.Get(uint64ToByte(docId))
 		if val == nil {
 			rv = 0
@@ -320,14 +253,19 @@ func (v *Viewer) GetDocumentMagnitude(docId uint64) (rv float64) {
 	return
 }
 
-func (v *Viewer) GetTfIdf(docId uint64, word string) (rv float64) {
+func (v *Viewer) GetTfIdf(docId uint64, word string, title bool) (rv float64) {
 	wordId := v.wordToId(word)
 	if wordId == nil {
 		return 0
 	}
 
+	tablename := intToByte(TermWeights)
+	if title {
+		tablename = intToByte(TitleWeights)
+	}
+
 	v.db.View(func(tx *bolt.Tx) error {
-		tw := tx.Bucket(intToByte(TermWeights))
+		tw := tx.Bucket(tablename)
 		words := tw.Bucket(uint64ToByte(docId))
 		val := words.Get(wordId)
 

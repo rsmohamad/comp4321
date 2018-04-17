@@ -3,6 +3,7 @@ package retrieval
 import (
 	"comp4321/database"
 	"sort"
+	"sync"
 )
 
 func intersect(list1, list2 []uint64) (answer []uint64) {
@@ -29,10 +30,15 @@ func booleanFilter(query []string, viewer *database.Viewer) (docIDs []uint64) {
 	}
 
 	wordDoc := make(map[string][]uint64)
-
+	wg := sync.WaitGroup{}
+	wg.Add(len(query))
 	for _, word := range query {
-		wordDoc[word] = viewer.GetContainingPages(word)
+		go func(word string) {
+			wordDoc[word] = viewer.GetContainingPages(word)
+			wg.Done()
+		}(word)
 	}
+	wg.Wait()
 
 	sort.Slice(query, func(i, j int) bool {
 		return len(wordDoc[query[i]]) < len(wordDoc[query[j]])
@@ -48,4 +54,3 @@ func booleanFilter(query []string, viewer *database.Viewer) (docIDs []uint64) {
 
 	return
 }
-

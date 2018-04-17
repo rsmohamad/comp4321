@@ -13,19 +13,23 @@ type CosSimResult struct {
 
 func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *CosSimResult) *CosSimResult {
 	var textInnerProduct float64 = 0
-	var bodyInnerProduct float64 = 0
+	var titleInnerProduct float64 = 0
 	queryMag := math.Sqrt(float64(len(query)))
-	docMag := viewer.GetDocumentMagnitude(docId)
-	titleMag := viewer.GetTitleMagnitude(docId)
+	docMag := viewer.GetMagnitude(docId, false)
+	titleMag := viewer.GetMagnitude(docId, true)
 
 	for _, word := range query {
-		textInnerProduct += viewer.GetTfIdf(docId, word)
-		bodyInnerProduct += viewer.GetTitleScore(docId, word)
+		textInnerProduct += viewer.GetTfIdf(docId, word, false)
+		titleInnerProduct += viewer.GetTfIdf(docId, word, true)
 	}
 
 	textScore := textInnerProduct / (queryMag * docMag)
-	titleScore := bodyInnerProduct / (queryMag * titleMag)
-	score := textScore + titleScore
+	titleScore := titleInnerProduct / (queryMag * titleMag)
+	score := textScore
+	if !math.IsNaN(titleScore){
+		score += titleScore * 1.5
+	}
+
 	rv := &CosSimResult{score, docId}
 	*res <- rv
 	return rv
@@ -60,9 +64,17 @@ func getDocumentScores(query []string, viewer *database.Viewer, docsToSearch []u
 
 func vspaceRetrieval(query []string, viewer *database.Viewer) (map[uint64]float64, []uint64) {
 	docsToSearch := make([]uint64, 0)
+	res := make(chan []uint64)
 
 	for _, word := range query {
-		docsToSearch = append(docsToSearch, booleanFilter([]string{word}, viewer)...)
+		go func() {
+			ids := booleanFilter([]string{word}, viewer)
+			res <- ids
+		}()
+	}
+
+	for range query {
+		docsToSearch = append(docsToSearch, <-res...)
 	}
 
 	scores, ids := getDocumentScores(query, viewer, docsToSearch)

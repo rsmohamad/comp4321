@@ -12,8 +12,11 @@ const (
 	PageInfo
 	AdjList
 	TermWeights
-	PageRank
 	PageMagnitude
 	MaxTf
+	TitleWeights
+	TitleMagnitude
+	TitleMaxTf
+	PageRank
 	NumTable
 )

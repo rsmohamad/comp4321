@@ -143,12 +143,20 @@ func (i *Indexer) updateInverted(word string, indexes []int, pageId []byte, isTi
 	// Non critical section
 }
 
-func mergeId(id uint64, tablename int, i *Indexer, wg *sync.WaitGroup) {
+func (i *Indexer) mergeWord(id uint64, wg *sync.WaitGroup, title bool) {
+	memIndex := i.wordInverted
+	tablename := intToByte(InvertedTable)
+
+	if title {
+		memIndex = i.titleInverted
+		tablename = intToByte(InvertedTableTitle)
+	}
+
 	i.db.Batch(func(tx *bolt.Tx) error {
 		idBytes := uint64ToByte(id)
-		inverted := tx.Bucket(intToByte(tablename))
+		inverted := tx.Bucket(tablename)
 		wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
-		postingList := i.wordInverted[id]
+		postingList := memIndex[id]
 		for docId, idx := range postingList {
 			pos := strings.Trim(strings.Replace(fmt.Sprint(idx), " ", ",", -1), "[]")
 			wordSet.Put(uint64ToByte(docId), []byte(pos))
@@ -174,10 +182,10 @@ func (i *Indexer) FlushInverted() {
 	wg := sync.WaitGroup{}
 	wg.Add(len(wordIdList) + len(titleIdList))
 	for _, id := range wordIdList {
-		go mergeId(id, InvertedTable, i, &wg)
+		go i.mergeWord(id, &wg, false)
 	}
 	for _, id := range titleIdList {
-		go mergeId(id, InvertedTableTitle, i, &wg)
+		go i.mergeWord(id, &wg, true)
 	}
 	wg.Wait()
 }
@@ -203,21 +211,14 @@ func (i *Indexer) ContainsUrl(url string) (present bool) {
 	return
 }
 
-func (i *Indexer) setMaxTf(pageId []byte, maxTf int) {
+func (i *Indexer) setMaxTf(pageId []byte, maxTf, titleMaxTf int) {
 	i.db.Batch(func(tx *bolt.Tx) error {
 		maxTfTable := tx.Bucket(intToByte(MaxTf))
+		titleTable := tx.Bucket(intToByte(TitleMaxTf))
 		maxTfTable.Put(pageId, intToByte(maxTf))
+		titleTable.Put(pageId, intToByte(titleMaxTf))
 		return nil
 	})
-}
-
-func (i *Indexer) getMaxTf(pageId []byte) (maxTf int) {
-	i.db.View(func(tx *bolt.Tx) error {
-		maxTfTable := tx.Bucket(intToByte(MaxTf))
-		maxTf = byteToInt(maxTfTable.Get(pageId))
-		return nil
-	})
-	return
 }
 
 // Insert page into the database.
@@ -227,7 +228,7 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	var wg sync.WaitGroup
 	fmt.Println(pageId, p.Uri)
 
-	wg.Add(len(p.Words))
+	wg.Add(len(p.Words) + len(p.Titles))
 	for word, wordModel := range p.Words {
 		go func(w string, t int, idx []int) {
 			i.updateInverted(w, idx, pageId, false)
@@ -235,8 +236,6 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			wg.Done()
 		}(word, wordModel.Tf, wordModel.Positions)
 	}
-	wg.Wait()
-	wg.Add(len(p.Titles))
 	for word, wordModel := range p.Titles {
 		go func(w string, t int, idx []int) {
 			i.updateInverted(w, idx, pageId, true)
@@ -245,13 +244,92 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 		}(word, wordModel.Tf, wordModel.Positions)
 	}
 	wg.Wait()
-	i.setMaxTf(pageId, p.MaxTf)
+	i.setMaxTf(pageId, p.MaxTf, p.TitleMaxTf)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))
 		encoded, _ := json.Marshal(p)
 		documents.Put(pageId, encoded)
 		return nil
 	})
+}
+
+
+
+func (v *Indexer) updateTermScores(docId []byte, title bool) {
+	tableNames := []int{ForwardTable, TermWeights, PageMagnitude}
+	if title {
+		tableNames = []int{ForwardTableTitle, TitleWeights, TitleMagnitude}
+	}
+	sum := 0.0
+	v.db.Batch(func(tx *bolt.Tx) error {
+		ft := tx.Bucket(intToByte(tableNames[0]))
+		tw := tx.Bucket(intToByte(tableNames[1]))
+		mag := tx.Bucket(intToByte(tableNames[2]))
+		pageSet, _ := tw.CreateBucketIfNotExists(docId)
+
+		ft.Bucket(docId).ForEach(func(wordId, val []byte) error {
+			termWeight := v.calculateTermScore(docId, wordId, title)
+			sum += termWeight
+			pageSet.Put(wordId, float64ToByte(termWeight))
+			return nil
+		})
+		mag.Put(docId, float64ToByte(math.Sqrt(sum)))
+		return nil
+	})
+}
+
+func (v *Indexer) calculateTermScore(docId, wordId []byte, title bool) float64 {
+	tableNames := []int{InvertedTable, ForwardTable, MaxTf}
+	if title {
+		tableNames = []int{InvertedTableTitle, ForwardTableTitle, TitleMaxTf}
+	}
+
+	rv := 0.0
+	v.db.View(func(tx *bolt.Tx) error {
+		itBucket := tx.Bucket(intToByte(tableNames[0]))
+		ftBucket := tx.Bucket(intToByte(tableNames[1]))
+		maxBucket := tx.Bucket(intToByte(tableNames[2]))
+		pages := tx.Bucket(intToByte(PageIdToUrl))
+
+		numPages := float64(pages.Stats().KeyN)
+		maxTf := byteToInt(maxBucket.Get(docId))
+		wordSet := ftBucket.Bucket(docId)
+		tfByte := wordSet.Get(wordId)
+		if tfByte == nil {
+			return nil
+		}
+
+		df := float64(itBucket.Bucket(wordId).Stats().KeyN)
+		tf := float64(byteToInt(tfByte))
+		rv = tf * math.Log2(numPages/df) / float64(maxTf)
+		return nil
+	})
+	return rv
+}
+
+// Update term weights
+// TF, N, keywords per page, and pages are retrieved from forward table
+// DF is retrieved from inverted index
+func (i *Indexer) UpdateTermWeights() {
+	docIds := make([][]byte, 0)
+	i.db.View(func(tx *bolt.Tx) error {
+		tx.Bucket(intToByte(PageIdToUrl)).ForEach(func(k, v []byte) error {
+			docIds = append(docIds, k)
+			return nil
+		})
+		return nil
+	})
+
+	wg := sync.WaitGroup{}
+	wg.Add(len(docIds))
+	for _, id := range docIds {
+		go func(id []byte) {
+			i.updateTermScores(id, false)
+			i.updateTermScores(id, true)
+			wg.Done()
+		}(id)
+	}
+	wg.Wait()
 }
 
 // Update Adjacency List
@@ -304,52 +382,6 @@ func (i *Indexer) UpdateAdjList() {
 		}
 		return nil
 	})
-}
-
-// Update term weights
-// TF, N, keywords per page, and pages are retrieved from forward table
-// DF is retrieved from inverted index
-func (i *Indexer) UpdateTermWeights() {
-	i.db.Update(func(tx *bolt.Tx) error {
-		itBucket := tx.Bucket(intToByte(InvertedTable))
-		ftBucket := tx.Bucket(intToByte(ForwardTable))
-		twBucket := tx.Bucket(intToByte(TermWeights))
-		pageMag := tx.Bucket(intToByte(PageMagnitude))
-		N := float64(ftBucket.Stats().KeyN)
-
-		// Forward Table (PageId - Terms)
-		ftBucket.ForEach(func(pageId, val []byte) error {
-			words := ftBucket.Bucket(pageId)
-			pageSet, _ := twBucket.CreateBucketIfNotExists(pageId)
-			maxTf := float64(i.getMaxTf(pageId))
-
-			// Words Bucket (Words - TF)
-			words.ForEach(func(wordId, tfByte []byte) error {
-				// TF-IDF COMPUTATION
-				df := float64(itBucket.Bucket(wordId).Stats().KeyN)
-				tf := float64(byteToInt(tfByte))
-				tw := tf * math.Log2(N/df) / maxTf
-				if wordId != nil {
-					pageSet.Put(wordId, float64ToByte(tw))
-				}
-				return nil
-			})
-
-			// Calculate vector magnitude
-			var magnitude float64 = 0
-			pageSet.ForEach(func(wordId, scoreByte []byte) error {
-				score := byteToFloat64(scoreByte)
-				magnitude += score * score
-				return nil
-			})
-			magnitude = math.Sqrt(magnitude)
-			pageMag.Put(pageId, float64ToByte(magnitude))
-
-			return nil
-		})
-		return nil
-	})
-	return
 }
 
 // Calculates the PageRank iteratively.

@@ -76,7 +76,9 @@
                     <a class="result-meta" href={{.}}>{{.}}</a>
                     <br>
                 {{end}}
-                    <br>
+                    <a class="result-meta" href="/search/?keywords={{range .Keywords}}{{.Word}}+{{end}}">
+                        <b>Get similar pages</b>
+                    </a>
                 </div>
             </div>
         {{end}}

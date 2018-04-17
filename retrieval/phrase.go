@@ -18,21 +18,28 @@ func splitToBigrams(query []string) (bigrams []Bigram) {
 	return
 }
 
+func hasBigram(id uint64, bigram Bigram, viewer *database.Viewer, title bool) bool{
+	pos1 := viewer.GetPositionIndices(id, bigram.n1, title)
+	pos2 := viewer.GetPositionIndices(id, bigram.n2, title)
+
+	for i, _ := range pos2 {
+		pos2[i]--
+	}
+
+	common := intersect(pos1, pos2)
+	return len(common) > 0
+}
+
 // Returns docIds that contain the bigram phrase.
 func hasPhrase(bigram Bigram, viewer *database.Viewer) []uint64{
 	docIds := booleanFilter([]string{bigram.n1, bigram.n2}, viewer)
 	rv := make([]uint64, 0)
 
 	for _, id := range docIds {
-		pos1 := viewer.GetPositionIndices(id, bigram.n1)
-		pos2 := viewer.GetPositionIndices(id, bigram.n2)
+		inBody := hasBigram(id, bigram, viewer, false)
+		inTitle := hasBigram(id, bigram, viewer, true)
 
-		for i, _ := range pos2 {
-			pos2[i]--
-		}
-
-		common := intersect(pos1, pos2)
-		if len(common) > 0 {
+		if inBody || inTitle {
 			rv = append(rv, id)
 		}
 	}

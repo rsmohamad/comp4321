@@ -12,15 +12,20 @@ type CosSimResult struct {
 }
 
 func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *CosSimResult) {
-	var innerProduct float64 = 0
+	var textInnerProduct float64 = 0
+	var bodyInnerProduct float64 = 0
 	queryMag := math.Sqrt(float64(len(query)))
 	docMag := viewer.GetDocumentMagnitude(docId)
+	titleMag := viewer.GetTitleMagnitude(docId)
 
 	for _, word := range query {
-		innerProduct += viewer.GetTfIdf(docId, word)
+		textInnerProduct += viewer.GetTfIdf(docId, word)
+		bodyInnerProduct += viewer.GetTitleScore(docId, word)
 	}
 
-	score := innerProduct / (queryMag * docMag)
+	textScore := textInnerProduct / (queryMag * docMag)
+	titleScore := bodyInnerProduct / (queryMag * titleMag)
+	score := textScore + titleScore
 	*res <- &CosSimResult{score, docId}
 }
 

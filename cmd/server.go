@@ -31,7 +31,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	se := retrieval.NewSearchEngine("index.db")
 	defer se.Close()
 	viewModel.Query = queries
-	viewModel.Results = se.RetrievePhrase(queries)
+	viewModel.Results = se.RetrieveVSpace(queries)
 
 	pageNum := math.Ceil(float64(len(viewModel.Results)) / 10.0)
 	if currentPage > int(pageNum) {

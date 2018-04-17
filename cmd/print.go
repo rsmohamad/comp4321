@@ -9,9 +9,9 @@ import (
 )
 
 func main() {
-	viewer, _ := database.LoadViewer("index.db")
+	p, _ := database.LoadPrinter("index.db")
 	reader := bufio.NewReader(os.Stdin)
-	defer viewer.Close()
+	defer p.Close()
 
 	for {
 		fmt.Println("Print: 1)Words, 2)Pages, 3)AdjList, 4)PageRank")
@@ -25,16 +25,16 @@ func main() {
 
 		switch num {
 		case 1:
-			viewer.PrintAllWords()
+			p.PrintAllWords()
 			break
 		case 2:
-			viewer.PrintAllPages()
+			p.PrintAllPages()
 			break
 		case 3:
-			viewer.PrintAdjList()
+			p.PrintAdjList()
 			break
 		case 4:
-			viewer.PrintPageRank()
+			p.PrintPageRank()
 			break
 		default:
 			fmt.Println("Invalid option")

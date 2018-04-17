@@ -5,15 +5,18 @@ import (
 	"encoding/json"
 
 	"github.com/boltdb/bolt"
-	"fmt"
 	"strings"
 	"strconv"
+	"math"
+	"sync"
 )
 
 // Class for reading the database
 // Reads the .db file in read-only mode.
 type Viewer struct {
-	db *bolt.DB
+	db      *bolt.DB
+	maxTf   map[uint64]int
+	mapLock sync.RWMutex
 }
 
 // Load a Viewer object from .db file
@@ -24,6 +27,7 @@ func LoadViewer(filename string) (*Viewer, error) {
 	if err != nil {
 		return nil, err
 	}
+	viewer.maxTf = make(map[uint64]int)
 	return &viewer, nil
 }
 
@@ -51,6 +55,25 @@ func (v *Viewer) stringToId(key string, table int) (rv []byte) {
 	return
 }
 
+func (v *Viewer) idToString(key []byte, table int) (rv string) {
+	rv = ""
+	v.db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket(intToByte(table))
+		val := b.Get(key)
+		if val != nil {
+			temp := make([]byte, len(val))
+			copy(temp, val)
+			rv = string(temp)
+		}
+		return nil
+	})
+	return
+}
+
+func (v *Viewer) idToWord(key []byte) string {
+	return v.idToString(key, WordIdToWord)
+}
+
 func (v *Viewer) wordToId(word string) []byte {
 	return v.stringToId(word, WordToWordId)
 }
@@ -72,23 +95,37 @@ func (v *Viewer) ContainsWord(word string) bool {
 // Returns a list of page IDs containing a word
 func (v *Viewer) GetContainingPages(word string) []uint64 {
 	rv := make([]uint64, 0)
+	set := make(map[uint64]bool)
 	wordId := v.wordToId(word)
 	if wordId == nil {
 		return rv
 	}
 	v.db.View(func(tx *bolt.Tx) error {
 		wordBucket := tx.Bucket(intToByte(InvertedTable))
+		wordBucketTitle := tx.Bucket(intToByte(InvertedTableTitle))
 		docBucket := wordBucket.Bucket(wordId)
-		if docBucket == nil {
-			fmt.Println("does not exist")
-			return nil
+		docBucketTitle := wordBucketTitle.Bucket(wordId)
+
+		if docBucket != nil {
+			docBucket.ForEach(func(k, v []byte) error {
+				set[byteToUint64(k)] = true
+				return nil
+			})
 		}
-		docBucket.ForEach(func(k, v []byte) error {
-			rv = append(rv, byteToUint64(k))
-			return nil
-		})
+
+		if docBucketTitle != nil {
+			docBucketTitle.ForEach(func(k, v []byte) error {
+				set[byteToUint64(k)] = true
+				return nil
+			})
+		}
+
 		return nil
 	})
+
+	for key := range set {
+		rv = append(rv, key)
+	}
 	return rv
 }
 
@@ -146,32 +183,99 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 	return rv
 }
 
-func (v *Viewer) GetPositionIndices (docId uint64, word string) []uint64{
-	rv := make([]uint64, 0)
+func (v *Viewer) GetTitleMagnitude(docId uint64) float64 {
+	words := make([]string, 0)
+	v.db.View(func(tx *bolt.Tx) error {
+		ft := tx.Bucket(intToByte(ForwardTableTitle))
+		terms := ft.Bucket(uint64ToByte(docId))
+		terms.ForEach(func(k, val []byte) error {
+			words = append(words, v.idToWord(k))
+			return nil
+		})
+		return nil
+	})
+
+	mag := 0.0
+	for _, word := range words {
+		mag += v.GetTitleScore(docId, word)
+	}
+	return math.Sqrt(mag)
+}
+
+func (v *Viewer) UpdateMaxTfCache(docId uint64) int {
+	max := 0
+	v.db.View(func(tx *bolt.Tx) error {
+		ft := tx.Bucket(intToByte(ForwardTableTitle))
+		terms := ft.Bucket(uint64ToByte(docId))
+		terms.ForEach(func(k, val []byte) error {
+			tf := byteToInt(val)
+			if tf > max {
+				max = tf
+			}
+			return nil
+		})
+		return nil
+	})
+	v.mapLock.Lock()
+	v.maxTf[docId] = max
+	v.mapLock.Unlock()
+	return max
+}
+
+func (v *Viewer) GetTitleScore(docId uint64, word string) float64 {
+	v.mapLock.RLock()
+	maxTf, ok := v.maxTf[docId]
+	v.mapLock.RUnlock()
+
+	if !ok {
+		maxTf = v.UpdateMaxTfCache(docId)
+	}
+
+	rv := 0.0
+	wordId := v.wordToId(word)
+	if wordId == nil {
+		return rv
+	}
 
 	v.db.View(func(tx *bolt.Tx) error {
-		wordToId := tx.Bucket(intToByte(WordToWordId))
-		wordId := wordToId.Get([]byte(word))
+		itBucket := tx.Bucket(intToByte(InvertedTableTitle))
+		ftBucket := tx.Bucket(intToByte(ForwardTableTitle))
+		N := float64(ftBucket.Stats().KeyN)
+		wordSet := ftBucket.Bucket(uint64ToByte(docId))
+		tfByte := wordSet.Get(wordId)
+		df := float64(itBucket.Bucket(wordId).Stats().KeyN)
+		tf := float64(byteToInt(tfByte))
+		rv = tf * math.Log2(N/df) / float64(maxTf)
+		return nil
+	})
+	return rv
+}
 
-		if wordId == nil {
-			return nil
-		}
+func (v *Viewer) GetPositionIndices(docId uint64, word string, title bool) []uint64 {
+	rv := make([]uint64, 0)
 
-		inv := tx.Bucket(intToByte(InvertedTable))
+	tablename := intToByte(InvertedTable)
+	if title {
+		tablename = intToByte(InvertedTableTitle)
+	}
+
+	wordId := v.wordToId(word)
+	if wordId == nil {
+		return rv
+	}
+	v.db.View(func(tx *bolt.Tx) error {
+		inv := tx.Bucket(tablename)
 		docs := inv.Bucket(wordId)
 		indices := docs.Get(uint64ToByte(docId))
-
 		if indices == nil {
 			return nil
 		}
 
 		indicesArr := strings.Split(string(indices), ",")
-
 		for _, indexStr := range indicesArr {
 			index, _ := strconv.Atoi(indexStr)
 			rv = append(rv, uint64(index))
 		}
-
 		return nil
 	})
 
@@ -214,13 +318,7 @@ func (v *Viewer) GetDocumentMagnitude(docId uint64) (rv float64) {
 }
 
 func (v *Viewer) GetTfIdf(docId uint64, word string) (rv float64) {
-	var wordId []byte
-	v.db.View(func(tx *bolt.Tx) error {
-		wId := tx.Bucket(intToByte(WordToWordId))
-		wordId = wId.Get([]byte(word))
-		return nil
-	})
-
+	wordId := v.wordToId(word)
 	if wordId == nil {
 		return 0
 	}
@@ -241,57 +339,6 @@ func (v *Viewer) GetTfIdf(docId uint64, word string) (rv float64) {
 	return
 }
 
-//--- PRINTING UTILITIES ---//
-
-func (v *Viewer) printAllIDs(tablename int) {
-	v.db.View(func(tx *bolt.Tx) error {
-		words := tx.Bucket(intToByte(tablename))
-		words.ForEach(func(key, val []byte) error {
-			fmt.Println(key, string(val))
-			return nil
-		})
-		return nil
-	})
-}
-
-func (v *Viewer) PrintAllPages() {
-	v.printAllIDs(PageIdToUrl)
-}
-
-func (v *Viewer) PrintAllWords() {
-	v.printAllIDs(WordIdToWord)
-}
-
-func (v *Viewer) PrintAdjList() {
-	v.db.View(func(tx *bolt.Tx) error {
-		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
-		adjList := tx.Bucket(intToByte(AdjList))
-		adjList.ForEach(func(child, _ []byte) error {
-			fmt.Println("Child:", child, string(idToUrl.Get(child)))
-			parentList := adjList.Bucket(child)
-			parentList.ForEach(func(parent, _ []byte) error {
-				fmt.Println(parent, string(idToUrl.Get(parent)))
-				return nil
-			})
-			fmt.Println("----------------------------------------------------------")
-			return nil
-		})
-		return nil
-	})
-}
-
-func (v *Viewer) PrintPageRank() {
-	v.db.View(func(tx *bolt.Tx) error {
-		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
-		prBucket := tx.Bucket(intToByte(PageRank))
-		prBucket.ForEach(func(docID, pageRank []byte) error {
-			fmt.Println("Document:", string(idToUrl.Get(docID)))
-			fmt.Println("PageRank: ", byteToFloat64(pageRank))
-			return nil
-		})
-		return nil
-	})
-}
 func (v *Viewer) Close() {
 	v.db.Close()
 }

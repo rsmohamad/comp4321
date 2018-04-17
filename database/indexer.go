@@ -136,26 +136,25 @@ func (i *Indexer) updateInverted(word string, indexes []int, pageId []byte, isTi
 	// Non critical section
 }
 
+func mergeId(id uint64, tablename int, i *Indexer, wg *sync.WaitGroup) {
+	i.db.Batch(func(tx *bolt.Tx) error {
+		idBytes := uint64ToByte(id)
+		inverted := tx.Bucket(intToByte(tablename))
+		wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
+		postingList := i.wordInverted[id]
+		for docId, idx := range postingList {
+			pos := strings.Trim(strings.Replace(fmt.Sprint(idx), " ", ",", -1), "[]")
+			wordSet.Put(uint64ToByte(docId), []byte(pos))
+		}
+		wg.Done()
+		return nil
+	})
+}
+
 // Sort and write the in-memory inverted index to file
 func (i *Indexer) FlushInverted() {
 	wordIdList := i.wordIdList
 	titleIdList := i.titleIdList
-	wg := sync.WaitGroup{}
-	wg.Add(len(wordIdList) + len(titleIdList))
-	merge := func(id uint64, tablename int) {
-		i.db.Batch(func(tx *bolt.Tx) error {
-			idBytes := uint64ToByte(id)
-			inverted := tx.Bucket(intToByte(tablename))
-			wordSet, _ := inverted.CreateBucketIfNotExists(idBytes)
-			postingList := i.wordInverted[id]
-			for docId, idx := range postingList {
-				pos := strings.Trim(strings.Replace(fmt.Sprint(idx), " ", ",", -1), "[]")
-				wordSet.Put(uint64ToByte(docId), []byte(pos))
-			}
-			wg.Done()
-			return nil
-		})
-	}
 
 	// Sort slices for sequential writes
 	sort.Slice(wordIdList, func(i, j int) bool {
@@ -164,11 +163,14 @@ func (i *Indexer) FlushInverted() {
 	sort.Slice(titleIdList, func(i, j int) bool {
 		return titleIdList[i] < titleIdList[j]
 	})
+
+	wg := sync.WaitGroup{}
+	wg.Add(len(wordIdList) + len(titleIdList))
 	for _, id := range wordIdList {
-		go merge(id, InvertedTable)
+		go mergeId(id, InvertedTable, i, &wg)
 	}
 	for _, id := range titleIdList {
-		go merge(id, InvertedTableTitle)
+		go mergeId(id, InvertedTableTitle, i, &wg)
 	}
 	wg.Wait()
 }
@@ -248,10 +250,8 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 // Gets the pageId and set of child Links from PageInfo
 // Sets in each of the child link, the pageId as parent link and the number of links from the pageId
 func (i *Indexer) UpdateAdjList() {
-	var parentList map[uint64]int
 	var childIds []uint64
 	adjList := make(map[uint64]map[uint64]int)
-
 	i.db.View(func(tx *bolt.Tx) error {
 		piBucket := tx.Bucket(intToByte(PageInfo))
 		upBucket := tx.Bucket(intToByte(UrlToPageId))
@@ -260,20 +260,21 @@ func (i *Indexer) UpdateAdjList() {
 			var p models.Document
 			parentIdUint64 := byteToUint64(parentId)
 			json.Unmarshal(decoded, &p)
-			Links := p.Links
 			// Iterate through each link, clean them, and put according to id 1-30.
-			for _, el := range Links {
+			for _, el := range p.Links {
 				childId := upBucket.Get([]byte(el)) //childId
-				if childId != nil {
-					childIdUint64 := byteToUint64(childId)
-					parentList = adjList[childIdUint64]
-					if parentList == nil {
-						parentList = make(map[uint64]int)
-						childIds = append(childIds, childIdUint64)
-					}
-					parentList[parentIdUint64] = len(Links)
-					adjList[childIdUint64] = parentList
+				if childId == nil {
+					continue
 				}
+
+				childIdUint64 := byteToUint64(childId)
+				parentList := adjList[childIdUint64]
+				if parentList == nil {
+					parentList = make(map[uint64]int)
+					childIds = append(childIds, childIdUint64)
+				}
+				parentList[parentIdUint64] = len(p.Links)
+				adjList[childIdUint64] = parentList
 			}
 			return nil
 		})
@@ -286,7 +287,6 @@ func (i *Indexer) UpdateAdjList() {
 
 	i.db.Update(func(tx *bolt.Tx) error {
 		alBucket := tx.Bucket(intToByte(AdjList))
-
 		for _, id := range childIds {
 			idBytes := uint64ToByte(id)
 			pageSet, _ := alBucket.CreateBucketIfNotExists(idBytes)
@@ -323,8 +323,6 @@ func (i *Indexer) UpdateTermWeights() {
 				tw := tf * math.Log2(N/df) / maxTf
 				if wordId != nil {
 					pageSet.Put(wordId, float64ToByte(tw))
-				} else {
-					fmt.Println("wordId is nil!")
 				}
 				return nil
 			})

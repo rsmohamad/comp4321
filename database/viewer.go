@@ -243,6 +243,9 @@ func (v *Viewer) GetTitleScore(docId uint64, word string) float64 {
 		N := float64(ftBucket.Stats().KeyN)
 		wordSet := ftBucket.Bucket(uint64ToByte(docId))
 		tfByte := wordSet.Get(wordId)
+		if tfByte == nil {
+			return nil
+		}
 		df := float64(itBucket.Bucket(wordId).Stats().KeyN)
 		tf := float64(byteToInt(tfByte))
 		rv = tf * math.Log2(N/df) / float64(maxTf)

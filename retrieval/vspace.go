@@ -11,7 +11,7 @@ type CosSimResult struct {
 	docId uint64
 }
 
-func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *CosSimResult) {
+func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *CosSimResult) *CosSimResult {
 	var textInnerProduct float64 = 0
 	var bodyInnerProduct float64 = 0
 	queryMag := math.Sqrt(float64(len(query)))
@@ -26,7 +26,9 @@ func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *Co
 	textScore := textInnerProduct / (queryMag * docMag)
 	titleScore := bodyInnerProduct / (queryMag * titleMag)
 	score := textScore + titleScore
-	*res <- &CosSimResult{score, docId}
+	rv := &CosSimResult{score, docId}
+	*res <- rv
+	return rv
 }
 
 func getDocumentScores(query []string, viewer *database.Viewer, docsToSearch []uint64) (map[uint64]float64, []uint64) {

@@ -29,9 +29,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	se := retrieval.NewSearchEngine("index.db")
-	defer se.Close()
 	viewModel.Query = queries
 	viewModel.Results = se.RetrieveVSpace(queries)
+	se.Close()
 
 	pageNum := math.Ceil(float64(len(viewModel.Results)) / 10.0)
 	if currentPage > int(pageNum) {
@@ -60,8 +60,6 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// Load indexer
-
 	// File servers
 	staticServer := http.FileServer(http.Dir("static"))
 	viewServer := http.FileServer(http.Dir("views"))

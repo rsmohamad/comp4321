@@ -14,9 +14,14 @@ func main() {
 	defer p.Close()
 
 	for {
-		fmt.Println("Print: 1)Words, 2)Pages, 3)AdjList, 4)PageRank")
+		fmt.Println("Print: 1)Words, 2)Pages, 3)AdjList, 4)PageRank, 5)FwdIndex 6)FwdIndexTitle")
 		fmt.Print("Enter option (q to quit): ")
-		opt, _ := reader.ReadString('\n')
+		opt, err := reader.ReadString('\n')
+
+		if err != nil {
+			break
+		}
+
 		num, _ := strconv.Atoi(string(opt[0]))
 
 		if opt == "q\n" {
@@ -35,6 +40,12 @@ func main() {
 			break
 		case 4:
 			p.PrintPageRank()
+			break
+		case 5:
+			p.PrintForwardIndex(false)
+			break
+		case 6:
+			p.PrintForwardIndex(true)
 			break
 		default:
 			fmt.Println("Invalid option")

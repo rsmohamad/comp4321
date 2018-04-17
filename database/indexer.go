@@ -93,10 +93,17 @@ func (i *Indexer) getId(text string, fwMapTable int, invMapTable int) (id []byte
 }
 
 // Get the pageId for the given URL, create new one if does not exist
-func (i *Indexer) getOrCreatePageId(url string) (rv []byte) {
+func (i *Indexer) getOrCreatePageId(url string) (pageId []byte) {
 	i.idLock.Lock()
 	defer i.idLock.Unlock()
-	rv = i.getId(url, UrlToPageId, PageIdToUrl)
+	pageId = i.getId(url, UrlToPageId, PageIdToUrl)
+	i.db.Update(func(tx *bolt.Tx) error {
+		fw := tx.Bucket(intToByte(ForwardTable))
+		fwTitle := tx.Bucket(intToByte(ForwardTableTitle))
+		fw.CreateBucketIfNotExists(pageId)
+		fwTitle.CreateBucketIfNotExists(pageId)
+		return nil
+	})
 	return
 }
 
@@ -146,9 +153,9 @@ func mergeId(id uint64, tablename int, i *Indexer, wg *sync.WaitGroup) {
 			pos := strings.Trim(strings.Replace(fmt.Sprint(idx), " ", ",", -1), "[]")
 			wordSet.Put(uint64ToByte(docId), []byte(pos))
 		}
-		wg.Done()
 		return nil
 	})
+	wg.Done()
 }
 
 // Sort and write the in-memory inverted index to file
@@ -179,7 +186,7 @@ func (i *Indexer) updateForward(word string, pageId []byte, tf int, tablename in
 	wordId := i.getOrCreateWordId(word)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		fw := tx.Bucket(intToByte(tablename))
-		set, _ := fw.CreateBucketIfNotExists(pageId)
+		set := fw.Bucket(pageId)
 		set.Put(wordId, intToByte(tf))
 		return nil
 	})
@@ -221,7 +228,6 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	fmt.Println(pageId, p.Uri)
 
 	wg.Add(len(p.Words))
-	wg.Add(len(p.Titles))
 	for word, wordModel := range p.Words {
 		go func(w string, t int, idx []int) {
 			i.updateInverted(w, idx, pageId, false)
@@ -229,6 +235,8 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 			wg.Done()
 		}(word, wordModel.Tf, wordModel.Positions)
 	}
+	wg.Wait()
+	wg.Add(len(p.Titles))
 	for word, wordModel := range p.Titles {
 		go func(w string, t int, idx []int) {
 			i.updateInverted(w, idx, pageId, true)

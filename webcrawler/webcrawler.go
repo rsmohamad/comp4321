@@ -72,7 +72,7 @@ func isAllowedToCrawl(link string) bool {
 // Concurrent routine for fetching a page.
 // Feeds the page to results channel if fetch is successful.
 // Feeds nil if fetch is unsuccessful.
-var throttle = time.Tick(time.Millisecond * 10)
+var throttle = time.Tick(time.Millisecond * 1)
 func concurrentFetch(url string, results *chan *models.Document) {
 	if !isAllowedToCrawl(url) {
 		*results <- nil

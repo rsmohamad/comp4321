@@ -21,10 +21,12 @@ func LoadPrinter(filename string) (*Printer, error) {
 }
 
 func (p *Printer) printAllIDs(tablename int) {
+	i := 0
 	p.db.View(func(tx *bolt.Tx) error {
 		words := tx.Bucket(intToByte(tablename))
 		words.ForEach(func(key, val []byte) error {
-			fmt.Println(key, string(val))
+			i++
+			fmt.Println(i, ")", key, string(val))
 			return nil
 		})
 		return nil
@@ -69,7 +71,24 @@ func (p *Printer) PrintPageRank() {
 		return nil
 	})
 }
+
+func (p *Printer) PrintForwardIndex(title bool) {
+	tablename := intToByte(ForwardTable)
+	if title {
+		tablename = intToByte(ForwardTableTitle)
+	}
+	p.db.View(func(tx *bolt.Tx) error {
+		fw := tx.Bucket(tablename)
+		i := 0
+		fw.ForEach(func(docID, val []byte) error {
+			i++
+			fmt.Println(i, ")", docID, val)
+			return nil
+		})
+		return nil
+	})
+}
+
 func (p *Printer) Close() {
 	p.db.Close()
 }
-

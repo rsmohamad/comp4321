@@ -8,24 +8,42 @@ import (
 	"comp4321/database"
 	"log"
 	"math"
-	"sort"
 	"regexp"
 )
 
 func preprocessText(query string) (rv []string) {
 	regex := regexp.MustCompile("[^a-zA-Z0-9 ]")
 	query = regex.ReplaceAllString(query, " ")
-	query = strings.TrimSpace(query)
-	words := strings.Split(query, " ")
+	regex = regexp.MustCompile("[^\\s]+")
+	words := regex.FindAllString(query, -1)
 	for _, word := range words {
-		cleaned := strings.TrimSpace(word)
-		cleaned = strings.ToLower(cleaned)
+		cleaned := strings.ToLower(word)
+		cleaned = strings.TrimSpace(cleaned)
 		cleaned = porter2.Stem(cleaned)
 		if !stopword.IsStopWord(cleaned) {
 			rv = append(rv, cleaned)
 		}
 	}
 	return
+}
+
+func extractPhrases(query string) []string {
+	phrases := make([]string, 0)
+
+	startPhrase := -1
+	for i, char := range query {
+		if char == '"' && startPhrase == -1 {
+			startPhrase = i
+			continue
+		}
+
+		if char == '"' && startPhrase > -1 {
+			phrases = append(phrases, query[startPhrase+1: i])
+			startPhrase = -1;
+		}
+	}
+
+	return phrases
 }
 
 type SEngine struct {
@@ -70,24 +88,30 @@ func (e *SEngine) RetrieveBoolean(query string) []*models.DocumentView {
 }
 
 func (e *SEngine) RetrievePhrase(query string) []*models.DocumentView {
+	phrases := extractPhrases(query)
+	if len(phrases) == 0 {
+		return e.RetrieveVSpace(query)
+	}
+
+	docIds := make([]uint64, 0)
+	for _, phrase := range phrases {
+		preprocessed := preprocessText(phrase)
+		docIds = append(docIds, searchPhrase(preprocessed, e.viewer)...)
+	}
+
 	preprocessed := preprocessText(query)
-	docIds := searchPhrase(preprocessed, e.viewer)
 	scores, ids := getDocumentScores(preprocessed, e.viewer, docIds)
 
-	sort.Slice(docIds, func(i, j int) bool {
-		return scores[ids[i]] > scores[ids[j]]
-	})
-
 	upper := int(math.Min(50.0, float64(len(ids))))
-	ids = ids[0:upper]
-
-	return e.getDocumentViewModels(ids, scores)
+	return e.getDocumentViewModels(ids[0:upper], scores)
 }
 
 func (e *SEngine) RetrieveVSpace(query string) []*models.DocumentView {
 	preprocessed := preprocessText(query)
 	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
-	return e.getDocumentViewModels(docIds, scores)
+
+	upper := int(math.Min(50.0, float64(len(docIds))))
+	return e.getDocumentViewModels(docIds[0:upper], scores)
 }
 
 func (e *SEngine) Close() {

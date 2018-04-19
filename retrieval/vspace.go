@@ -77,8 +77,5 @@ func vspaceRetrieval(query []string, viewer *database.Viewer) (map[uint64]float6
 		docsToSearch = append(docsToSearch, <-res...)
 	}
 
-	scores, ids := getDocumentScores(query, viewer, docsToSearch)
-
-	upper := int(math.Min(50.0, float64(len(ids))))
-	return scores, ids[0:upper]
+	return getDocumentScores(query, viewer, docsToSearch)
 }

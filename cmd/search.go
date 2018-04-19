@@ -16,9 +16,9 @@ func main() {
 		se := retrieval.NewSearchEngine("index.db")
 		defer se.Close()
 
-		results := se.RetrieveBoolean(query)
+		results := se.RetrieveVSpace(query)
 		for _, doc := range results {
-			fmt.Println(doc.Title)
+			fmt.Println(doc.Title, doc.Score)
 		}
 	}
 }

@@ -8,6 +8,7 @@ import (
 	"strings"
 	"strconv"
 	"sync"
+	"sort"
 )
 
 // Class for reading the database
@@ -125,6 +126,11 @@ func (v *Viewer) GetContainingPages(word string) []uint64 {
 	for key := range set {
 		rv = append(rv, key)
 	}
+
+	sort.Slice(rv, func(i, j int) bool {
+		return rv[i] < rv[j]
+	})
+
 	return rv
 }
 
@@ -182,6 +188,8 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 	return rv
 }
 
+// Return the positions of a word in a document.
+// If the word does not exist in the inverted table, returns an empty slice.
 func (v *Viewer) GetPositionIndices(docId uint64, word string, title bool) []uint64 {
 	rv := make([]uint64, 0)
 
@@ -194,9 +202,14 @@ func (v *Viewer) GetPositionIndices(docId uint64, word string, title bool) []uin
 	if wordId == nil {
 		return rv
 	}
+
 	v.db.View(func(tx *bolt.Tx) error {
 		inv := tx.Bucket(tablename)
 		docs := inv.Bucket(wordId)
+		if docs == nil {
+			return nil
+		}
+
 		indices := docs.Get(uint64ToByte(docId))
 		if indices == nil {
 			return nil

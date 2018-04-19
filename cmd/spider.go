@@ -3,9 +3,8 @@ package main
 import (
 	"comp4321/database"
 	"comp4321/webcrawler"
+	"flag"
 	"fmt"
-	"os"
-	"strconv"
 	"time"
 )
 
@@ -13,18 +12,13 @@ func main() {
 	index, _ := database.LoadIndexer("index.db")
 	defer index.Close()
 
-	start := "https://www.cse.ust.hk/"
-	numPages := 10000
-	restrict := true
-
-	if len(os.Args) == 3 {
-		start = os.Args[1]
-		numPages, _ = strconv.Atoi(os.Args[2])
-		restrict = false
-	}
+	start := flag.String("start", "http://www.cse.ust.hk/", "-start=<starting url>")
+	numPages := flag.Int("pages", 300, "-pages=<number of pages>")
+	aggressive := flag.Bool("a", false, "-a")
+	flag.Parse()
 
 	startCrawl := time.Now()
-	obtained := webcrawler.Crawl(start, numPages, index, restrict)
+	obtained := webcrawler.Crawl(*start, *numPages, index, true, *aggressive)
 	elapsed := time.Since(startCrawl)
 	fmt.Printf("Indexing %d pages took %s\n", len(obtained), elapsed)
 	fmt.Println("Updating term weights...")

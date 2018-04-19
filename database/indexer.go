@@ -255,25 +255,28 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 
 
 
-func (v *Indexer) updateTermScores(docId []byte, title bool) {
+func (v *Indexer) updateTermScores(title bool) {
 	tableNames := []int{ForwardTable, TermWeights, PageMagnitude}
 	if title {
 		tableNames = []int{ForwardTableTitle, TitleWeights, TitleMagnitude}
 	}
 	sum := 0.0
-	v.db.Batch(func(tx *bolt.Tx) error {
+	v.db.Update(func(tx *bolt.Tx) error {
 		ft := tx.Bucket(intToByte(tableNames[0]))
 		tw := tx.Bucket(intToByte(tableNames[1]))
 		mag := tx.Bucket(intToByte(tableNames[2]))
-		pageSet, _ := tw.CreateBucketIfNotExists(docId)
-
-		ft.Bucket(docId).ForEach(func(wordId, val []byte) error {
-			termWeight := v.calculateTermScore(docId, wordId, title)
-			sum += termWeight
-			pageSet.Put(wordId, float64ToByte(termWeight))
+		
+		ft.ForEach(func(docId, _ []byte) error {
+			pageSet, _ := tw.CreateBucketIfNotExists(docId)
+			ft.Bucket(docId).ForEach(func(wordId, val []byte) error {
+				termWeight := v.calculateTermScore(docId, wordId, title)
+				sum += termWeight
+				pageSet.Put(wordId, float64ToByte(termWeight))
+				return nil
+			})
+			mag.Put(docId, float64ToByte(math.Sqrt(sum)))
 			return nil
 		})
-		mag.Put(docId, float64ToByte(math.Sqrt(sum)))
 		return nil
 	})
 }
@@ -311,25 +314,8 @@ func (v *Indexer) calculateTermScore(docId, wordId []byte, title bool) float64 {
 // TF, N, keywords per page, and pages are retrieved from forward table
 // DF is retrieved from inverted index
 func (i *Indexer) UpdateTermWeights() {
-	docIds := make([][]byte, 0)
-	i.db.View(func(tx *bolt.Tx) error {
-		tx.Bucket(intToByte(PageIdToUrl)).ForEach(func(k, v []byte) error {
-			docIds = append(docIds, k)
-			return nil
-		})
-		return nil
-	})
-
-	wg := sync.WaitGroup{}
-	wg.Add(len(docIds))
-	for _, id := range docIds {
-		go func(id []byte) {
-			i.updateTermScores(id, false)
-			i.updateTermScores(id, true)
-			wg.Done()
-		}(id)
-	}
-	wg.Wait()
+	i.updateTermScores(false)
+	i.updateTermScores(true)
 }
 
 // Update Adjacency List

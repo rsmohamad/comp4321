@@ -4,10 +4,8 @@ import (
 	"comp4321/database"
 	"comp4321/models"
 	"fmt"
-	"net/http"
 	"net/url"
 	"sync"
-	"time"
 
 	"github.com/temoto/robotstxt"
 )
@@ -15,15 +13,12 @@ import (
 // HashMap for storing the robots data for each hostname
 var robotMap sync.Map
 
-// HTTP client with 5 seconds timeout
-var	robotFetcher = http.Client{Timeout: time.Second * 5}
-
 func fetchRobotsTxt(urlObject *url.URL) (rv *robotstxt.RobotsData) {
 	// If there's no response or timeout exceeded, give the default robots checker
 	// which will allow all paths within that website
 	rv = &robotstxt.RobotsData{}
 	robotUrl := fmt.Sprintf("%s://%s/robots.txt", urlObject.Scheme, urlObject.Host)
-	res, _ := robotFetcher.Get(robotUrl)
+	res, _ := robotClient.Get(robotUrl)
 
 	// Try parsing the robots.txt
 	if res != nil && res.StatusCode == 200 {
@@ -72,7 +67,6 @@ func isAllowedToCrawl(link string) bool {
 // Concurrent routine for fetching a page.
 // Feeds the page to results channel if fetch is successful.
 // Feeds nil if fetch is unsuccessful.
-var throttle = time.Tick(time.Millisecond * 1)
 func concurrentFetch(url string, results *chan *models.Document) {
 	if !isAllowedToCrawl(url) {
 		*results <- nil
@@ -87,16 +81,18 @@ func concurrentFetch(url string, results *chan *models.Document) {
 	}
 }
 
-func Crawl(uri string, num int, index *database.Indexer, restrictHost bool) (pages []*models.Document) {
+func Crawl(uri string, num int, index *database.Indexer, restrictHost, aggressive bool) (pages []*models.Document) {
 	var activeCounter int
 	var updateWg sync.WaitGroup
 	visited := make(map[string]bool)
 	results := make(chan *models.Document)
 	queue := make([]string, 0)
 
+	initClients(aggressive)
+
 	// Sanitize url
 	u, _ := url.Parse(uri)
-	newUrl := u.Scheme + "://" + u.Host + u.Path
+	newUrl := "http://" + u.Host + u.Path
 	fmt.Println(newUrl)
 	queue = append(queue, newUrl)
 	visited[newUrl] = true

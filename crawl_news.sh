@@ -2,7 +2,7 @@
 
 rm -f index.db
 
-./spider https://www.nytimes.com/ 300
-./spider https://www.theguardian.com/ 300
-./spider https://www.bbc.co.uk/ 300
-./spider https://www.cnn.com/ 300
+./spider -start=https://www.nytimes.com/ -pages=300 -a
+./spider -start=https://www.theguardian.com/ -pages=300 -a
+./spider -start=https://www.bbc.co.uk/ -pages=300 -a
+./spider -start=https://www.cnn.com/ -pages=300 -a

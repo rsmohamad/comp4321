@@ -3,7 +3,6 @@ package webcrawler
 import (
 	"comp4321/models"
 	"comp4321/stopword"
-	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
@@ -56,7 +55,7 @@ func toAbsoluteUrl(links []string, base string) (rv []string) {
 		}
 
 		if strings.HasPrefix(uri.String(), "http") {
-			newUrl := uri.Scheme + "://" + uri.Host + uri.Path
+			newUrl := "http://" + uri.Host + uri.Path
 			rv = append(rv, newUrl)
 		}
 	}
@@ -65,33 +64,19 @@ func toAbsoluteUrl(links []string, base string) (rv []string) {
 
 // Clean and tokenize string
 func tokenizeString(s string) (rv []string) {
-	// Remove special chars
 	regex := regexp.MustCompile("[^a-zA-Z0-9 ]")
-	s = strings.ToLower(regex.ReplaceAllString(s, " "))
-
-	// Split into tokens
-	tokens := strings.Split(s, " ")
-
-	for _, token := range tokens {
-
-		// Exclude short words and stopwords
-		token = strings.TrimSpace(token)
-		token = porter2.Stem(token)
-		if len(token) > 1 && !stopword.IsStopWord(token) {
-			rv = append(rv, token)
+	s = regex.ReplaceAllString(s, " ")
+	regex = regexp.MustCompile("[^\\s]+")
+	words := regex.FindAllString(s, -1)
+	for _, word := range words {
+		cleaned := strings.ToLower(word)
+		cleaned = strings.TrimSpace(cleaned)
+		cleaned = porter2.Stem(cleaned)
+		if !stopword.IsStopWord(cleaned) {
+			rv = append(rv, cleaned)
 		}
 	}
 	return
-}
-
-var tr = &http.Transport{
-	MaxIdleConnsPerHost: 32768,
-	TLSHandshakeTimeout: 0 * time.Second,
-}
-
-var fetchClient = http.Client{
-	Timeout:   time.Second * 5,
-	Transport: tr,
 }
 
 func Fetch(uri string) (page *models.Document) {

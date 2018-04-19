@@ -3,7 +3,7 @@ package retrieval
 import (
 	"comp4321/database"
 	"sort"
-	"fmt"
+	"log"
 )
 
 type Bigram struct {
@@ -56,7 +56,7 @@ func searchPhrase(query []string, viewer *database.Viewer) []uint64{
 	}
 
 	bigrams := splitToBigrams(query)
-	fmt.Println(bigrams)
+	log.Println("Bigrams:", bigrams)
 	docWithBigrams := make([][]uint64, 0)
 
 	for _, bigram := range bigrams {

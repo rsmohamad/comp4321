@@ -3,7 +3,6 @@ package retrieval
 import (
 	"comp4321/database"
 	"math"
-	"sort"
 )
 
 type CosSimResult struct {
@@ -54,10 +53,6 @@ func getDocumentScores(query []string, viewer *database.Viewer, docsToSearch []u
 		result := <-res
 		documentScores[result.docId] = result.score
 	}
-
-	sort.Slice(documentIds, func(i, j int) bool {
-		return documentScores[documentIds[i]] > documentScores[documentIds[j]]
-	})
 
 	return documentScores, documentIds
 }

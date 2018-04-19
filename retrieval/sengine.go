@@ -9,6 +9,7 @@ import (
 	"log"
 	"math"
 	"regexp"
+	"sort"
 )
 
 func preprocessText(query string) (rv []string) {
@@ -93,14 +94,10 @@ func (e *SEngine) RetrievePhrase(query string) []*models.DocumentView {
 		return e.RetrieveVSpace(query)
 	}
 
-	docIds := make([]uint64, 0)
-	for _, phrase := range phrases {
-		preprocessed := preprocessText(phrase)
-		docIds = append(docIds, searchPhrase(preprocessed, e.viewer)...)
-	}
-
-	preprocessed := preprocessText(query)
-	scores, ids := getDocumentScores(preprocessed, e.viewer, docIds)
+	scores, ids := retrievePhrase(phrases, query, e.viewer)
+	sort.Slice(ids, func(i, j int) bool {
+		return scores[ids[i]] > scores[ids[j]]
+	})
 
 	upper := int(math.Min(50.0, float64(len(ids))))
 	return e.getDocumentViewModels(ids[0:upper], scores)
@@ -110,8 +107,49 @@ func (e *SEngine) RetrieveVSpace(query string) []*models.DocumentView {
 	preprocessed := preprocessText(query)
 	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
 
+	sort.Slice(docIds, func(i, j int) bool {
+		return scores[docIds[i]] > scores[docIds[j]]
+	})
+
 	upper := int(math.Min(50.0, float64(len(docIds))))
 	return e.getDocumentViewModels(docIds[0:upper], scores)
+}
+
+// Search for needle within the results of haystack
+func (e *SEngine) RetrieveNested(haystack, needle string) []*models.DocumentView {
+	searchKeyword := func(query string) (map[uint64]float64, []uint64) {
+		phrases := extractPhrases(query)
+		if len(phrases) == 0 {
+			preprocessed := preprocessText(query)
+			return vspaceRetrieval(preprocessed, e.viewer)
+		}
+		return retrievePhrase(phrases, query, e.viewer)
+	}
+
+	sortByScore := func(ids []uint64, scores map[uint64]float64) {
+		sort.Slice(ids, func(i, j int) bool {
+			return scores[ids[i]] > scores[ids[j]]
+		})
+	}
+
+	sortByIds := func(ids []uint64){
+		sort.Slice(ids, func(i, j int) bool {
+			return ids[i] < ids[j]
+		})
+	}
+
+	scores, haystackIds := searchKeyword(haystack)
+	_, needleIds := searchKeyword(needle)
+
+	sortByScore(haystackIds, scores)
+	upper := int(math.Min(50.0, float64(len(haystackIds))))
+	haystackIds = haystackIds[0:upper]
+
+	sortByIds(haystackIds)
+	sortByIds(needleIds)
+	combined := intersect(haystackIds, needleIds)
+	sortByScore(combined, scores)
+	return e.getDocumentViewModels(combined, scores)
 }
 
 func (e *SEngine) Close() {

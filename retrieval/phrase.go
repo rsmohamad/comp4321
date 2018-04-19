@@ -50,7 +50,7 @@ func hasPhrase(bigram Bigram, viewer *database.Viewer) []uint64{
 
 // Treat the query as a phrase and returns docIds containing the phrase.
 // Changes the query into bigrams and find documents containing all bigrams.
-func searchPhrase(query []string, viewer *database.Viewer) []uint64{
+func filterPhrase(query []string, viewer *database.Viewer) []uint64{
 	if len(query) <= 1 {
 		return booleanFilter(query, viewer)
 	}
@@ -77,4 +77,15 @@ func searchPhrase(query []string, viewer *database.Viewer) []uint64{
 	}
 
 	return docIDs
+}
+
+func retrievePhrase(phrases []string, query string, viewer *database.Viewer) (map[uint64]float64, []uint64) {
+	docIds := make([]uint64, 0)
+	for _, phrase := range phrases {
+		preprocessed := preprocessText(phrase)
+		docIds = append(docIds, filterPhrase(preprocessed, viewer)...)
+	}
+
+	preprocessed := preprocessText(query)
+	return getDocumentScores(preprocessed, viewer, docIds)
 }

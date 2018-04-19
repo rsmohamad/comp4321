@@ -9,5 +9,6 @@ import (
 func main() {
 	controllers.LoadHome()
 	controllers.LoadSearch()
+	controllers.LoadHistory()
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -7,16 +7,13 @@ import (
 	"github.com/boltdb/bolt"
 	"strings"
 	"strconv"
-	"sync"
 	"sort"
 )
 
 // Class for reading the database
 // Reads the .db file in read-only mode.
 type Viewer struct {
-	db      *bolt.DB
-	maxTf   map[uint64]int
-	mapLock sync.RWMutex
+	db *bolt.DB
 }
 
 // Load a Viewer object from .db file
@@ -27,7 +24,6 @@ func LoadViewer(filename string) (*Viewer, error) {
 	if err != nil {
 		return nil, err
 	}
-	viewer.maxTf = make(map[uint64]int)
 	return &viewer, nil
 }
 

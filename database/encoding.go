@@ -2,7 +2,10 @@ package database
 
 import (
 	"encoding/binary"
+	"encoding/gob"
 	"math"
+	"bytes"
+	"comp4321/models"
 )
 
 func uint64ToByte(v uint64) []byte {
@@ -32,4 +35,21 @@ func float64ToByte(f float64) []byte {
 
 func byteToFloat64(arr []byte) float64 {
 	return math.Float64frombits(byteToUint64(arr))
+}
+
+func historyToByte(arr []models.SearchHistory) []byte {
+	var byteBuffer bytes.Buffer
+	encoder := gob.NewEncoder(&byteBuffer)
+	encoder.Encode(arr)
+	return byteBuffer.Bytes()
+}
+
+func byteToHistory(arr []byte) []models.SearchHistory {
+	var byteBuffer bytes.Buffer
+	byteBuffer.Write(arr)
+
+	decoder := gob.NewDecoder(&byteBuffer)
+	var rv []models.SearchHistory
+	decoder.Decode(&rv)
+	return rv
 }

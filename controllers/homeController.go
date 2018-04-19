@@ -3,11 +3,14 @@ package controllers
 import (
 	"net/http"
 	"html/template"
+	"comp4321/database"
 )
 
 var homeTemplate = template.Must(template.ParseFiles("views/home.html"))
 
 func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
+	userId := database.GetCookieInstance().GetCookieId(r)
+	database.GetCookieInstance().SetCookieResponse(userId, w)
 	homeTemplate.Execute(w, nil)
 }
 

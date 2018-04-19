@@ -8,6 +8,7 @@ import (
 	"time"
 	"log"
 	"fmt"
+	"comp4321/database"
 )
 
 var resultTemplate *template.Template
@@ -15,6 +16,10 @@ var resultTemplate *template.Template
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	viewModel := models.ResultView{}
 	queries := r.URL.Query().Get("keywords")
+
+	userId := database.GetCookieInstance().GetCookieId(r)
+	database.GetCookieInstance().SetCookieResponse(userId, w)
+	database.GetCookieInstance().AddQuery(userId, queries)
 
 	startSearch := time.Now()
 	se := retrieval.NewSearchEngine("index.db")

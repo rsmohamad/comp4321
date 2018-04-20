@@ -289,6 +289,19 @@ func (v *Viewer) GetTfIdf(docId uint64, word string, title bool) (rv float64) {
 	return
 }
 
+func (v *Viewer) GetKeywords() []string {
+	rv := make([]string, 0)
+	v.db.View(func(tx *bolt.Tx) error {
+		words := tx.Bucket(intToByte(WordToWordId))
+		words.ForEach(func(word, _ []byte) error {
+			rv = append(rv, string(word))
+			return nil
+		})
+		return nil
+	})
+	return rv
+}
+
 func (v *Viewer) Close() {
 	v.db.Close()
 }

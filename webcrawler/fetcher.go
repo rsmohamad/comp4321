@@ -98,6 +98,10 @@ func Fetch(uri string) (page *models.Document) {
 		return nil
 	}
 
+	if res.Header.Get("Content-Type") != "text/html" {
+		return nil
+	}
+
 	tm, _ := time.Parse(time.RFC1123, res.Header.Get("Last-Modified"))
 	page.Modtime = tm.Unix()
 	if page.Modtime < 0 {
@@ -149,7 +153,7 @@ func Fetch(uri string) (page *models.Document) {
 		case html.TextToken:
 			// Skip if text is empty, not in between body tags or between script tags
 			trimmed := strings.TrimSpace(t.Data)
-			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style" {
+			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style" && lastElement != "a" {
 				words = append(words, trimmed)
 			}
 		}

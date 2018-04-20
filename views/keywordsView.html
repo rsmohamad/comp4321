@@ -1,4 +1,3 @@
-{{define "resultView"}}
 <!doctype html>
 <html lang="en">
 
@@ -7,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/views/resultView.css" rel="stylesheet">
-    <title>{{.Query}} - GoSearch</title>
+    <title>GoSearch</title>
 </head>
 
 <body>
@@ -18,20 +17,21 @@
     </div>
     <div class="col-md-6 col-sm-10 min-height vcenter">
         <form name="searchForm" class="input-group input-group-lg" action="/search" method="get">
-            <input type="search" class="form-control" name="keywords" value={{.Query}}>
+            <input id="searchText" type="search" class="form-control" name="keywords">
             <input type="hidden" name="page" value="1"/>
             <div class="input-group-append">
                 <button type="submit" class="btn btn-secondary">Search</button>
             </div>
         </form>
+
     </div>
     <div class="col-md-5 col-sm-1 vcenter">
         <ul class="nav nav-pills justify-content-end">
             <li class="nav-item">
-                <a class="nav-link active" href="/">Text</a>
+                <a class="nav-link" href="/">Text</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/search/keywords">Keywords</a>
+                <a class="nav-link active" href="/search/keywords">Keywords</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/history">History</a>
@@ -40,19 +40,14 @@
     </div>
 </div>
 
-<div class="lower container-fluid">
-    <div class="row">
-        <div class="col-md-1 col-sm-1"></div>
-        <div class="col-md-6 col-sm-10">
-            <span class="text-muted small">Showing {{.TotalResults}} results</span>
-            <br>
-
-        {{range .Results}}
-            {{template "documentView" .}}
-        {{end}}
-
-        </div>
-
+<div class="lower container">
+{{range .Prefixes}}
+    <a href="/search/keywords/?prefix={{.}}">{{.}}</a>
+{{end}}
+    <div class="row" style="margin-top: 1em">
+    {{range .Keywords}}
+        <buttton class="btn btn-outline-secondary" style="margin: 10px" onclick="search({{.}})">{{.}}</buttton>
+    {{end}}
     </div>
 </div>
 
@@ -60,7 +55,11 @@
 <script src="/static/js/popper.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 
+<script>
+    function search(query) {
+        document.getElementById("searchText").value += query + " ";
+    }
+</script>
 
 </body>
 </html>
-{{end}}

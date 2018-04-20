@@ -9,9 +9,52 @@ import (
 	"log"
 	"fmt"
 	"comp4321/database"
+	"sort"
 )
 
 var resultTemplate *template.Template
+var keywordsTemplate *template.Template
+var prefixes []string
+var keywords map[string][]string
+
+type KeywordsView struct {
+	Prefixes, Keywords []string
+}
+
+func loadKeywords() (map[string][]string, []string){
+	v, _ := database.LoadViewer("index.db")
+	defer v.Close()
+
+	k := v.GetKeywords()
+	prefixes := make([]string, 0)
+	keywords := make(map[string][]string)
+
+	for _, word := range k {
+		firstLetter := string(word[0])
+		if keywords[firstLetter] == nil {
+			keywords[firstLetter] = make([]string, 0)
+			prefixes = append(prefixes, firstLetter)
+		}
+		keywords[firstLetter] = append(keywords[firstLetter], word)
+	}
+
+	sort.Strings(prefixes)
+	return keywords, prefixes
+}
+
+func keywordsHandler(w http.ResponseWriter, r *http.Request) {
+	if keywords == nil {
+		keywords, prefixes = loadKeywords()
+	}
+
+	prefix := r.URL.Query().Get("prefix")
+	kw := keywords[prefix]
+	if kw == nil {
+		kw = keywords[prefixes[0]]
+	}
+
+	keywordsTemplate.Execute(w, KeywordsView{prefixes, kw})
+}
 
 func nestedHandler(w http.ResponseWriter, r *http.Request) {
 	viewModel := models.ResultView{}
@@ -51,7 +94,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoadSearch() {
+	keywordsTemplate, _ = template.ParseFiles("views/keywordsView.html")
 	resultTemplate, _ = template.ParseFiles("views/resultView.html", "views/documentView.html")
 	http.HandleFunc("/search/", searchHandler)
 	http.HandleFunc("/search/nested/", nestedHandler)
+	http.HandleFunc("/search/keywords/", keywordsHandler)
 }

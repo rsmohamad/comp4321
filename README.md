@@ -21,6 +21,6 @@
 ## Building
 
 - Inside the project directory, type `make`
-- `./spider <start URL> <number of pages> ` to run the spider
+- `./spider [-start=<starting page>] [-pages=<number of pages>] [-a] ` to run the spider
 - `./server` to launch the webserver
 

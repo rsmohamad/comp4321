@@ -18,7 +18,8 @@ var prefixes []string
 var keywords map[string][]string
 
 type KeywordsView struct {
-	Prefixes, Keywords []string
+	Prefixes []string
+	Keywords map[string][]string
 }
 
 func loadKeywords() (map[string][]string, []string){
@@ -47,13 +48,7 @@ func keywordsHandler(w http.ResponseWriter, r *http.Request) {
 		keywords, prefixes = loadKeywords()
 	}
 
-	prefix := r.URL.Query().Get("prefix")
-	kw := keywords[prefix]
-	if kw == nil {
-		kw = keywords[prefixes[0]]
-	}
-
-	keywordsTemplate.Execute(w, KeywordsView{prefixes, kw})
+	keywordsTemplate.Execute(w, KeywordsView{prefixes, keywords})
 }
 
 func nestedHandler(w http.ResponseWriter, r *http.Request) {

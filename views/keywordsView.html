@@ -41,15 +41,26 @@
 </div>
 
 <div class="lower container">
-{{range .Prefixes}}
-    <a href="/search/keywords/?prefix={{.}}">{{.}}</a>
-{{end}}
-    <div class="row" style="margin-top: 1em">
-    {{range .Keywords}}
-        <buttton class="btn btn-outline-secondary" style="margin: 10px" onclick="search({{.}})">{{.}}</buttton>
+    <ul class="nav nav-pills" id="prefixes" role="tablist">
+    {{range .Prefixes}}
+        <li class="nav-item">
+            <a class="nav-link" id="{{.}}-tab" data-toggle="tab" href="#{{.}}" role="tab" aria-controls="{{.}}"
+               aria-selected="false">{{.}}</a>
+        </li>
+    {{end}}
+    </ul>
+
+    <div class="tab-content" id="prefixesContent">
+    {{range $index, $element := .Keywords}}
+        <div class="tab-pane fade" id="{{$index}}" role="tabpanel" aria-labelledby="{{$index}}-tab">
+        {{range $element}}
+            <buttton class="btn btn-outline-secondary" style="margin: 10px" onclick="search({{.}})">{{.}}</buttton>
+        {{end}}
+        </div>
     {{end}}
     </div>
 </div>
+
 
 <script src="/static/js/jquery-slim.min.js"></script>
 <script src="/static/js/popper.min.js"></script>
@@ -59,6 +70,13 @@
     function search(query) {
         document.getElementById("searchText").value += query + " ";
     }
+
+    $('#prefixes a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
+    $('#prefixes li:first-child a').tab('show')
 </script>
 
 </body>

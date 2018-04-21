@@ -62,10 +62,10 @@ func vspaceRetrieval(query []string, viewer *database.Viewer) (map[uint64]float6
 	res := make(chan []uint64)
 
 	for _, word := range query {
-		go func() {
+		go func(word string) {
 			ids := booleanFilter([]string{word}, viewer)
 			res <- ids
-		}()
+		}(word)
 	}
 
 	for range query {

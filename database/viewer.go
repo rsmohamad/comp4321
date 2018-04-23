@@ -173,6 +173,10 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 		idToUrl := tx.Bucket(intToByte(PageIdToUrl))
 
 		parents := adjLists.Bucket(pageIdByte)
+		if parents == nil {
+			return nil
+		}
+		
 		parents.ForEach(func(parentId, _ []byte) error {
 			linkStr := string(idToUrl.Get(parentId))
 			rv = append(rv, linkStr)

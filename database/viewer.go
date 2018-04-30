@@ -188,6 +188,24 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 	return rv
 }
 
+func (v *Viewer) GetPageRank(pageId uint64) float64 {
+	pageIdByte := uint64ToByte(pageId)
+	rv := 0.0
+	v.db.View(func(tx *bolt.Tx) error {
+		pageranks := tx.Bucket(intToByte(PageRank))
+
+		prBytes := pageranks.Get(pageIdByte)
+		if prBytes == nil {
+			return nil
+		}
+
+		rv = byteToFloat64(prBytes)
+		return nil
+	})
+
+	return rv
+}
+
 // Return the positions of a word in a document.
 // If the word does not exist in the inverted table, returns an empty slice.
 func (v *Viewer) GetPositionIndices(docId uint64, word string, title bool) []uint64 {

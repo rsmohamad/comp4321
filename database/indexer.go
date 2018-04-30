@@ -260,17 +260,18 @@ func (v *Indexer) updateTermScores(title bool) {
 	if title {
 		tableNames = []int{ForwardTableTitle, TitleWeights, TitleMagnitude}
 	}
-	sum := 0.0
+
 	v.db.Update(func(tx *bolt.Tx) error {
 		ft := tx.Bucket(intToByte(tableNames[0]))
 		tw := tx.Bucket(intToByte(tableNames[1]))
 		mag := tx.Bucket(intToByte(tableNames[2]))
-		
+
 		ft.ForEach(func(docId, _ []byte) error {
 			pageSet, _ := tw.CreateBucketIfNotExists(docId)
+			sum := 0.0
 			ft.Bucket(docId).ForEach(func(wordId, val []byte) error {
 				termWeight := v.calculateTermScore(docId, wordId, title)
-				sum += termWeight
+				sum += termWeight * termWeight
 				pageSet.Put(wordId, float64ToByte(termWeight))
 				return nil
 			})

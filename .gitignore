@@ -11,6 +11,7 @@ spider_result.txt
 cmd/urlparse.go
 cmd/robots_txt.go
 phase1.zip
+phase2.zip
 
 # User-specific stuff:
 .idea/

@@ -13,7 +13,7 @@ tools:
 	go build cmd/search.go
 
 tests:
-	go test ./database/ ./models/ ./retrieval/ ./stopword/ -v
+	go test ./database/ ./models/ ./retrieval/ ./stopword/ -cover
 
 clean:
 	rm -f spider test server search phase1.zip print

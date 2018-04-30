@@ -8,7 +8,7 @@ import (
 )
 
 func readStopwords() []string {
-	data, err := ioutil.ReadFile("stopword/stopwords.txt")
+	data, err := ioutil.ReadFile("stopwords.txt")
 	if err != nil {
 		return nil
 	}
@@ -23,6 +23,7 @@ func readStopwords() []string {
 
 func TestIsStopWord(t *testing.T) {
 	sw := readStopwords()
+    file = "stopwords.txt"
 
 	for _, word := range sw {
 		if !IsStopWord(word){

@@ -99,6 +99,7 @@ func TestPageRank(t *testing.T) {
 	}
 
 	indexer.FlushInverted()
+    indexer.UpdateAdjList()
 	indexer.UpdatePageRank()
 	indexer.Close()
 

@@ -54,6 +54,11 @@ func toAbsoluteUrl(links []string, base string) (rv []string) {
 			uri = baseUrl.ResolveReference(uri)
 		}
 
+		// Skip PDFs
+		if strings.HasSuffix(strings.ToLower(uri.Path), ".pdf"){
+			continue
+		}
+
 		if strings.HasPrefix(uri.String(), "http") {
 			newUrl := "http://" + uri.Host + uri.Path
 			rv = append(rv, newUrl)
@@ -153,7 +158,7 @@ func Fetch(uri string) (page *models.Document) {
 		case html.TextToken:
 			// Skip if text is empty, not in between body tags or between script tags
 			trimmed := strings.TrimSpace(t.Data)
-			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style" && lastElement != "a" {
+			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style"{
 				words = append(words, trimmed)
 			}
 		}
@@ -173,14 +178,11 @@ func Fetch(uri string) (page *models.Document) {
 
 func countTfandIdx(words []string) map[string]models.Word {
 	m := make(map[string]models.Word)
-	idx := 0
-	for _, word := range words {
-		count := m[word].Tf
+	for position, word := range words {
 		wordModel := m[word]
-		wordModel.Tf = count + 1
-		wordModel.Positions = append(wordModel.Positions, idx)
+		wordModel.Tf++
+		wordModel.Positions = append(wordModel.Positions, position)
 		m[word] = wordModel
-		idx++
 	}
 	return m
 }

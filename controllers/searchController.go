@@ -85,7 +85,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	if pagerank == "on" {
 		viewModel.Results = se.RetrievePageRank(queries)
 	} else {
-		viewModel.Results = se.RetrieveVSpace(queries)
+		viewModel.Results = se.RetrievePhrase(queries)
 	}
 
 	viewModel.TotalResults = len(viewModel.Results)

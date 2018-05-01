@@ -7,7 +7,7 @@ import (
 )
 
 var stopWords map[string]bool
-var file = "stopwords/stopwords.txt"
+var file = "stopword/stopwords.txt"
 
 func loadStopWords() {
 	data, err := ioutil.ReadFile(file)

@@ -22,7 +22,7 @@ type KeywordsView struct {
 	Keywords map[string][]string
 }
 
-func loadKeywords() (map[string][]string, []string){
+func loadKeywords() (map[string][]string, []string) {
 	v, _ := database.LoadViewer("index.db")
 	defer v.Close()
 
@@ -71,6 +71,8 @@ func nestedHandler(w http.ResponseWriter, r *http.Request) {
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	viewModel := models.ResultView{}
 	queries := r.URL.Query().Get("keywords")
+	pagerank := r.URL.Query().Get("pagerank")
+	fmt.Println(pagerank)
 
 	userId := database.GetCookieInstance().GetCookieId(r)
 	database.GetCookieInstance().SetCookieResponse(userId, w)
@@ -79,7 +81,13 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	startSearch := time.Now()
 	se := retrieval.NewSearchEngine("index.db")
 	viewModel.Query = queries
-	viewModel.Results = se.RetrievePhrase(queries)
+
+	if pagerank == "on" {
+		viewModel.Results = se.RetrievePageRank(queries)
+	} else {
+		viewModel.Results = se.RetrieveVSpace(queries)
+	}
+
 	viewModel.TotalResults = len(viewModel.Results)
 	se.Close()
 	elapsed := time.Since(startSearch)

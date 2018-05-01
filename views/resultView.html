@@ -12,33 +12,44 @@
 
 <body>
 
-<div class="upper row">
-    <div class="col-md-1 col-sm-1 vcenter">
-        <h5><a class="nav-link" href="/">GoSearch</a></h5>
-    </div>
-    <div class="col-md-6 col-sm-10 min-height vcenter">
-        <form name="searchForm" class="input-group input-group-lg" action="/search" method="get">
-            <input type="search" class="form-control" name="keywords" value={{.Query}}>
-            <input type="hidden" name="page" value="1"/>
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">Search</button>
+
+<form name="searchForm" action="/search" method="get">
+    <div class="upper row">
+        <div class="col-md-1 col-sm-1 vcenter">
+            <h5><a class="nav-link" href="/">GoSearch</a></h5>
+        </div>
+
+        <div class="col-md-6 col-sm-10 min-height vcenter">
+            <div class="input-group input-group-lg">
+                <input type="search" class="form-control" name="keywords" value={{.Query}}>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </div>
-        </form>
+
+        </div>
+        <div class="col-md-5 col-sm-1 vcenter">
+            <ul class="nav nav-pills justify-content-end">
+                <li class="nav-item" style="padding-right: 1rem">
+                    <a class="btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary">
+                            <input type="checkbox" name="pagerank" autocomplete="off">PageRank
+                        </label>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Text</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search/keywords">Keywords</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/history">History</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="col-md-5 col-sm-1 vcenter">
-        <ul class="nav nav-pills justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active" href="/">Text</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/search/keywords">Keywords</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/history">History</a>
-            </li>
-        </ul>
-    </div>
-</div>
+</form>
 
 <div class="lower container-fluid">
     <div class="row">

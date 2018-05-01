@@ -152,6 +152,29 @@ func (e *SEngine) RetrieveNested(haystack, needle string) []*models.DocumentView
 	return e.getDocumentViewModels(combined, scores)
 }
 
+func (e *SEngine) RetrievePageRank(query string) []*models.DocumentView{
+	preprocessed := preprocessText(query)
+	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
+
+	sort.Slice(docIds, func(i, j int) bool {
+		return scores[docIds[i]] > scores[docIds[j]]
+	})
+
+	upper := int(math.Min(50.0, float64(len(docIds))))
+	docIds = docIds[0:upper]
+
+	pageRanks := make(map[uint64]float64)
+	for _, docId := range docIds {
+		pageRanks[docId] = e.viewer.GetPageRank(docId)
+	}
+
+	sort.Slice(docIds, func(i, j int) bool {
+		return pageRanks[docIds[i]] > pageRanks[docIds[j]]
+	})
+
+	return e.getDocumentViewModels(docIds, pageRanks)
+}
+
 func (e *SEngine) Close() {
 	e.viewer.Close()
 }

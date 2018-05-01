@@ -7,9 +7,7 @@ make
 --- Running the program ---
 
 ./spider
-./test
-
-Files index.db and spider_result.txt can be found inside the project directory.
+./server
 
 --- Notes ---
 

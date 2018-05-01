@@ -12,6 +12,7 @@ cmd/urlparse.go
 cmd/robots_txt.go
 phase1.zip
 phase2.zip
+*.out
 
 # User-specific stuff:
 .idea/

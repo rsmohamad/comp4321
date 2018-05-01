@@ -2,7 +2,6 @@ package database
 
 import (
 	"comp4321/models"
-	"encoding/json"
 	"fmt"
 	"math"
 	"sort"
@@ -247,7 +246,7 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 	i.setMaxTf(pageId, p.MaxTf, p.TitleMaxTf)
 	i.db.Batch(func(tx *bolt.Tx) error {
 		documents := tx.Bucket(intToByte(PageInfo))
-		encoded, _ := json.Marshal(p)
+		encoded := docToByte(p)
 		documents.Put(pageId, encoded)
 		return nil
 	})
@@ -330,9 +329,9 @@ func (i *Indexer) UpdateAdjList() {
 		upBucket := tx.Bucket(intToByte(UrlToPageId))
 
 		piBucket.ForEach(func(parentId, decoded []byte) error {
-			var p models.Document
+			p := byteToDoc(decoded)
 			parentIdUint64 := byteToUint64(parentId)
-			json.Unmarshal(decoded, &p)
+
 			// Iterate through each link, clean them, and put according to id 1-30.
 			for _, el := range p.Links {
 				childId := upBucket.Get([]byte(el)) //childId

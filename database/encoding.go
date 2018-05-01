@@ -53,3 +53,20 @@ func byteToHistory(arr []byte) []models.SearchHistory {
 	decoder.Decode(&rv)
 	return rv
 }
+
+func docToByte(doc *models.Document) []byte {
+	var byteBuffer bytes.Buffer
+	encoder := gob.NewEncoder(&byteBuffer)
+	encoder.Encode(doc)
+	return byteBuffer.Bytes()
+}
+
+func byteToDoc(arr []byte) *models.Document {
+	var byteBuffer bytes.Buffer
+	byteBuffer.Write(arr)
+
+	decoder := gob.NewDecoder(&byteBuffer)
+	var rv models.Document
+	decoder.Decode(&rv)
+	return &rv
+}

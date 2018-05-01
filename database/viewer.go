@@ -2,7 +2,6 @@ package database
 
 import (
 	"comp4321/models"
-	"encoding/json"
 
 	"github.com/boltdb/bolt"
 	"strings"
@@ -143,13 +142,7 @@ func (v *Viewer) GetDocument(pageId uint64) (document *models.Document) {
 			return nil
 		}
 
-		document = &models.Document{}
-		err := json.Unmarshal(docBytes, document)
-
-		// If there are parsing errors, return nil pointer
-		if err != nil {
-			document = nil
-		}
+		document = byteToDoc(docBytes)
 		return nil
 	})
 	return
@@ -176,7 +169,7 @@ func (v *Viewer) GetParentLinks(pageId uint64) []string {
 		if parents == nil {
 			return nil
 		}
-		
+
 		parents.ForEach(func(parentId, _ []byte) error {
 			linkStr := string(idToUrl.Get(parentId))
 			rv = append(rv, linkStr)
@@ -252,13 +245,10 @@ func (v *Viewer) ForEachDocument(fn func(p *models.Document, i int)) {
 		count := 0
 
 		// Iterate over all documents
-		documents.ForEach(func(k, v []byte) error {
-			page := &models.Document{}
-			err := json.Unmarshal(v, page)
-			if err == nil {
-				fn(page, count)
-				count++
-			}
+		documents.ForEach(func(k, docBytes []byte) error {
+			page := byteToDoc(docBytes)
+			fn(page, count)
+			count++
 			return nil
 		})
 		return nil

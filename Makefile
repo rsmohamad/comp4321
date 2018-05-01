@@ -15,14 +15,15 @@ tools:
 tests:
 	go test ./database/ ./models/ ./retrieval/ ./stopword/ -cover
 
+tests_report:
+	go test ./database/ ./models/ ./retrieval/ ./stopword/ -coverprofile=c.out
+	go tool cover -html=c.out
+
 clean:
 	rm -f spider test server search phase1.zip print
 
-report:
-	$(MAKE) -C reports
-
-zip: clean report
+zip:
 	rm -rf phase2.zip
 	git archive --format=zip --prefix=comp4321/ --output=phase2.zip HEAD
-	zip phase2.zip readme.txt install.sh reports/phase2.pdf
+	zip phase2.zip readme.txt install.sh
 	zip phase2.zip index.db

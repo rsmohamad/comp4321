@@ -1,4 +1,4 @@
-# COMP 4321 Search Engine
+# COMP 4321 Search Engine [![Go Report Card](https://goreportcard.com/badge/github.com/rsmohamad/comp4321)](https://goreportcard.com/report/github.com/rsmohamad/comp4321)
 
 ## Getting started
     

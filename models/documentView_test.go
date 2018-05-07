@@ -2,13 +2,13 @@ package models
 
 import (
 	"fmt"
-	"testing"
 	"math"
+	"testing"
 )
 
 func generateWords(num int) map[string]Word {
 	words := make([]string, num)
-	for i, _ := range words {
+	for i := range words {
 		words[i] = fmt.Sprint(num)
 	}
 	return CountTfandIdx(words)

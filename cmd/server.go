@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/rsmohamad/comp4321/controllers"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 func main() {

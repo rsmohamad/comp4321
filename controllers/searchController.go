@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	"net/http"
+	"fmt"
+	"github.com/rsmohamad/comp4321/database"
 	"github.com/rsmohamad/comp4321/models"
 	"github.com/rsmohamad/comp4321/retrieval"
 	"html/template"
-	"time"
 	"log"
-	"fmt"
-	"github.com/rsmohamad/comp4321/database"
+	"net/http"
 	"sort"
+	"time"
 )
 
 var resultTemplate *template.Template

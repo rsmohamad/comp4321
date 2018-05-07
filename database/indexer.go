@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/rsmohamad/comp4321/models"
 	"fmt"
+	"github.com/rsmohamad/comp4321/models"
 	"math"
 	"sort"
 	"strings"
@@ -251,8 +251,6 @@ func (i *Indexer) UpdateOrAddPage(p *models.Document) {
 		return nil
 	})
 }
-
-
 
 func (v *Indexer) updateTermScores(title bool) {
 	tableNames := []int{ForwardTable, TermWeights, PageMagnitude}

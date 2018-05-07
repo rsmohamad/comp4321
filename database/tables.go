@@ -1,7 +1,7 @@
 package database
 
 const (
-	WordToWordId       = iota
+	WordToWordId = iota
 	WordIdToWord
 	UrlToPageId
 	PageIdToUrl

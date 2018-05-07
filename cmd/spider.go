@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/rsmohamad/comp4321/database"
-	"github.com/rsmohamad/comp4321/webcrawler"
 	"flag"
 	"fmt"
+	"github.com/rsmohamad/comp4321/database"
+	"github.com/rsmohamad/comp4321/webcrawler"
 	"time"
 )
 

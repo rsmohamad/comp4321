@@ -2,13 +2,13 @@ package database
 
 import (
 	"fmt"
-	"testing"
 	"github.com/rsmohamad/comp4321/models"
+	"testing"
 )
 
 func generateWords(num int) map[string]models.Word {
 	words := make([]string, num)
-	for i, _ := range words {
+	for i := range words {
 		words[i] = fmt.Sprint(num)
 	}
 	return models.CountTfandIdx(words)
@@ -45,7 +45,7 @@ func TestInsertion(t *testing.T) {
 	indexer, _ := LoadIndexer("index_test.db")
 	indexer.DropAll()
 
-	docs := generateDocuments(10);
+	docs := generateDocuments(10)
 	for _, doc := range docs {
 		indexer.UpdateOrAddPage(doc)
 	}
@@ -66,7 +66,7 @@ func TestContains(t *testing.T) {
 	indexer, _ := LoadIndexer("index_test.db")
 	indexer.DropAll()
 
-	docs := generateDocuments(10);
+	docs := generateDocuments(10)
 	for _, doc := range docs {
 		indexer.UpdateOrAddPage(doc)
 	}
@@ -93,13 +93,13 @@ func TestPageRank(t *testing.T) {
 	indexer, _ := LoadIndexer("index_test.db")
 	indexer.DropAll()
 
-	docs := generateDocuments(10);
+	docs := generateDocuments(10)
 	for _, doc := range docs {
 		indexer.UpdateOrAddPage(doc)
 	}
 
 	indexer.FlushInverted()
-    indexer.UpdateAdjList()
+	indexer.UpdateAdjList()
 	indexer.UpdatePageRank()
 	indexer.Close()
 
@@ -119,7 +119,7 @@ func TestAdjList(t *testing.T) {
 	indexer, _ := LoadIndexer("index_test.db")
 	indexer.DropAll()
 
-	docs := generateDocuments(10);
+	docs := generateDocuments(10)
 	for _, doc := range docs {
 		indexer.UpdateOrAddPage(doc)
 	}
@@ -152,7 +152,7 @@ func TestTermWeights(t *testing.T) {
 	indexer, _ := LoadIndexer("index_test.db")
 	indexer.DropAll()
 
-	docs := generateDocuments(10);
+	docs := generateDocuments(10)
 	for _, doc := range docs {
 		indexer.UpdateOrAddPage(doc)
 	}

@@ -1,8 +1,8 @@
 package models
 
 import (
-	"sort"
 	"math"
+	"sort"
 )
 
 type kw struct {

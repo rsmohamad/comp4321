@@ -2,8 +2,8 @@ package main
 
 import (
 	"bufio"
-	"github.com/rsmohamad/comp4321/database"
 	"fmt"
+	"github.com/rsmohamad/comp4321/database"
 	"os"
 	"strconv"
 )

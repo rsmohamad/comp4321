@@ -1,10 +1,10 @@
 package stopword
 
 import (
-	"testing"
 	"io/ioutil"
 	"regexp"
 	"strings"
+	"testing"
 )
 
 func readStopwords() []string {
@@ -23,19 +23,19 @@ func readStopwords() []string {
 
 func TestIsStopWord(t *testing.T) {
 	sw := readStopwords()
-    file = "stopwords.txt"
+	file = "stopwords.txt"
 
 	for _, word := range sw {
-		if !IsStopWord(word){
+		if !IsStopWord(word) {
 			t.Fail()
 		}
 	}
 
-	if IsStopWord(" "){
+	if IsStopWord(" ") {
 		t.Fail()
 	}
 
-	if IsStopWord("adrian"){
+	if IsStopWord("adrian") {
 		t.Fail()
 	}
 }

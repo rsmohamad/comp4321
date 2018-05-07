@@ -1,13 +1,13 @@
 package database
 
 import (
+	"fmt"
 	"github.com/boltdb/bolt"
+	"github.com/rsmohamad/comp4321/models"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
-	"fmt"
-	"log"
-	"github.com/rsmohamad/comp4321/models"
 )
 
 const (

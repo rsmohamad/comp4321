@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"net/http"
-	"html/template"
 	"github.com/rsmohamad/comp4321/database"
+	"html/template"
 	"log"
+	"net/http"
 )
 
 var homeTemplate = template.Must(template.ParseFiles("views/home.html"))
@@ -20,7 +20,7 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(404)
 }
 
-func LoadHome(){
+func LoadHome() {
 	homeTemplate = template.Must(template.ParseFiles("views/home.html"))
 	staticServer := http.FileServer(http.Dir("static"))
 	viewServer := http.FileServer(http.Dir("views"))

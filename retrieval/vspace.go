@@ -25,7 +25,7 @@ func cosSim(query []string, docId uint64, viewer *database.Viewer, res *chan *Co
 	textScore := textInnerProduct / (queryMag * docMag)
 	titleScore := titleInnerProduct / (queryMag * titleMag)
 	score := textScore
-	if !math.IsNaN(titleScore){
+	if !math.IsNaN(titleScore) {
 		score += titleScore * 1.5
 	}
 

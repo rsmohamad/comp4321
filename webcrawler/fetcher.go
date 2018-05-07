@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
+	"fmt"
 	"github.com/surgebase/porter2"
 	"golang.org/x/net/html"
-	"mvdan.cc/xurls"
 	"io"
 	"io/ioutil"
-	"fmt"
+	"mvdan.cc/xurls"
 )
 
 // Get url from html token
@@ -55,7 +55,7 @@ func toAbsoluteUrl(links []string, base string) (rv []string) {
 		}
 
 		// Skip PDFs
-		if strings.HasSuffix(strings.ToLower(uri.Path), ".pdf"){
+		if strings.HasSuffix(strings.ToLower(uri.Path), ".pdf") {
 			continue
 		}
 
@@ -158,7 +158,7 @@ func Fetch(uri string) (page *models.Document) {
 		case html.TextToken:
 			// Skip if text is empty, not in between body tags or between script tags
 			trimmed := strings.TrimSpace(t.Data)
-			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style"{
+			if trimmed != "" && inBody && lastElement != "script" && lastElement != "style" {
 				words = append(words, trimmed)
 			}
 		}

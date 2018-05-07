@@ -1,9 +1,9 @@
 package webcrawler
 
 import (
+	"fmt"
 	"github.com/rsmohamad/comp4321/database"
 	"github.com/rsmohamad/comp4321/models"
-	"fmt"
 	"net/url"
 	"sync"
 
@@ -50,7 +50,7 @@ func isAllowedToCrawl(link string) bool {
 	} else {
 		// Wait for other thread to get the robots.txt
 		for res == nil {
-			res, found = robotMap.Load(urlObject.Host)
+			res, _ = robotMap.Load(urlObject.Host)
 		}
 		robots = res.(*robotstxt.RobotsData)
 	}
@@ -137,7 +137,7 @@ func Crawl(uri string, num int, index *database.Indexer, restrictHost, aggressiv
 			// Crawl only the starting domain
 			if restrictHost {
 				urlParse, _ := url.Parse(link)
-				if urlParse.Host != u.Host{
+				if urlParse.Host != u.Host {
 					continue
 				}
 			}

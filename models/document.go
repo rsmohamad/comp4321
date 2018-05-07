@@ -1,8 +1,8 @@
 package models
 
 import (
-	"time"
 	"code.cloudfoundry.org/bytefmt"
+	"time"
 )
 
 type Word struct {

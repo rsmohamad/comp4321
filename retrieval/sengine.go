@@ -1,15 +1,15 @@
 package retrieval
 
 import (
-	"github.com/rsmohamad/comp4321/stopword"
-	"strings"
-	"github.com/surgebase/porter2"
-	"github.com/rsmohamad/comp4321/models"
 	"github.com/rsmohamad/comp4321/database"
+	"github.com/rsmohamad/comp4321/models"
+	"github.com/rsmohamad/comp4321/stopword"
+	"github.com/surgebase/porter2"
 	"log"
 	"math"
 	"regexp"
 	"sort"
+	"strings"
 )
 
 func preprocessText(query string) (rv []string) {
@@ -39,8 +39,8 @@ func extractPhrases(query string) []string {
 		}
 
 		if char == '"' && startPhrase > -1 {
-			phrases = append(phrases, query[startPhrase+1: i])
-			startPhrase = -1;
+			phrases = append(phrases, query[startPhrase+1:i])
+			startPhrase = -1
 		}
 	}
 
@@ -59,7 +59,7 @@ func NewSearchEngine(filename string) *SEngine {
 		log.Fatal("Index file not found:", filename)
 	}
 
-	return &se;
+	return &se
 }
 
 func (e *SEngine) getDocumentViewModels(docIds []uint64, scores map[uint64]float64) []*models.DocumentView {
@@ -69,9 +69,9 @@ func (e *SEngine) getDocumentViewModels(docIds []uint64, scores map[uint64]float
 		if doc != nil {
 			docView := models.NewDocumentView(doc)
 			if scores == nil {
-				docView.Score = 1;
+				docView.Score = 1
 			} else {
-				docView.Score = scores[id];
+				docView.Score = scores[id]
 			}
 			parents := e.viewer.GetParentLinks(id)
 			upper := int(math.Min(float64(len(parents)), 5.0))
@@ -132,7 +132,7 @@ func (e *SEngine) RetrieveNested(haystack, needle string) []*models.DocumentView
 		})
 	}
 
-	sortByIds := func(ids []uint64){
+	sortByIds := func(ids []uint64) {
 		sort.Slice(ids, func(i, j int) bool {
 			return ids[i] < ids[j]
 		})
@@ -152,7 +152,7 @@ func (e *SEngine) RetrieveNested(haystack, needle string) []*models.DocumentView
 	return e.getDocumentViewModels(combined, scores)
 }
 
-func (e *SEngine) RetrievePageRank(query string) []*models.DocumentView{
+func (e *SEngine) RetrievePageRank(query string) []*models.DocumentView {
 	preprocessed := preprocessText(query)
 	scores, docIds := vspaceRetrieval(preprocessed, e.viewer)
 

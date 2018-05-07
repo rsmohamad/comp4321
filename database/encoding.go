@@ -1,11 +1,11 @@
 package database
 
 import (
+	"bytes"
 	"encoding/binary"
 	"encoding/gob"
-	"math"
-	"bytes"
 	"github.com/rsmohamad/comp4321/models"
+	"math"
 )
 
 func uint64ToByte(v uint64) []byte {

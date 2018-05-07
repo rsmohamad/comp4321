@@ -2,8 +2,8 @@ package retrieval
 
 import (
 	"github.com/rsmohamad/comp4321/database"
-	"sort"
 	"log"
+	"sort"
 )
 
 type Bigram struct {
@@ -12,18 +12,18 @@ type Bigram struct {
 
 // Split a set of words into bigrams.
 func splitToBigrams(query []string) (bigrams []Bigram) {
-	for i := 0; (i+1) < len(query); i++ {
+	for i := 0; (i + 1) < len(query); i++ {
 		bg := Bigram{query[i], query[i+1]}
 		bigrams = append(bigrams, bg)
 	}
 	return
 }
 
-func hasBigram(id uint64, bigram Bigram, viewer *database.Viewer, title bool) bool{
+func hasBigram(id uint64, bigram Bigram, viewer *database.Viewer, title bool) bool {
 	pos1 := viewer.GetPositionIndices(id, bigram.n1, title)
 	pos2 := viewer.GetPositionIndices(id, bigram.n2, title)
 
-	for i, _ := range pos2 {
+	for i := range pos2 {
 		pos2[i]--
 	}
 
@@ -32,7 +32,7 @@ func hasBigram(id uint64, bigram Bigram, viewer *database.Viewer, title bool) bo
 }
 
 // Returns docIds that contain the bigram phrase.
-func hasPhrase(bigram Bigram, viewer *database.Viewer) []uint64{
+func hasPhrase(bigram Bigram, viewer *database.Viewer) []uint64 {
 	docIds := booleanFilter([]string{bigram.n1, bigram.n2}, viewer)
 	rv := make([]uint64, 0)
 
@@ -50,7 +50,7 @@ func hasPhrase(bigram Bigram, viewer *database.Viewer) []uint64{
 
 // Treat the query as a phrase and returns docIds containing the phrase.
 // Changes the query into bigrams and find documents containing all bigrams.
-func filterPhrase(query []string, viewer *database.Viewer) []uint64{
+func filterPhrase(query []string, viewer *database.Viewer) []uint64 {
 	if len(query) <= 1 {
 		return booleanFilter(query, viewer)
 	}

@@ -1,15 +1,15 @@
 package retrieval
 
 import (
-	"github.com/rsmohamad/comp4321/models"
 	"fmt"
-	"testing"
 	"github.com/rsmohamad/comp4321/database"
+	"github.com/rsmohamad/comp4321/models"
+	"testing"
 )
 
 func generateWords(num int) map[string]models.Word {
 	words := make([]string, num)
-	for i, _ := range words {
+	for i := range words {
 		words[i] = fmt.Sprint(num)
 	}
 	return models.CountTfandIdx(words)
@@ -42,11 +42,11 @@ func generateDocuments(num int) []*models.Document {
 	return docs
 }
 
-func insertIntoIndex(num int){
+func insertIntoIndex(num int) {
 	indexer, _ := database.LoadIndexer("index_test.db")
 	indexer.DropAll()
 
-	docs := generateDocuments(num);
+	docs := generateDocuments(num)
 	for _, doc := range docs {
 		indexer.UpdateOrAddPage(doc)
 	}
@@ -73,14 +73,14 @@ func TestSEngine_RetrieveBoolean(t *testing.T) {
 	se := NewSearchEngine("index_test.db")
 	defer se.Close()
 
-	for i:=0; i < 10 ; i++ {
+	for i := 0; i < 10; i++ {
 		res := se.RetrieveBoolean(fmt.Sprint(i))
 
 		if len(res) != 1 {
 			t.Fail()
 		}
 
-		if res[0].Title != fmt.Sprint(i){
+		if res[0].Title != fmt.Sprint(i) {
 			t.Fail()
 		}
 	}
@@ -91,14 +91,14 @@ func TestSEngine_RetrievePhrase(t *testing.T) {
 	se := NewSearchEngine("index_test.db")
 	defer se.Close()
 
-	for i:=0; i < 10 ; i++ {
+	for i := 0; i < 10; i++ {
 		res := se.RetrievePhrase(fmt.Sprintf("\"%d\"", i))
 
 		if len(res) != 1 {
 			t.Fail()
 		}
 
-		if res[0].Title != fmt.Sprint(i){
+		if res[0].Title != fmt.Sprint(i) {
 			t.Fail()
 		}
 	}
@@ -109,14 +109,14 @@ func TestSEngine_RetrieveVSpace(t *testing.T) {
 	se := NewSearchEngine("index_test.db")
 	defer se.Close()
 
-	for i:=0; i < 10 ; i++ {
+	for i := 0; i < 10; i++ {
 		res := se.RetrieveVSpace(fmt.Sprint(i))
 
 		if len(res) != 1 {
 			t.Fail()
 		}
 
-		if res[0].Title != fmt.Sprint(i){
+		if res[0].Title != fmt.Sprint(i) {
 			t.Fail()
 		}
 	}

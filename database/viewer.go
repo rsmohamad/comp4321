@@ -4,9 +4,9 @@ import (
 	"github.com/rsmohamad/comp4321/models"
 
 	"github.com/boltdb/bolt"
-	"strings"
-	"strconv"
 	"sort"
+	"strconv"
+	"strings"
 )
 
 // Class for reading the database

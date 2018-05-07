@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/boltdb/bolt"
 	"fmt"
+	"github.com/boltdb/bolt"
 )
 
 type Printer struct {

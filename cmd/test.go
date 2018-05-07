@@ -2,9 +2,9 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"github.com/rsmohamad/comp4321/database"
 	"github.com/rsmohamad/comp4321/models"
-	"fmt"
 	"os"
 	"text/template"
 )

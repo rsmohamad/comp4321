@@ -1,9 +1,9 @@
 package webcrawler
 
 import (
+	"fmt"
 	"net/http"
 	"time"
-	"fmt"
 )
 
 var tr = &http.Transport{

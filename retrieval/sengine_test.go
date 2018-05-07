@@ -1,10 +1,10 @@
 package retrieval
 
 import (
-	"comp4321/models"
+	"github.com/rsmohamad/comp4321/models"
 	"fmt"
 	"testing"
-	"comp4321/database"
+	"github.com/rsmohamad/comp4321/database"
 )
 
 func generateWords(num int) map[string]models.Word {

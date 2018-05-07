@@ -5,16 +5,16 @@
  - Install Go:
    ```
    wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
-   tar -C /usr/local/ -xzf go1.10.linux-amd64.tar.gz
+   sudo tar -C /usr/local/ -xzf go1.10.linux-amd64.tar.gz
    echo "export PATH=\$PATH:/usr/local/go/bin" | sudo tee -a /etc/profile
    source /etc/profile
    ```
    
 - Make sure the `$GOPATH` environment variable is set to `~/go/`. Check with `go env`.
 
-- Clone the repo to `$GOPATH`
+- Download the repository
     ```
-    git clone https://github.com/rsmohamad/comp4321.git ~/go/src/comp4321
+    go get github.com/rsmohamad/comp4321
     ```
 
 

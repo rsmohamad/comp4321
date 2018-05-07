@@ -1,7 +1,7 @@
 package retrieval
 
 import (
-	"comp4321/database"
+	"github.com/rsmohamad/comp4321/database"
 	"math"
 )
 

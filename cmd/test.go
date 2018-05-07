@@ -2,8 +2,8 @@ package main
 
 import (
 	"bufio"
-	"comp4321/database"
-	"comp4321/models"
+	"github.com/rsmohamad/comp4321/database"
+	"github.com/rsmohamad/comp4321/models"
 	"fmt"
 	"os"
 	"text/template"

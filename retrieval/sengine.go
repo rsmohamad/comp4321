@@ -1,11 +1,11 @@
 package retrieval
 
 import (
-	"comp4321/stopword"
+	"github.com/rsmohamad/comp4321/stopword"
 	"strings"
 	"github.com/surgebase/porter2"
-	"comp4321/models"
-	"comp4321/database"
+	"github.com/rsmohamad/comp4321/models"
+	"github.com/rsmohamad/comp4321/database"
 	"log"
 	"math"
 	"regexp"

@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"comp4321/retrieval"
+	"github.com/rsmohamad/comp4321/retrieval"
 	"fmt"
 	"os"
 )

@@ -1,7 +1,7 @@
 package database
 
 import (
-	"comp4321/models"
+	"github.com/rsmohamad/comp4321/models"
 	"fmt"
 	"math"
 	"sort"

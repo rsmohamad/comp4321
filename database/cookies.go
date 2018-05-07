@@ -7,7 +7,7 @@ import (
 	"time"
 	"fmt"
 	"log"
-	"comp4321/models"
+	"github.com/rsmohamad/comp4321/models"
 )
 
 const (

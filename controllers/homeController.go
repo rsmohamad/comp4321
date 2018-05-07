@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"html/template"
-	"comp4321/database"
+	"github.com/rsmohamad/comp4321/database"
 	"log"
 )
 

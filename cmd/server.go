@@ -1,7 +1,7 @@
 package main
 
 import (
-	"comp4321/controllers"
+	"github.com/rsmohamad/comp4321/controllers"
 	"net/http"
 	"log"
 )

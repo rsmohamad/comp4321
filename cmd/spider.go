@@ -1,8 +1,8 @@
 package main
 
 import (
-	"comp4321/database"
-	"comp4321/webcrawler"
+	"github.com/rsmohamad/comp4321/database"
+	"github.com/rsmohamad/comp4321/webcrawler"
 	"flag"
 	"fmt"
 	"time"

@@ -1,8 +1,8 @@
 package webcrawler
 
 import (
-	"comp4321/models"
-	"comp4321/stopword"
+	"github.com/rsmohamad/comp4321/models"
+	"github.com/rsmohamad/comp4321/stopword"
 	"net/url"
 	"regexp"
 	"strings"

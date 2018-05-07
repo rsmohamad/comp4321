@@ -5,7 +5,7 @@ import (
 	"encoding/gob"
 	"math"
 	"bytes"
-	"comp4321/models"
+	"github.com/rsmohamad/comp4321/models"
 )
 
 func uint64ToByte(v uint64) []byte {

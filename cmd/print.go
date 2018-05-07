@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"comp4321/database"
+	"github.com/rsmohamad/comp4321/database"
 	"fmt"
 	"os"
 	"strconv"

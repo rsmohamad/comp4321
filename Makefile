@@ -21,9 +21,3 @@ tests_report:
 
 clean:
 	rm -f spider test server search phase1.zip print
-
-zip:
-	rm -rf phase2.zip
-	git archive --format=zip --prefix=comp4321/ --output=phase2.zip HEAD
-	zip phase2.zip readme.txt install.sh report.pdf
-	zip phase2.zip index.db

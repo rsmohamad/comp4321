@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 	"testing"
-	"comp4321/models"
+	"github.com/rsmohamad/comp4321/models"
 )
 
 func generateWords(num int) map[string]models.Word {

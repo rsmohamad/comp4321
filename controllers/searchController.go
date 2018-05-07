@@ -2,13 +2,13 @@ package controllers
 
 import (
 	"net/http"
-	"comp4321/models"
-	"comp4321/retrieval"
+	"github.com/rsmohamad/comp4321/models"
+	"github.com/rsmohamad/comp4321/retrieval"
 	"html/template"
 	"time"
 	"log"
 	"fmt"
-	"comp4321/database"
+	"github.com/rsmohamad/comp4321/database"
 	"sort"
 )
 
